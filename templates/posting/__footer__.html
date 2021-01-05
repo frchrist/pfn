@@ -1,56 +1,37 @@
-
-<div class="bgded overlay" style="background-image:url('images/demo/backgrounds/03.png');"> 
+{%load static %}
+<div class="bgded overlay" style="background-image:url({% static 'posting/images/demo/backgrounds/nasa.jpg' %});"> 
     <!-- ################################################################################################ -->
     <div class="wrapper row4">
       <footer id="footer" class="hoc clear"> 
         <!-- ################################################################################################ -->
-        <div class="one_quarter first">
+        <div class="one_half first">
           <h6 class="heading">Aliquet ut auctor</h6>
           <ul class="nospace btmspace-30 linklist contact">
             <li><i class="fa fa-map-marker"></i>
               <address>
-              Street Name &amp; Number, Town, Postcode/Zip
+              Lome Togo
               </address>
             </li>
-            <li><i class="fa fa-phone"></i> +00 (123) 456 7890</li>
-            <li><i class="fa fa-envelope-o"></i> info@domain.com</li>
+            <li><i class="fa fa-phone"></i>+00 (228) 92 30 68 35 </li>
+            <li><i class="fa fa-envelope-o"></i> christiancode12@gmail.com</li>
           </ul>
           <ul class="faico clear">
-            <li><a class="faicon-facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+            <!-- <li><a class="faicon-facebook" href="#"><i class="fa fa-facebook"></i></a></li>
             <li><a class="faicon-twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-            <li><a class="faicon-dribble" href="#"><i class="fa fa-dribbble"></i></a></li>
-            <li><a class="faicon-linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+            <li><a class="faicon-dribble" href="#"><i class="fa fa-dribbble"></i></a></li> -->
+            <li><a class="faicon-whatsapp" href="#"><i class="fa fa-whatsapp"></i></a></li>
           </ul>
         </div>
-        <div class="one_quarter">
-          <h6 class="heading">Augue sociis natoque</h6>
-          <ul class="nospace linklist">
-            <li><a href="#">Porta lacinia est velit</a></li>
-            <li><a href="#">Sollicitudin nisl eu</a></li>
-            <li><a href="#">Tincidunt turpis ante</a></li>
-            <li><a href="#">Lobortis nisl fusce</a></li>
-            <li><a href="#">Purus nisi faucibus et est</a></li>
-          </ul>
-        </div>
-        <div class="one_quarter">
-          <h6 class="heading">Penatibus et magnis</h6>
-          <ul class="nospace linklist">
-            <li><a href="#">Quis blandit dignissim</a></li>
-            <li><a href="#">Lacus vestibulum porta</a></li>
-            <li><a href="#">Quam nec mollis vulputate</a></li>
-            <li><a href="#">Mauris aliquet cursus</a></li>
-            <li><a href="#">Nisl duis sed rhoncus</a></li>
-          </ul>
-        </div>
-        <div class="one_quarter">
-          <h6 class="heading">Dis parturient montes</h6>
-          <p class="nospace btmspace-15">Nascetur ridiculus mus elit aliquam erat volutpat proin scelerisque mi viverra.</p>
-          <form method="post" action="#">
+
+        <div class="one_half">
+          <h6 class="heading">S'abonné a Newsletter</h6>
+          <p class="nospace btmspace-15" id="class">vous recerver un email à chaque nouveau cours</p>
+          <form method="post" action="#" id="form">
             <fieldset>
               <legend>Newsletter:</legend>
-              <input class="btmspace-15" type="text" value="" placeholder="Name">
-              <input class="btmspace-15" type="text" value="" placeholder="Email">
-              <button type="submit" value="submit">Submit</button>
+              {{newLetterForm.name}}
+             {{newLetterForm.email}}
+              <button type="submit" value="submit" id="btn">Submit</button>
             </fieldset>
           </form>
         </div>
@@ -63,10 +44,33 @@
     <div class="wrapper row5">
       <div id="copyright" class="hoc clear"> 
         <!-- ################################################################################################ -->
-        <p class="fl_left">Copyright &copy; 2018 - All Rights Reserved - <a href="#">Domain Name</a></p>
-        <p class="fl_right">Template by <a target="_blank" href="https://www.os-templates.com/" title="Free Website Templates">OS Templates</a></p>
+        <p class="fl_left">Copyright &copy; 2021 - All Rights Reserved - <a href="#">python pour les null</a></p>
+       
         <!-- ################################################################################################ -->
       </div>
     </div>
     <!-- ################################################################################################ -->
   </div>
+<script>
+  document.querySelector("#form").addEventListener("submit", (e)=>{
+    e.preventDefault()
+    document.querySelector("#btn").textContent = "Creation encoure ..."
+    $.ajax({
+            type: "POST",
+            url: "{% url 'newletter' %}",
+            data: $("#form").serialize(),
+            datatype: "json",
+            success: function(data) {
+                console.log(data)
+                if (data.Success === "Success") {
+                   document.querySelector("#btn").textContent = "Terminer"
+                }else{
+                  document.querySelector('#class')
+                  document.querySelector('#class').innerHTML = data.email ? data.email : data.name
+                  document.querySelector("#btn").textContent = "Erreur"
+                }
+            }
+        })
+  })
+   
+</script>

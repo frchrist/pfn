@@ -1,0 +1,19 @@
+{% extends "adminUsers/__base__.html" %}
+{% block title %}
+    posté un nouveau cour de python
+{% endblock title %}
+
+{% block content %}
+<div class="col-md-10 bg-secondary">
+<form action="" method="POST">{% csrf_token %}
+       
+        {{form}}
+        {{form.media}}
+       <button class="btn btn-primary form-control mt-5" type="submit" title="Posté votre cours ">send</button>
+       <a class=" btn form-control btn-danger mt-5" href="{% url 'homepage' %}">cancel</a>
+    </div>
+
+
+</form>
+</div>
+{% endblock content %}

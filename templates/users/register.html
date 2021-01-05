@@ -1,0 +1,123 @@
+{% extends "users/__base__.html" %}
+{% load static %}
+{% block title %} Nous rejoindre {% endblock title %}
+
+
+{%block content %} 
+{%block content %} 
+{% if request.user.is_authenticated %}
+<script>
+  location.href = "{% url 'homepage' %}"
+</script>
+{% endif %}
+<form class="login100-form validate-form" method="POST" id="form">{% csrf_token %}
+  <span class="login100-form-title p-b-43">
+   Nous Rejoindre
+  </span>
+
+  <span class="login100  txt1">
+    {% if form.non_field_errors %}
+    <ul class='form-errors'>
+        {% for error in form.non_field_errors %}
+            <li class="alert alert-danger">{{ error }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+   
+  
+  </span>
+  
+  
+  <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+   {{form.first_name}}
+    <span class="focus-input100"></span>
+    <span class="label-input100">Prenom</span>
+    
+  </div>
+  
+  
+  <div class="wrap-input100 validate-input" data-validate="Password is required">
+    {{form.username}}
+    <span class="focus-input100"></span>
+    <span class="label-input100">Nom utilisateur</span>
+    <span class="label-input100"></span>
+  </div>
+
+  <div class="wrap-input100 validate-input" data-validate="Password is required">
+    {{form.email}}
+    <span class="focus-input100"></span>
+    <span class="label-input100">Email</span>
+    <span class="label-input100"></span>
+  </div>
+
+  <div class="wrap-input100 validate-input" data-validate="Password is required">
+    {{form.password1}}
+    <span class="focus-input100"></span>
+    <span class="label-input100">Mot de passe</span>
+    <span class="label-input100"></span>
+  </div>
+
+  <div class="wrap-input100 validate-input" data-validate="Password is required">
+    {{form.password2}}
+    <span class="focus-input100"></span>
+    <span class="label-input100">Confirmer le Mot de passe</span>
+    <span class="label-input100"></span>
+  </div>
+  <div class="container-login100-form-btn">
+    <button class="login100-form-btn">
+      Creer un compte
+    </button>
+  </div>
+
+
+  <div class="text-center p-t-46 p-b-20">
+    <p class="d-none alert alert-success" id="msg">Votre compte à ete creer <a href="{% url 'login' %}">ici</a></p>
+    <p class="d-none alert alert-warning" id="error"></p>
+    <span class="txt2">
+      deja un compte ? <a href="{% url 'login' %}">se connecter</a>
+    </span>
+
+  </div>
+</form>
+
+
+{%endblock %}
+
+{% block javascript%}
+<script>
+  document.querySelector("#form").addEventListener("submit", (e)=>{
+    e.preventDefault()
+    if(!document.querySelector("#error").classList.contains("d-none")){
+      document.querySelector("#error").classList.add("d-none");
+    }
+    if(!document.querySelector("#msg").classList.contains("d-none")){
+      document.querySelector("#msg").classList.add("d-none");
+    }
+    document.querySelector(".login100-form-btn").textContent = "Creation encoure ..."
+    $.ajax({
+            type: "POST",
+            url: "{% url 'newuser' %}",
+            data: $("#form").serialize(),
+            datatype: "json",
+            success: function(data) {
+                if (data.success === "success") {
+                   document.querySelector("#msg").classList.remove("d-none");
+                   document.querySelector(".login100-form-btn").textContent = "Terminer"
+                }else{
+                  if(data.username){
+                    document.querySelector("#error").innerHTML = data.username
+                  }else if(data.email){
+                    document.querySelector("#error").innerHTML = data.email
+                  }else{
+                    document.querySelector("#error").innerHTML = data.password2
+                  }
+      
+                  document.querySelector("#error").classList.remove("d-none");
+                  document.querySelector(".login100-form-btn").textContent = "Erreur"
+                }
+            }
+        })
+  })
+   
+</script>
+{%endblock%}

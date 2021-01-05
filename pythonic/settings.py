@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "posting",
+    "markdownify",
+    "ckeditor",
 ]
 
 MIDDLEWARE = [
@@ -117,8 +119,39 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
+import os
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    path.join(BASE_DIR ,"static/")
-]
+    os.path.join(BASE_DIR, "static"),
+] 
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        "update":['image','update','table','HorizontalRule', 'Smiley', "SpecialChar","CodeSnippet"], 'extraPlugins': 'codesnippet',
+    },
+    'special': 
+        {'toolbar': 'Special', 'height': 500,
+         'toolbar_Special': 
+             [
+                 ['Bold'],
+                 ['CodeSnippet'], # here
+             ], 'extraPlugins': 'codesnippet', # here
+         },
+    'extrait': {
+        'toolbar': 'Basic',
+    },
+}
+
+CKEDITOR_UPLOAD_PATH = 'ckeditor/'
+
+LOGIN_URL  ="login"
+LOGIN_REDIRECT_URL  = "homepage"
+LOGOUT_REDIRECT_URL = "homepage"
+
+

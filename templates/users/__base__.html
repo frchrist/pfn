@@ -1,0 +1,38 @@
+{% load static %} <!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>{% block title %} {% endblock %}</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/uxyuslshjd/image/upload/v1609766468/pythonic/fav2_gjt3us.png"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<!-- <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+ --><!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'users/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'users/css/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'users/css/main.css' %}">
+<!--===============================================================================================-->
+</head>
+<body style="background-color: #666666;">
+	
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+                {% block content %} 
+
+                {% endblock content %}
+
+				<div class="login100-more" style="background-image: url(https://res.cloudinary.com/uxyuslshjd/image/upload/v1609763469/pythonic/Untitled_Design_1_gsdpte.jpg);">
+				</div>
+			</div>
+		</div>
+	</div>
+	{% block javascript%}
+
+	{%endblock%}
+	<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+	<script src="{% static 'users/js/main.js' %}"></script>
+
+</body>
+</html>

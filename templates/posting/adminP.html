@@ -4,7 +4,7 @@
 {%block title%} bienvenue sur python pour les null {% endblock title %}
 
 {% block content%}
-<div class="wrapper bgded overlay" style="background-image:url(https://res.cloudinary.com/uxyuslshjd/image/upload/v1609763469/pythonic/Untitled_Design_1_gsdpte.jpg);">
+<div class="wrapper bgded overlay" style="background-image:url({% static 'posting/images/demo/backgrounds/python.jpg' %});">
 <div id="pageintro" class="hoc clear"> 
   <!-- ################################################################################################ -->
   <article>
@@ -13,10 +13,10 @@
     <footer>
       <ul class="nospace inline pushright">
         {% if user.is_authenticated %}
-        <li><a class="btn" href="#course_list">Lire le cours</a></li>
+        <li><a class="btn" href="#">Lire le cours</a></li>
         {% else %}
-          <li><a class="btn" href="#course_list">Debuter le Cours</a></li>
-          <li><a class="btn inverse" href="{% url 'register' %}">Creer un compte</a></li>
+          <li><a class="btn" href="#">Debuter le Cours</a></li>
+          <li><a class="btn inverse" href="#">Creer un compte</a></li>
         {% endif %}
       </ul>
     </footer>
@@ -24,9 +24,6 @@
   <!-- ################################################################################################ -->
 </div>
 </div>
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
 <div class="wrapper row3">
 <main class="hoc container clear"> 
   <!-- main body -->
@@ -48,12 +45,17 @@
       {%endfor%}
       
     </ul>
-    <p class="center"><a class="btn" href="https://docs.python.org/fr/3/">allez sur le doc de python</a></p>
+    <form action="" method="POST">{% csrf_token %}
+      {{form.media}}
+    {{form}}
+    <button type="submit">post</button>
+</form>
+    <p class="center"><a class="btn" href="#">allez sur le doc de python</a></p>
   </section>
   <!-- ################################################################################################ -->
   <hr class="btmspace-80">
   <!-- ################################################################################################ -->
-  <section id="course_list">
+  <section>
     <div class="sectiontitle">
       <h6 class="heading">recents coures postés</h6>
       <p>listes des coures les plus recents du site</p>
@@ -61,31 +63,16 @@
     <ul class="nospace group overview">
       {% for post_course in courses %}
       <li class="one_third">
-        <figure><a href="#"><img src="{{post_course.img_link}}" alt=""></a>
+        <figure><a href="#"><img src="{% static 'posting/images/demo/320x240.png' %}" alt=""></a>
           <figcaption>
             <h6 class="heading"><a href="{% url 'coursedetail' post_course.slug %}">{{post_course.title}}</a></h6>
-            <p>{{post_course.intro|truncatewords:50}}</p>
+            <p>{{post_course.body}}</p>
           </figcaption>
         </figure>
       </li>
 
       {% endfor %}
     </ul>
-
-    <nav class="pagination">
-      <ul>
-        {% if page_obj.has_previous %}
-                <li><a href="?page=1">&laquo; first</a></li>
-               <li> <a href="?page={{ page_obj.previous_page_number }}">previous</a></li>
-          {% endif %}
-        <li class="current"> Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</li>
-        {% if page_obj.has_next %}
-        <li><a href="?page={{ page_obj.next_page_number }}">next</a></li>
-        <li><a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a></li>
-    {% endif %}
-      </ul>
-    </nav>
-
   </section>
   <!-- ################################################################################################ -->
   <!-- / main body -->
