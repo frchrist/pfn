@@ -8,10 +8,23 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
-"""
 
+"""
 from pathlib import Path
-from os import path
+from os import path, environ, path as p
+
+from django.core.exceptions import ImproperlyConfigured
+
+def get_secret(name, default=None):
+    try:
+        return environ[name]
+    except KeyError:
+        if default is None:
+            raise ImproperlyConfigured(" environ error ")
+        else:
+            return default
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -38,7 +51,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "posting",
-    "markdownify",
     "ckeditor",
 ]
 
@@ -119,16 +131,16 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-import os
+
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = p.join(BASE_DIR, "media")
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+    p.join(BASE_DIR, "static"),
 ] 
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATIC_ROOT = p.join(BASE_DIR, "staticfiles")
 
 CKEDITOR_CONFIGS = {
     'default': {

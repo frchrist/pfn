@@ -1,0 +1,8 @@
+
+Django==3.1.1
+django-ckeditor-5==0.0.12
+django-crispy-forms==1.9.2
+psycopg2==2.8.6
+sqlparse==0.3.1
+
+
