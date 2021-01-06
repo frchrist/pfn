@@ -111,7 +111,7 @@ DATABASES = {
 
         'PASSWORD': '547f1007c32d335f4404f53bd85fdae9ef5afb08ab4cc43faf2e4d1ebb14c777',
 
-        'HOST': 'ec2-54-75-244-161.eu-west-1.compute.amazonaws.com,
+        'HOST': 'ec2-54-75-244-161.eu-west-1.compute.amazonaws.com',
 
         'PORT': 5432,
 
