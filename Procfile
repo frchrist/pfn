@@ -1,2 +1,2 @@
-web: pythonic.wsgi --log-file -
+web: gunicorn pythonic.wsgi
 
