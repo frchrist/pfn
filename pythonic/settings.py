@@ -170,4 +170,5 @@ LOGIN_URL  ="login"
 LOGIN_REDIRECT_URL  = "homepage"
 LOGOUT_REDIRECT_URL = "homepage"
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
