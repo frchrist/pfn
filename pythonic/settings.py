@@ -38,7 +38,7 @@ SECRET_KEY = 'igl%fkjn0!c!9#9p(rb7(f#ou03(giz6alh%daz7*o&c)_tw+m'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["pythonnull.herokuapp.com", "localhost", "127.0.0.1"]
 
 
 # Application definition
@@ -90,14 +90,34 @@ WSGI_APPLICATION = 'pythonic.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 #developement databases
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
+#postgres://lvuxbbjqfwnlco:547f1007c32d335f4404f53bd85fdae9ef5afb08ab4cc43faf2e4d1ebb14c777@ec2-54-75-244-161.eu-west-1.compute.amazonaws.com:5432/dlhfb4mojael7
 #production database
+DATABASES = {
+
+    'default': {
+
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+
+        'NAME': 'dlhfb4mojael7',
+
+        'USER': 'lvuxbbjqfwnlco',
+
+        'PASSWORD': '547f1007c32d335f4404f53bd85fdae9ef5afb08ab4cc43faf2e4d1ebb14c777',
+
+        'HOST': 'ec2-54-75-244-161.eu-west-1.compute.amazonaws.com,
+
+        'PORT': 5432,
+
+    }
+
+}
 
 
 # Password validation
