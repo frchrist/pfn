@@ -4,6 +4,7 @@ from django.views.generic import DetailView, CreateView, FormView, ListView
 from django.views.generic.edit import UpdateView
 from .models import Course
 from .models import Level, Commentaire
+
 from .forms import NewLetter, CommentsForms, CourseForm
 from django.http import JsonResponse, HttpResponse
 
@@ -47,13 +48,6 @@ class CourseDetail(DetailView):
     model = Course
     template_name  ="posting/coursedetail.html"
 
-
-
-
-    def get_object(self, queryset=None):
-        objects = super(CourseDetail, self).get_object(queryset=queryset)
-        objects.body = mk(objects.body)
-        return objects
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
