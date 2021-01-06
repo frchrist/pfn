@@ -4,7 +4,6 @@ from django.views.generic import DetailView, CreateView, FormView, ListView
 from django.views.generic.edit import UpdateView
 from .models import Course
 from .models import Level, Commentaire
-from markdown import markdown as mk
 from .forms import NewLetter, CommentsForms, CourseForm
 from django.http import JsonResponse, HttpResponse
 
