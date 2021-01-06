@@ -1,10 +1,11 @@
 {%extends "posting/__base__.html" %}
 {% load static %}
+{% block title %}Cours Python Niveau : {{lTitle|upper}}{% endblock %}
 {%block content%}
 
 <div class="wrapper bgded overlay" style="background-image:url(https://res.cloudinary.com/uxyuslshjd/image/upload/v1609762411/pythonic/Untitled_Design_jxwlhv.jpg);">
     <div id="breadcrumb" class="hoc clear"> 
-      <h1> Niveau : <strong>{{lTitle}} </strong></h1>
+      <h1> Niveau : <strong>{{lTitle|upper}} </strong></h1>
     </div>
   </div>
 <div class="wrapper row3">
@@ -15,16 +16,16 @@
         <!-- ################################################################################################ -->
         <section>
             <div class="sectiontitle">
-              <h6 class="heading">{{header}}</h6>
-              <p>{{description}}</p>
+              <h6 class="heading">{{header|capfirst}}</h6>
+              <p>{{description|capfirst}}</p>
             </div>
             <ul class="nospace group overview">
               {% for post_course in object %}
               <li class="one_third">
-                <figure><a href="#"><img src="{% static 'posting/images/demo/320x240.png' %}" alt=""></a>
+                <figure><a href="#"><img src="{{post_course.img_link}}" alt=""></a>
                   <figcaption>
                     <h6 class="heading"><a href="{% url 'coursedetail' post_course.slug %}">{{post_course.title}}</a></h6>
-                    <p>{{post_course.body}}</p>
+                    <p>{{post_course.intro|truncatewords:50}}</p>
                   </figcaption>
                 </figure>
               </li>

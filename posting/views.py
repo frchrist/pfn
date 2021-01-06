@@ -28,7 +28,8 @@ class HomePage(ListView):
     model= Course
     template_name = "posting/index.html"
     queryset  = Course.objects.filter(status="publier")
-    paginate_by = 6
+    ordering = "-date"
+    paginate_by = 1
     context_object_name = "courses"
 
     def get_context_data(self, **kwargs):
@@ -59,7 +60,7 @@ class CourseDetail(DetailView):
         context = super().get_context_data(**kwargs)
         context["newLetterForm"] = form
         context["commentsForms"]  =CommentsForms()
-        context["level"] = Level.objects.all()
+        context["levels"] = Level.objects.all()
         context['commentaire'] = Commentaire.objects.filter(to=self.get_object())
 
         return context
@@ -68,8 +69,7 @@ class CourseDetail(DetailView):
 class LevelDetail(DetailView):
     model = Level
     template_name = "posting/leveldetail.html"
-    paginate_by = 6
-    
+
 
     def get_object(self):
         self.level = Level.objects.get(level=self.kwargs["slug"])
@@ -80,7 +80,7 @@ class LevelDetail(DetailView):
         context["header"]= self.level.level
         context["description"]= self.level.description
         context["newLetterForm"] = form
-        context["level"] = Level.objects.all()
+        context["levels"] = Level.objects.all()
         context['lTitle'] = self.kwargs["slug"]
        
         return context
