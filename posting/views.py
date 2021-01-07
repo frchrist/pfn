@@ -13,7 +13,7 @@ from django.http import Http404
 from django.contrib.auth.views import redirect_to_login
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-
+from django.contrib.auth.models import User
 # Create your views here.
 class Variables:
     def __init__(self):
@@ -21,15 +21,28 @@ class Variables:
 
     @staticmethod
     def name():
-        return "Python pour les null"
+        return "Python pour les nulles"
 
 form = NewLetter()
+@method_decorator(login_required, name="dispatch")
+class Profile(View):
+    def get(self, request):
+        context = {
+            "user":request.user,
+            "all": Course.objects.filter(status="Corbeille", author__username=request.user),
+            "nb":Course.objects.filter(author__username=request.user),
+        }
+        # print(Course.objects.filter(author__username=request.user))
+        # print(Course.objects.filter(author=request.user, status="Corbeille"))
+        if request.user.is_staff:
+            return render(request, "adminUsers/profile.html", context=context)
+        raise Http404
 class HomePage(ListView):
     model= Course
     template_name = "posting/index.html"
-    queryset  = Course.objects.filter(status="publier")
+    queryset  = Course.objects.filter(status="Publier")
     ordering = "-date"
-    paginate_by = 1
+    paginate_by = 9
     context_object_name = "courses"
 
     def get_context_data(self, **kwargs):
@@ -66,7 +79,7 @@ class LevelDetail(DetailView):
 
     def get_object(self):
         self.level = Level.objects.get(level=self.kwargs["slug"])
-        return Course.objects.filter(level=self.level)
+        return Course.objects.filter(level=self.level, status="Publier")
 
     def get_context_data(self, **kwargs):
         context = super(LevelDetail, self).get_context_data(**kwargs)
@@ -75,7 +88,6 @@ class LevelDetail(DetailView):
         context["newLetterForm"] = form
         context["levels"] = Level.objects.all()
         context['lTitle'] = self.kwargs["slug"]
-       
         return context
 
 class NewLetterPost(View):
@@ -88,7 +100,7 @@ class NewLetterPost(View):
             else:
                 return JsonResponse(dict(form.errors))
         else:
-            return HttpResponse("Activer le javascript pour plus de perfomment de  notre site .")
+            return HttpResponse("Activer le javascript pour plus de perfommance.")
 
 
 
@@ -104,14 +116,11 @@ class display(View):
 class comment(FormView):
     form_class = CommentsForms
     template_name = "posting/coursedetail.html"
-
-
     def form_valid(self, form):
         form.instance.author = self.request.user
         form.instance.to = Course.objects.get(slug=self.kwargs['slug'])
         form.save()
         return super(comment, self).form_valid(form)
-        # return render_to_response(reverse("coursedetail", kwargs=))
 
     def get_success_url(self):
         return reverse("coursedetail", kwargs={"slug":self.kwargs['slug']})

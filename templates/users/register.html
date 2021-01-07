@@ -1,84 +1,43 @@
 {% extends "users/__base__.html" %}
 {% load static %}
-{% block title %} Nous rejoindre {% endblock title %}
-
-
+{% block title %} 
+Rejoignez-nous{% endblock title %}
 {%block content %} 
 {% if request.user.is_authenticated %}
 <script>
   location.href = "{% url 'homepage' %}"
 </script>
 {% endif %}
-<form class="login100-form validate-form" method="POST" id="form">{% csrf_token %}
-  <span class="login100-form-title p-b-43">
-   Nous Rejoindre
-  </span>
-
-  <span class="login100  txt1">
-    {% if form.non_field_errors %}
-    <ul class='form-errors'>
-        {% for error in form.non_field_errors %}
-            <li class="alert alert-danger">{{ error }}</li>
-        {% endfor %}
-    </ul>
-{% endif %}
-   
+<form action="" method="POST" id='form'>{% csrf_token %}
+  <div class="card">
+    <div class="text-center intro">
+       <img src="https://i.ibb.co/yVGxFPR/2.png" width="160">
+       </div>
+    <div class="mt-4 text-center">
+        <h4 class="mt-3">Inscription </h4> <br>
+              <div class="alert alert-success d-none" id="msg">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                 <strong id="imgs">Votre Compte à été bien créer. connectez vous</strong> 
+              </div>
+              <div class="alert alert-danger d-none" id="error">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                 <strong id="ierror"></strong> 
+              </div>
+        <div class="mt-3 inputbox"> {{form.first_name}} <i class="fa fa-user"></i> </div>
+        <div class="inputbox"> {{form.username}} <i class="fa fa-user"></i> </div>
+        <div class="inputbox"> {{form.email}} <i class="fa fa-envelope-o"></i> </div>
+        <div class="inputbox"> {{form.password1}} <i class="fa fa-lock"></i> </div>
+        <div class="inputbox"> {{form.password2}} <i class="fa fa-lock"></i> </div>
+    </div>
   
-  </span>
+    <div class="d-flex justify-content-between">
+        <div> <a href="{% url 'login' %}" class="forgot">déja un compte</a> </div>
+    </div>
+    <div class="mt-2">
+      <button class="btn btn-primary btn-block btn" type="submit">S'inscrire</button> </div>
+    </div>
   
-  
-  <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-   {{form.first_name}}
-    <span class="focus-input100"></span>
-    <span class="label-input100">Prenom</span>
-    
-  </div>
-  
-  
-  <div class="wrap-input100 validate-input" data-validate="Password is required">
-    {{form.username}}
-    <span class="focus-input100"></span>
-    <span class="label-input100">Nom utilisateur</span>
-    <span class="label-input100"></span>
-  </div>
-
-  <div class="wrap-input100 validate-input" data-validate="Password is required">
-    {{form.email}}
-    <span class="focus-input100"></span>
-    <span class="label-input100">Email</span>
-    <span class="label-input100"></span>
-  </div>
-
-  <div class="wrap-input100 validate-input" data-validate="Password is required">
-    {{form.password1}}
-    <span class="focus-input100"></span>
-    <span class="label-input100">Mot de passe</span>
-    <span class="label-input100"></span>
-  </div>
-
-  <div class="wrap-input100 validate-input" data-validate="Password is required">
-    {{form.password2}}
-    <span class="focus-input100"></span>
-    <span class="label-input100">Confirmer le Mot de passe</span>
-    <span class="label-input100"></span>
-  </div>
-  <div class="container-login100-form-btn">
-    <button class="login100-form-btn">
-      Creer un compte
-    </button>
-  </div>
-
-
-  <div class="text-center p-t-46 p-b-20">
-    <p class="d-none alert alert-success" id="msg">Votre compte à ete creer <a href="{% url 'login' %}">ici</a></p>
-    <p class="d-none alert alert-warning" id="error"></p>
-    <span class="txt2">
-      deja un compte ? <a href="{% url 'login' %}">se connecter</a>
-    </span>
-
-  </div>
-</form>
-
+  </form>
 
 {%endblock %}
 
@@ -92,7 +51,7 @@
     if(!document.querySelector("#msg").classList.contains("d-none")){
       document.querySelector("#msg").classList.add("d-none");
     }
-    document.querySelector(".login100-form-btn").textContent = "Creation encoure ..."
+    document.querySelector(".btn").textContent = "Creation encoure ..."
     $.ajax({
             type: "POST",
             url: "{% url 'newuser' %}",
@@ -101,18 +60,18 @@
             success: function(data) {
                 if (data.success === "success") {
                    document.querySelector("#msg").classList.remove("d-none");
-                   document.querySelector(".login100-form-btn").textContent = "Terminer"
+                   document.querySelector(".btn").textContent = "Terminer"
                 }else{
                   if(data.username){
-                    document.querySelector("#error").innerHTML = data.username
+                    document.querySelector("#ierror").innerHTML = data.username
                   }else if(data.email){
-                    document.querySelector("#error").innerHTML = data.email
+                    document.querySelector("#ierror").innerHTML = data.email
                   }else{
-                    document.querySelector("#error").innerHTML = data.password2
+                    document.querySelector("#ierror").innerHTML = data.password2
                   }
       
                   document.querySelector("#error").classList.remove("d-none");
-                  document.querySelector(".login100-form-btn").textContent = "Erreur"
+                  document.querySelector(".btn").textContent = "Erreur"
                 }
             }
         })

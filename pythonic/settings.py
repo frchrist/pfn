@@ -90,34 +90,34 @@ WSGI_APPLICATION = 'pythonic.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 #developement databases
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 #postgres://lvuxbbjqfwnlco:547f1007c32d335f4404f53bd85fdae9ef5afb08ab4cc43faf2e4d1ebb14c777@ec2-54-75-244-161.eu-west-1.compute.amazonaws.com:5432/dlhfb4mojael7
-#production database
-DATABASES = {
+# #production database
+# DATABASES = {
 
-    'default': {
+#     'default': {
 
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-        'NAME': 'dlhfb4mojael7',
+#         'NAME': 'dlhfb4mojael7',
 
-        'USER': 'lvuxbbjqfwnlco',
+#         'USER': 'lvuxbbjqfwnlco',
 
-        'PASSWORD': '547f1007c32d335f4404f53bd85fdae9ef5afb08ab4cc43faf2e4d1ebb14c777',
+#         'PASSWORD': '547f1007c32d335f4404f53bd85fdae9ef5afb08ab4cc43faf2e4d1ebb14c777',
 
-        'HOST': 'ec2-54-75-244-161.eu-west-1.compute.amazonaws.com',
+#         'HOST': 'ec2-54-75-244-161.eu-west-1.compute.amazonaws.com',
 
-        'PORT': 5432,
+#         'PORT': 5432,
 
-    }
+#     }
 
-}
+# }
 
 
 # Password validation
@@ -168,8 +168,16 @@ STATICFILES_DIRS = [
 
 CKEDITOR_CONFIGS = {
     'default': {
-        'toolbar': 'full',
-        "update":['image','update','table','HorizontalRule', 'Smiley', "SpecialChar","CodeSnippet"], 'extraPlugins': 'codesnippet',
+        'toolbar': 'Basic',
+        'skin':'moono',
+        'toolbar_Basic': 
+             [
+                 ['CodeSnippet'],
+                 ['TextColor', 'BGColor','Maximize', 'ShowBlocks','Bold', "Table", "Smiley", "HorizontalRule", "Link",'Styles', 'Format', 'Font', 'FontSize' "SpecialChar","Image", "PageBreak", "Iframe"],
+                  # here
+             ], 'extraPlugins': ['codesnippet','ajax'],
+        'width':'auto',
+        # "update":['image','update','table','HorizontalRule', 'Smiley', "SpecialChar","CodeSnippet"], 'extraPlugins': 'codesnippet',
     },
     'special': 
         {'toolbar': 'Special', 'height': 500,
@@ -181,6 +189,11 @@ CKEDITOR_CONFIGS = {
          },
     'extrait': {
         'toolbar': 'Basic',
+         'toolbar_Basic': [
+             ['BGColor','Bold', "Smiley",'Styles', 'Format', 'Font', 'FontSize' "SpecialChar"]
+         ],
+        'width':"auto",
+        'height': 100,
     },
 }
 

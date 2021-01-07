@@ -1,60 +1,46 @@
 {%load static %}
-<div class="bgded overlay" style="background-image:url({% static 'posting/images/demo/backgrounds/nasa.jpg' %});"> 
-    <!-- ################################################################################################ -->
+<div class="bgded overlay" style="background-image:url(https://res.cloudinary.com/uxyuslshjd/image/upload/v1609761894/pythonic/nasa_kxs1ai.jpg);"> 
     <div class="wrapper row4">
       <footer id="footer" class="hoc clear"> 
-        <!-- ################################################################################################ -->
         <div class="one_half first">
-          <h6 class="heading">Aliquet ut auctor</h6>
+          <h6 class="heading">Adresse</h6>
           <ul class="nospace btmspace-30 linklist contact">
             <li><i class="fa fa-map-marker"></i>
               <address>
-              Lome Togo
+              Lomé Togo
               </address>
             </li>
-            <li><i class="fa fa-phone"></i>+00 (228) 92 30 68 35 </li>
-            <li><i class="fa fa-envelope-o"></i> christiancode12@gmail.com</li>
+            <li><i class="fa fa-phone"></i> <a href="tel:22892306835">+00 (228) 92 30 68 35 </a></li>
+            <li><i class="fa fa-envelope-o"></i><a href="mailto:christiancode12@gmail.com">christiancode12@gmail.com</a></li>
           </ul>
           <ul class="faico clear">
-            <!-- <li><a class="faicon-facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-            <li><a class="faicon-twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-            <li><a class="faicon-dribble" href="#"><i class="fa fa-dribbble"></i></a></li> -->
-            <li><a class="faicon-whatsapp" href="#"><i class="fa fa-whatsapp"></i></a></li>
+            <li><a class="faicon-whatsapp" href="https://wa.link/31i55l" target="__blank"><i class="fa fa-whatsapp"></i></a></li>
           </ul>
         </div>
-
         <div class="one_half">
           <h6 class="heading">S'abonné a Newsletter</h6>
-          <p class="nospace btmspace-15" id="class">vous recerver un email à chaque nouveau cours</p>
+          <p class="nospace btmspace-15" id="class">Vous recevrez un email à chaque nouveau cours.</p>
           <form method="post" action="#" id="form">
             <fieldset>
               <legend>Newsletter:</legend>
               {{newLetterForm.name}}
              {{newLetterForm.email}}
-              <button type="submit" value="submit" id="btn">Submit</button>
+              <button type="submit" value="submit" id="btn">envoyer</button>
             </fieldset>
           </form>
         </div>
-        <!-- ################################################################################################ -->
       </footer>
     </div>
-    <!-- ################################################################################################ -->
-    <!-- ################################################################################################ -->
-    <!-- ################################################################################################ -->
     <div class="wrapper row5">
       <div id="copyright" class="hoc clear"> 
-        <!-- ################################################################################################ -->
-        <p class="fl_left">Copyright &copy; 2021 - All Rights Reserved - <a href="#">python pour les null</a></p>
-       
-        <!-- ################################################################################################ -->
+        <p class="fl_left">Copyright &copy; 2021 - All Rights Reserved - <a href="#">Python pour les nulles</a></p>
       </div>
     </div>
-    <!-- ################################################################################################ -->
   </div>
 <script>
   document.querySelector("#form").addEventListener("submit", (e)=>{
     e.preventDefault()
-    document.querySelector("#btn").textContent = "Creation encoure ..."
+    document.querySelector("#btn").textContent = "Envoie encoure ..."
     $.ajax({
             type: "POST",
             url: "{% url 'newletter' %}",

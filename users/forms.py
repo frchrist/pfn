@@ -7,11 +7,12 @@ from django.contrib.auth.models import User
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={
-        "class":"input100",
-        "name":"username"
+        "class":"form-control",
+        "placeholder":"Utilisateur"
     }))
     password = forms.CharField(widget=forms.PasswordInput(attrs={
-        "class":"input100",
+        "class":"form-control",
+        "placeholder":"Mot de passe"
     }))
 
     # def __init__(self, *args, **kwargs):
@@ -32,17 +33,22 @@ class RegisterForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["first_name"].widget.attrs.update({
-            "class":"input100"
+            "class":"form-control",
+             "placeholder":"Prenom "
         })
         self.fields["username"].widget.attrs.update({
-            "class":"input100"
+            "class":"form-control",
+            "placeholder":"Utilisateur"
         })
         self.fields["email"].widget.attrs.update({
-            "class":"input100"
+            "class":"form-control",
+             "placeholder":"Email"
         })
         self.fields["password1"].widget.attrs.update({
-            "class":"input100"
+            "class":"form-control",
+             "placeholder":"Mot de passe"
         })
         self.fields["password2"].widget.attrs.update({
-            "class":"input100"
+            "class":"form-control",
+            "placeholder":"Comfirmer le mot de passe"
         })

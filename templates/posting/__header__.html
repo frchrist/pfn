@@ -1,6 +1,6 @@
 <div class="wrapper row0">
     <div id="topbar" class="hoc clear"> 
-      <!-- ################################################################################################ -->
+  
       <div class="fl_left">
         <ul class="nospace">
           <li><a href="{% url 'homepage' %}"><i class="fa fa-lg fa-home"></i></a></li>
@@ -8,34 +8,32 @@
           <li><a href="{% url 'logout' %}">SE DECONNECTER</a></li>
           {% else %}
           <li><a href="{% url 'login' %}">SE CONNECTER</a></li>
-          <li><a href="{% url 'register' %}">NOUS REJOINDRE</a></li>
+          <li><a href="{% url 'register' %}">
+            Rejoignez-nous</a></li>
           {% endif%}
-          
         </ul>
       </div>
       <div class="fl_right">
         <ul class="nospace">
-          <li><i class="fa fa-phone"></i> +00 (228) 92 30 68 35 </li>
-          <li><i class="fa fa-envelope-o"></i> christiancode12@gmail.com</li>
+          <li><i class="fa fa-phone"></i> <a href="tel:22891306835">+00 (228) 92 30 68 35 </a></li>
+          <li><i class="fa fa-envelope-o"></i><a href="mailto:christiancode12@gmail.com">christiancode12@gmail.com</a></li>
+          {% if request.user.is_staff %}
+            <li><i class="fa fa-user"></i><a href="{% url 'profile' %}">ton profile</a></li>
+            <li><i class="fa fa-newspaper"></i><a href="{% url 'create' %}">Nouveau Cours</a></li>
+          {% endif %}
         </ul>
       </div>
-      <!-- ################################################################################################ -->
     </div>
   </div>
-  <!-- ################################################################################################ -->
-  <!-- ################################################################################################ -->
-  <!-- ################################################################################################ -->
   <div class="wrapper row1">
     <header id="header" class="hoc clear"> 
-      <!-- ################################################################################################ -->
       <div id="logo" class="fl_left">
         <h1><a href="{% url 'homepage' %}">{{names}}</a></h1>
       </div>
       <nav id="mainav" class="fl_right">
         <ul class="clear">
-          <li class="active"><a href="{% url 'homepage' %}">Home</a></li>
-          <li><a class="drop" href="#">Niveau</a>
-            
+          <li class="active"><a href="{% url 'homepage' %}">Accueil</a></li>
+          <li><a class="drop" href="#">Niveaux</a>
             <ul>
               {% for l in levels %}
                 <li><a href="{% url 'niveaudetail' l.level %}">{{l.level|capfirst}}</a></li>
@@ -44,6 +42,6 @@
           </li>
         </ul>
       </nav>
-      <!-- ################################################################################################ -->
+  
     </header>
   </div>

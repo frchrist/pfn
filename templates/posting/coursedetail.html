@@ -1,27 +1,29 @@
-{%extends "posting/__base__.html" %}
-{% load static %}
-
-{% block title %}{{object.title}}{% endblock %}
-{%block content%}
-
+{%extends "posting/__base__.html" %}{% load static %}{% block meta %}pythonnull: {{object.title}}{% endblock %}{% block title %}{{object.title}}{% endblock %}{%block content%}
 <div class="wrapper bgded overlay" style="background-image:url(https://res.cloudinary.com/uxyuslshjd/image/upload/v1609762411/pythonic/Untitled_Design_jxwlhv.jpg);">
     <div id="breadcrumb" class="hoc clear"> 
-      <!-- ################################################################################################ -->
      <H1><strong>{{object.title}}</strong></H1>
-      <!-- ################################################################################################ -->
     </div>
   </div>
 <div class="wrapper row3">
     <main class="hoc container clear"> 
       <div class="content"> 
-        <!-- ################################################################################################ -->
         <h1>{{object.title}}</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente molestias quos error provident. Odio reiciendis voluptate ipsa eius accusamus ut soluta a nisi error. Cum itaque tenetur quisquam dolorem assumenda possimus consectetur ad id quia pariatur ut explicabo delectus tempora error, eaque laboriosam eveniet eos saepe laborum at aliquam libero placeat sit? Itaque doloribus eligendi exercitationem perspiciatis, placeat doloremque tenetur numquam explicabo ullam voluptatum mollitia cupiditate rem natus at. Distinctio deleniti quo voluptatem minus ex? Nobis praesentium quos aperiam corrupti, ducimus numquam cumque placeat reiciendis itaque repellendus. Nam labore aliquid incidunt vitae excepturi voluptatum, asperiores laudantium. Similique laborum soluta voluptates!</p>
+        <p>posté le: {{object.date}} par {{object.author}}
+
+          {% if user.is_staff %}
+          | <a href="{% url 'update' object.slug %}">édit</a> 
+          
+          {% endif%}
+        </p>
 
         {{object.body|safe}}
         </div>
         <div id="comments">
-          <h2>Comments</h2>
+          {% if commentaire|length > 1%}
+          <h2>{{commentaire|length}} commentaires</h2>
+          {% else%}
+          <h2>{{commentaire|length}} commentaire</h2>
+          {% endif%}
           <ul>
             {% for comment in commentaire %}
             <li>
@@ -39,12 +41,10 @@
               </article>
             </li>
             {% endfor %}
-
+           
           </ul>
-          <h2>Write A Comment</h2>
           <form action="#" method="post">{% csrf_token %}
             <div class="block clear">
-              <label for="comment">Your Comment</label>
               {{commentsForms}}
             </div>
             <div>
@@ -52,10 +52,7 @@
             </div>
           </form>
         </div>
-        <!-- ################################################################################################ -->
       </div>
-      <!-- ################################################################################################ -->
-      <!-- / main body -->
       <div class="clear"></div>
     </main>
   </div>

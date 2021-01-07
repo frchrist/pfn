@@ -1,8 +1,4 @@
-{%extends "posting/__base__.html" %}
-{% load static %}
-{% block title %}Cours Python Niveau : {{lTitle|upper}}{% endblock %}
-{%block content%}
-
+{%extends "posting/__base__.html" %}{% load static %}{% block title %}Cours Python Niveau : {{lTitle|upper}}{% endblock %}{% block meta %}Cours python Niveau: {{lTitle}}{% endblock %}{%block content%}
 <div class="wrapper bgded overlay" style="background-image:url(https://res.cloudinary.com/uxyuslshjd/image/upload/v1609762411/pythonic/Untitled_Design_jxwlhv.jpg);">
     <div id="breadcrumb" class="hoc clear"> 
       <h1> Niveau : <strong>{{lTitle|upper}} </strong></h1>
@@ -10,10 +6,7 @@
   </div>
 <div class="wrapper row3">
     <main class="hoc container clear"> 
-      <!-- main body -->
-      <!-- ################################################################################################ -->
       <div class="content"> 
-        <!-- ################################################################################################ -->
         <section>
             <div class="sectiontitle">
               <h6 class="heading">{{header|capfirst}}</h6>
@@ -22,35 +15,32 @@
             <ul class="nospace group overview">
               {% for post_course in object %}
               <li class="one_third">
-                <figure><a href="#"><img src="{{post_course.img_link}}" alt=""></a>
+                <figure><a href="{{post_course.get_absolute_url}}"><img src="{{post_course.img_link}}" alt=""></a>
                   <figcaption>
                     <h6 class="heading"><a href="{% url 'coursedetail' post_course.slug %}">{{post_course.title}}</a></h6>
-                    <p>{{post_course.intro|truncatewords:50}}</p>
+                    <p>{{post_course.intro|safe|truncatewords:50}}</p>
                   </figcaption>
                 </figure>
               </li>
-        
               {% endfor %}
             </ul>
           {% if  pagination %}
             <nav class="pagination">
               <ul>
                 {% if page_obj.has_previous %}
-                        <li><a href="?page=1">&laquo; first</a></li>
-                       <li> <a href="?page={{ page_obj.previous_page_number }}">previous</a></li>
+                        <li><a href="?page=1">&laquo; Première</a></li>
+                       <li> <a href="?page={{ page_obj.previous_page_number }}">Précédant</a></li>
                   {% endif %}
                 <li class="current"> Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</li>
                 {% if page_obj.has_next %}
-                <li><a href="?page={{ page_obj.next_page_number }}">next</a></li>
-                <li><a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a></li>
+                <li><a href="?page={{ page_obj.next_page_number }}">Suivant</a></li>
+                <li><a href="?page={{ page_obj.paginator.num_pages }}">Dernier &raquo;</a></li>
             {% endif %}
               </ul>
             </nav>
            {% endif %}
           </section>
       </div>
-      <!-- ################################################################################################ -->
-      <!-- / main body -->
       <div class="clear"></div>
     </main>
   </div>

@@ -1,12 +1,6 @@
-{% extends "posting/__base__.html" %}
-{% load static %}
-
-{%block title%} Bienvenue sur python pour les null {% endblock title %}
-
-{% block content%}
+{% extends "posting/__base__.html" %}{% load static %}{%block title%} Bienvenue sur python pour les nulles {% endblock title %}{% block content%}
 <div class="wrapper bgded overlay" style="background-image:url(https://res.cloudinary.com/uxyuslshjd/image/upload/v1609763469/pythonic/Untitled_Design_1_gsdpte.jpg);">
 <div id="pageintro" class="hoc clear"> 
-  <!-- ################################################################################################ -->
   <article>
     <p>bienvenue</p>
     <h3 class="heading">Cours pour devenir expert en python</h3>
@@ -15,8 +9,8 @@
         {% if user.is_authenticated %}
         <li><a class="btn" href="#course_list">Lire le cours</a></li>
         {% else %}
-          <li><a class="btn" href="#course_list">Debuter le Cours</a></li>
-          <li><a class="btn inverse" href="{% url 'register' %}">Creer un compte</a></li>
+          <li><a class="btn" href="#course_list">Débuter le Cours</a></li>
+          <li><a class="btn inverse" href="{% url 'register' %}">Créer un compte</a></li>
         {% endif %}
       </ul>
     </footer>
@@ -29,62 +23,55 @@
   <section id="introblocks">
     <div class="sectiontitle">
       <h6 class="heading">Les Niveaux des Cours</h6>
-      <p>Les python est l'un des language de programmation les plus populaire</p>
+      <p>Le language python est l'un des language de programmation les plus populaire et des plus simple à apprendre pour débuter la programmation informatique.</p>
     </div>
     <ul class="nospace btmspace-80 group">
       {% for level in levels %}
       <li class="one_third">
-       
         <article><i class="fa fa-diamond"></i>
           <h6 class="heading font-x1"><a href="{% url 'niveaudetail' level.level|slugify %}">{{level.level}}</a></h6>
           <p>{{level.description|truncatewords:50}}&hellip;</p>
         </article>
       </li>
       {%endfor%}
-      
     </ul>
-    <p class="center"><a class="btn" href="https://docs.python.org/fr/3/" target="__blank">allez sur le doc de python</a></p>
+    <p class="center"><a class="btn" href="https://docs.python.org/fr/3/" target="__blank">Allez sur la doc de python.</a></p>
   </section>
-  <!-- ################################################################################################ -->
   <hr class="btmspace-80">
-  <!-- ################################################################################################ -->
   <section id="course_list">
     <div class="sectiontitle">
-      <h6 class="heading">recents coures postés</h6>
-      <p>listes des coures les plus recents du site</p>
+      <h6 class="heading">Récents cours postés.</h6>
+      <p>La Liste Des cours les plus récents.</p>
     </div>
     <ul class="nospace group overview">
       {% for post_course in courses %}
       <li class="one_third">
-        <figure><a href="#"><img src="{{post_course.img_link}}" alt=""></a>
+        <figure><a href={{post_course.get_absolute_url }}><img src="{{post_course.img_link}}" alt=""></a>
           <figcaption>
             <h6 class="heading"><a href="{% url 'coursedetail' post_course.slug %}">{{post_course.title}}</a></h6>
-            <p>{{post_course.intro|truncatewords:50}}</p>
+            <p>{{post_course.intro|safe|truncatewords:50}}</p>
           </figcaption>
         </figure>
       </li>
 
       {% endfor %}
     </ul>
-    {% if paginator %}
+    {% if  pagination %}
     <nav class="pagination">
       <ul>
         {% if page_obj.has_previous %}
-                <li><a href="?page=1">&laquo; first</a></li>
-               <li> <a href="?page={{ page_obj.previous_page_number }}">previous</a></li>
+                <li><a href="?page=1">&laquo; Première</a></li>
+               <li> <a href="?page={{ page_obj.previous_page_number }}">Précédant</a></li>
           {% endif %}
         <li class="current"> Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</li>
         {% if page_obj.has_next %}
-        <li><a href="?page={{ page_obj.next_page_number }}">next</a></li>
-        <li><a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a></li>
+        <li><a href="?page={{ page_obj.next_page_number }}">Suivant</a></li>
+        <li><a href="?page={{ page_obj.paginator.num_pages }}">Dernier &raquo;</a></li>
     {% endif %}
       </ul>
     </nav>
-    {% endif %}
-
+   {% endif %}
   </section>
-  <!-- ################################################################################################ -->
-  <!-- / main body -->
   <div class="clear"></div>
 </div>
 {% endblock %}

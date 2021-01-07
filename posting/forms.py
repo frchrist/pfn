@@ -14,11 +14,11 @@ class CourseForm(forms.ModelForm):
             "class":"form-control mb-3",
         })
 
-        self.fields['title'].label = "Titre du Cour "
+        self.fields['title'].label = "Titre du Cours"
         self.fields['level'].widget.attrs.update({
             "class":"form-control mb-3",
         })
-        self.fields['level'].label = "Le Niveau"
+        self.fields['level'].label = "Le Niveau du Cours"
         self.fields['status'].widget.attrs.update({
             "class":"form-control mb-3",
         })
@@ -27,18 +27,18 @@ class CourseForm(forms.ModelForm):
         self.fields['intro'].widget.attrs.update({
             "class":"form-control mb-3",
         })
-        self.fields['intro'].label = "Petite intro"
+        self.fields['intro'].label = "Introduction"
 
         self.fields['img_link'].widget.attrs.update({
             "class":"form-control mb-3",
         })
-        self.fields['img_link'].label = "URL de d'un Image "
+        self.fields['img_link'].label = "URL de l' Image "
         
 
         self.fields['body'].widget.attrs.update({
             "class":"form-control mb-3",
         })
-        self.fields['body'].label = "Le Corps du Cour "
+        self.fields['body'].label = "le contenu du Cours "
 class ContanctForm(forms.ModelForm):
     class Meta:
         model = Contact

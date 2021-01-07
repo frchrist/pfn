@@ -19,10 +19,10 @@ class ModelUtile:
             instance.slug = slugify(instance.title)
 
 
-course_level = [("debutant", "debutant"), ("intermediare","intermediare")]
-course_status = [("publier", "publier"), ("corbeile","corbeile")]
+course_level = [("Débutant", "Débutant"), ("Intermédiaire","Intermédiaire")]
+course_status = [("Publier", "publier"), ("Corbeille","corbeille")]
 class Level(models.Model):
-    level = models.CharField(choices=course_level, max_length=12)
+    level = models.CharField(choices=course_level, max_length=13)
     description = models.TextField(default="ceci est un niveau")
 
     def __str__(self):
@@ -33,10 +33,10 @@ class Course(models.Model):
     level = models.ForeignKey(to=Level, on_delete=models.CASCADE)
     author = models.ForeignKey(to=User, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(choices=course_status, max_length=12, default="publier")
+    status = models.CharField(choices=course_status, max_length=13, default="publier")
     slug = models.SlugField(blank=True, unique=True)
-    body = RichTextUploadingField(blank=True, null=True, verbose_name='content')
-    intro = models.TextField()
+    body = RichTextUploadingField(verbose_name='content')
+    intro = RichTextUploadingField(blank=1, null=1, config_name="extrait")
     img_link = models.URLField(blank=True, null=True)
 
     def get_absolute_url(self):
