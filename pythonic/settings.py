@@ -90,34 +90,34 @@ WSGI_APPLICATION = 'pythonic.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 #developement databases
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
-#postgres://lvuxbbjqfwnlco:547f1007c32d335f4404f53bd85fdae9ef5afb08ab4cc43faf2e4d1ebb14c777@ec2-54-75-244-161.eu-west-1.compute.amazonaws.com:5432/dlhfb4mojael7
-# #production database
 # DATABASES = {
-
 #     'default': {
-
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-
-#         'NAME': 'dlhfb4mojael7',
-
-#         'USER': 'lvuxbbjqfwnlco',
-
-#         'PASSWORD': '547f1007c32d335f4404f53bd85fdae9ef5afb08ab4cc43faf2e4d1ebb14c777',
-
-#         'HOST': 'ec2-54-75-244-161.eu-west-1.compute.amazonaws.com',
-
-#         'PORT': 5432,
-
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
-
 # }
+
+# postgres://lejroohwikrlkd:40b6c5ec45deb6c9a11864b31eca35250dafedc5cff9be899ee20cc70a01554f@ec2-174-129-199-54.compute-1.amazonaws.com:5432/d1lglnhk5c0t09
+# #production database
+DATABASES = {
+
+    'default': {
+
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+
+        'NAME': 'd1lglnhk5c0t09',
+
+        'USER': 'lejroohwikrlkd',
+
+        'PASSWORD': '40b6c5ec45deb6c9a11864b31eca35250dafedc5cff9be899ee20cc70a01554f',
+
+        'HOST': 'ec2-174-129-199-54.compute-1.amazonaws.com',
+
+        'PORT': 5432,
+
+    }
+
+}
 
 
 # Password validation
