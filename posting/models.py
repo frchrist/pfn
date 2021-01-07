@@ -69,7 +69,7 @@ class Commentaire(models.Model):
     to = models.ForeignKey(to=Course, on_delete=models.CASCADE)
 
     def __str__(self):
-        return "commentaire de "+author
+        return "commentaire de "+self.author.username
 
 pre_save.connect(ModelUtile.slug, Course)
 

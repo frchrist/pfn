@@ -36,7 +36,7 @@
           <li><a class="drop" href="#">Niveaux</a>
             <ul>
               {% for l in levels %}
-                <li><a href="{% url 'niveaudetail' l.level %}">{{l.level|capfirst}}</a></li>
+                <li><a href="{% url 'niveaudetail' l.level|slugify %}">{{l.level}}</a></li>
               {% endfor %}
             </ul>
           </li>

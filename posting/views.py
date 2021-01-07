@@ -14,6 +14,7 @@ from django.contrib.auth.views import redirect_to_login
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
+from django.utils.text import slugify
 # Create your views here.
 class Variables:
     def __init__(self):
@@ -78,7 +79,12 @@ class LevelDetail(DetailView):
 
 
     def get_object(self):
-        self.level = Level.objects.get(level=self.kwargs["slug"])
+        display = {
+            "debutant":"Débutant",
+            "intermediaire":"Intermédiaire"
+        }
+        value = display[self.kwargs["slug"]]
+        self.level = Level.objects.get(level=value)
         return Course.objects.filter(level=self.level, status="Publier")
 
     def get_context_data(self, **kwargs):
