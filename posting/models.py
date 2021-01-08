@@ -71,5 +71,8 @@ class Commentaire(models.Model):
     def __str__(self):
         return "commentaire de "+self.author.username
 
+    class Meta:
+         ordering =["-at"]
+
 pre_save.connect(ModelUtile.slug, Course)
 

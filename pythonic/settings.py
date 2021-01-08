@@ -205,3 +205,8 @@ LOGOUT_REDIRECT_URL = "homepage"
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+
+#settings for security
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+

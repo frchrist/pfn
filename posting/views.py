@@ -15,6 +15,9 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
 from django.utils.text import slugify
+
+
+from django.core.paginator import Paginator
 # Create your views here.
 class Variables:
     def __init__(self):
@@ -68,8 +71,14 @@ class CourseDetail(DetailView):
         context["newLetterForm"] = form
         context["commentsForms"]  =CommentsForms()
         context["levels"] = Level.objects.all()
-        context['commentaire'] = Commentaire.objects.filter(to=self.get_object())
 
+        p = Paginator( Commentaire.objects.filter(to=self.get_object()), 10) #10 commentaire par pages
+
+        page_n = self.request.GET.get("page")
+        page_obj = p.get_page(page_n)
+
+        context['commentaire'] = page_obj
+        context['len'] = Commentaire.objects.filter(to=self.get_object()).count()
         return context
 
 

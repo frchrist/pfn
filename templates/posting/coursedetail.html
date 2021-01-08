@@ -19,10 +19,10 @@
         {{object.body|safe}}
         </div>
         <div id="comments">
-          {% if commentaire|length > 1%}
-          <h2>{{commentaire|length}} commentaires</h2>
+          {% if len > 1%}
+          <h2>{{len}} commentaires</h2>
           {% else%}
-          <h2>{{commentaire|length}} commentaire</h2>
+          <h2>{{len}} commentaire</h2>
           {% endif%}
           <ul>
             {% for comment in commentaire %}
@@ -41,8 +41,22 @@
               </article>
             </li>
             {% endfor %}
-           
           </ul>
+          {% if  commentaire %}
+            <nav class="pagination">
+            <ul>
+              {% if commentaire.has_previous %}
+                      <li><a href="?page=1">&laquo; Première</a></li>
+                     <li> <a href="?page={{ commentaire.previous_page_number }}">Précédant</a></li>
+                {% endif %}
+              <li class="current"> Page {{ commentaire.number }} of {{ commentaire.paginator.num_pages }}</li>
+              {% if commentaire.has_next %}
+              <li><a href="?page={{ commentaire.next_page_number }}">Suivant</a></li>
+              <li><a href="?page={{ commentaire.paginator.num_pages }}">Dernier &raquo;</a></li>
+            {% endif %}
+            </ul>
+          </nav>
+        {% endif %}
           <form action="#" method="post">{% csrf_token %}
             <div class="block clear">
               {{commentsForms}}
