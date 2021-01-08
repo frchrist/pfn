@@ -10,7 +10,7 @@
               Lomé Togo
               </address>
             </li>
-            <li><i class="fa fa-phone"></i> <a href="tel:22892306835">+00 (228) 92 30 68 35 </a></li>
+            <li><i class="fa fa-phone"></i> <a href="tel:+228 91306835">+00 (228) 91 30 68 35 </a></li>
             <li><i class="fa fa-envelope-o"></i><a href="mailto:christiancode12@gmail.com">christiancode12@gmail.com</a></li>
           </ul>
           <ul class="faico clear">
@@ -33,7 +33,7 @@
     </div>
     <div class="wrapper row5">
       <div id="copyright" class="hoc clear"> 
-        <p class="fl_left">Copyright &copy; 2021 - All Rights Reserved - <a href="#">Python pour les nulles</a></p>
+        <p class="fl_left">Copyright &copy; 2021 - All Rights Reserved - Python pour les nulles</p>
       </div>
     </div>
   </div>
@@ -47,9 +47,9 @@
             data: $("#form").serialize(),
             datatype: "json",
             success: function(data) {
-                console.log(data)
                 if (data.Success === "Success") {
                    document.querySelector("#btn").textContent = "Terminer"
+                  document.querySelector('#form').reset()
                 }else{
                   document.querySelector('#class')
                   document.querySelector('#class').innerHTML = data.email ? data.email : data.name

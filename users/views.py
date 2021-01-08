@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth.views import LoginView, LogoutView
 from .forms import LoginForm, RegisterForm
 from django.http import JsonResponse, HttpResponse
 from django.core import serializers
+from django.contrib import messages
 
 from django.contrib.auth.models import Group
 # Create your views here.
@@ -26,14 +27,18 @@ class Register(View):
 
 class UserCreate(View):
     def post(self, request):
+        # return redirect("login")
         if request.is_ajax():
             form = RegisterForm(request.POST)
             if form.is_valid():
                 user = form.save()
                 group = Group.objects.get(name='students')
                 group.user_set.add(user)
+                messages.success(request, f"Votre compte à été bien créer connecter vous '{user.username}' ")
 
                 return JsonResponse({"success":"success"})
+                
+
             else:
                 return JsonResponse(dict(form.errors))
         else:

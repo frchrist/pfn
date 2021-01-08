@@ -35,47 +35,20 @@ Rejoignez-nous{% endblock title %}
     </div>
     <div class="mt-2">
       <button class="btn btn-primary btn-block btn" type="submit">S'inscrire</button> </div>
+
+      <div class="mt-2"> <a class="btn btn-danger btn-block" href="{% url 'homepage' %}">
+    retour </a> </div>
     </div>
+
+
   
   </form>
 
 {%endblock %}
 
 {% block javascript%}
+<script src="{% static 'users/js/reg.js' %}"></script>
 <script>
-  document.querySelector("#form").addEventListener("submit", (e)=>{
-    e.preventDefault()
-    if(!document.querySelector("#error").classList.contains("d-none")){
-      document.querySelector("#error").classList.add("d-none");
-    }
-    if(!document.querySelector("#msg").classList.contains("d-none")){
-      document.querySelector("#msg").classList.add("d-none");
-    }
-    document.querySelector(".btn").textContent = "Creation encoure ..."
-    $.ajax({
-            type: "POST",
-            url: "{% url 'newuser' %}",
-            data: $("#form").serialize(),
-            datatype: "json",
-            success: function(data) {
-                if (data.success === "success") {
-                   document.querySelector("#msg").classList.remove("d-none");
-                   document.querySelector(".btn").textContent = "Terminer"
-                }else{
-                  if(data.username){
-                    document.querySelector("#ierror").innerHTML = data.username
-                  }else if(data.email){
-                    document.querySelector("#ierror").innerHTML = data.email
-                  }else{
-                    document.querySelector("#ierror").innerHTML = data.password2
-                  }
-      
-                  document.querySelector("#error").classList.remove("d-none");
-                  document.querySelector(".btn").textContent = "Erreur"
-                }
-            }
-        })
-  })
-   
+  register( "{% url 'newuser' %}", "{% url 'login' %}")
 </script>
 {%endblock%}

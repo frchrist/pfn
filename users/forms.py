@@ -2,7 +2,7 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
-
+from django.core.exceptions import ValidationError
 
 
 class LoginForm(AuthenticationForm):
@@ -52,3 +52,11 @@ class RegisterForm(UserCreationForm):
             "class":"form-control",
             "placeholder":"Comfirmer le mot de passe"
         })
+
+    def clean_email(self):
+        if User.objects.filter(email=self.cleaned_data['email']).exists():
+            raise forms.ValidationError("Adresse électronique déja prise")
+
+        return self.cleaned_data['email'] 
+
+
