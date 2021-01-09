@@ -172,10 +172,10 @@ CKEDITOR_CONFIGS = {
         'skin':'moono',
         'toolbar_Basic': 
              [
-                 ['CodeSnippet'],
-                 ['TextColor', 'BGColor','Maximize', 'ShowBlocks','Bold', "Table", "Smiley", "HorizontalRule", "Link",'Styles', 'Format', 'Font', 'FontSize' "SpecialChar","Image", "PageBreak", "Iframe"],
+                 ['CodeSnippet', "Source", "div"],
+                 ['div','devtools','TextColor', 'BGColor','Maximize', 'ShowBlocks','Bold', "Table", "Smiley", "HorizontalRule", "Link",'Styles', 'Format', 'Font', 'FontSize' "SpecialChar","Image", "PageBreak", "Iframe", 'Blockquote', 'CreateDiv'],
                   # here
-             ], 'extraPlugins': ['codesnippet','ajax'],
+             ],'extraPlugins': ','.join(['codesnippet','div']),
         'width':'auto',
         # "update":['image','update','table','HorizontalRule', 'Smiley', "SpecialChar","CodeSnippet"], 'extraPlugins': 'codesnippet',
     },
