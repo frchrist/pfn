@@ -6,7 +6,7 @@ from .models import Contact, Subscribe, Commentaire, Course
 class CourseForm(forms.ModelForm):
     class Meta:
         model = Course
-        fields = ["title", "level", "status","img_link", "intro",  "body"]
+        fields = ["title", "level", "status","img_link", "intro",  "body", 'mail_send']
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

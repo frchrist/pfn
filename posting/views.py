@@ -16,7 +16,6 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
 from django.utils.text import slugify
 
-
 from django.core.paginator import Paginator
 # Create your views here.
 class Variables:
@@ -26,6 +25,7 @@ class Variables:
     @staticmethod
     def name():
         return "Python pour les nulles"
+
 
 form = NewLetter()
 @method_decorator(login_required, name="dispatch")
@@ -94,7 +94,7 @@ class LevelDetail(DetailView):
         }
         value = display[self.kwargs["slug"]]
         self.level = Level.objects.get(level=value)
-        return Course.objects.filter(level=self.level, status="Publier")
+        return Course.objects.filter(level=self.level, status="Publier").order_by('-date')
 
     def get_context_data(self, **kwargs):
         context = super(LevelDetail, self).get_context_data(**kwargs)

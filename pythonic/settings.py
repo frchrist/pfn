@@ -203,6 +203,16 @@ LOGIN_URL  ="login"
 LOGIN_REDIRECT_URL  = "homepage"
 LOGOUT_REDIRECT_URL = "homepage"
 
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = "pythonfornulls@gmail.com"
+EMAIL_HOST_PASSWORD = "pythoncode12" #past the key or password app here
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+# DEFAULT_FROM_EMAIL = 'default from email'
+
+
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 

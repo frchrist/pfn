@@ -67,10 +67,16 @@ label {
                                          {{form.status}}
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                          <label for="{{ form.level.id_for_label }}">{{ form.level.label }} *</label> 
                                          {{form.level}}
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                         <label for="{{ form.mail_send.id_for_label }}">{{ form.mail_send.label }} *</label> 
+                                         {{form.mail_send}}
                                     </div>
                                 </div>
                             </div>
@@ -83,7 +89,7 @@ label {
                                 <div class="col-md-12">
                                     <div class="form-group"> <label for="{{ form.intro.id_for_label }}">{{form.body.label }}* :</label> <br>{{form.body}}</div>
                                 </div>
-                                <div class="col-md-6 text-center mb-2"> <a href="{% url 'homepage' %}" target="_blank" rel="noopener noreferrer" class="btn btn-danger btn-send pt-2">Quitter</a></div>
+                                <div class="col-md-6 text-center mb-2"> <a href="{% url 'homepage' %}" target="_blank" rel="noopener noreferrer" class="btn btn-danger btn-send pt-2" id="back">Quitter</a></div>
                                 <div class="col-md-6 text-center"> <input type="submit" class="btn btn-success btn-send pt-2 " value="Poster le Cours"> </div>
                             </div>
                         </div>

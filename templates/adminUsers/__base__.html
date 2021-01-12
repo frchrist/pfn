@@ -12,6 +12,12 @@
 </head>
 <body>
 
-            {% block content %}{% endblock %}
+{% block content %}{% endblock %}
+<script>
+document.querySelector("#back").addEventListener('click', (e)=>{
+e.preventDefault();
+history.back();
+})
+</script>
 </body>
 </html>
