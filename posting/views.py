@@ -17,6 +17,8 @@ from django.contrib.auth.models import User
 from django.utils.text import slugify
 
 from django.core.paginator import Paginator
+
+from data.signals import object_views_signal
 # Create your views here.
 class Variables:
     def __init__(self):
@@ -88,6 +90,10 @@ class CourseDetail(DetailView):
         }
 
         context['all'] = Course.objects.filter(status="Publier", level__level=self.get_object().level.level).order_by("-date")
+        instance = context['object']
+
+        object_views_signal.send(instance.__class__, instance=instance, request=self.request)
+
         return context
 
 

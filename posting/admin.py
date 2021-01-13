@@ -5,7 +5,7 @@ from .models import Course, Level, Subscribe
 
 @admin.register(Course)
 class PostAdmin(admin.ModelAdmin):
-    pass
+    list_display = ("title", "author", "date", "status")
 
 @admin.register(Level)
 class CoureLevelAdmin(admin.ModelAdmin):
