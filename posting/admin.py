@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Course, Level
+from .models import Course, Level, Subscribe
 
 # Register your models here.
 
@@ -9,4 +9,8 @@ class PostAdmin(admin.ModelAdmin):
 
 @admin.register(Level)
 class CoureLevelAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Subscribe)
+class SubscribeAdmin(admin.ModelAdmin):
     pass

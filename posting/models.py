@@ -24,7 +24,8 @@ list_mail = [user.email for user in User.objects.all() if user.email != ""]
 from_email = settings.EMAIL_HOST_USER
 def sending_post_email(context :dict) -> None:
     message = render_to_string("posting/emailing.html", context)
-    send_mail(subject, message, from_email, list_mail,fail_silently=True,html_message=message)
+    print(list_mail)
+    # send_mail(subject, message, from_email, list_mail,fail_silently=True,html_message=message)
     # print(Site.objects.get_current())
     
 
