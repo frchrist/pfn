@@ -17,6 +17,8 @@ from django.contrib.auth.models import User
 from django.utils.text import slugify
 
 from django.core.paginator import Paginator
+
+from data.signals import object_views_signal
 # Create your views here.
 class Variables:
     def __init__(self):
@@ -79,6 +81,10 @@ class CourseDetail(DetailView):
 
         context['commentaire'] = page_obj
         context['len'] = Commentaire.objects.filter(to=self.get_object()).count()
+        instance = context['object']
+
+        object_views_signal.send(instance.__class__, instance=instance, request=self.request)
+
         return context
 
 
