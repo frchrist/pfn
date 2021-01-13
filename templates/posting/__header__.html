@@ -32,7 +32,7 @@
       </div>
       <nav id="mainav" class="fl_right">
         <ul class="clear">
-          <li class="active"><a href="{% url 'homepage' %}">Accueil</a></li>
+          <li class="{{active}}"><a href="{% url 'homepage' %}">Accueil</a></li>
           <li><a class="drop" href="#">Niveaux</a>
             <ul>
               {% for l in levels %}

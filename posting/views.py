@@ -55,6 +55,8 @@ class HomePage(ListView):
         context["names"] =  Variables.name
         context["title"] = "home page"
         context["newLetterForm"] = form
+        context["active"] = "active"
+
         return context
 
 
@@ -64,6 +66,7 @@ class HomePage(ListView):
 class CourseDetail(DetailView):
     model = Course
     template_name  ="posting/coursedetail.html"
+   
 
 
     def get_context_data(self, **kwargs):
@@ -73,12 +76,19 @@ class CourseDetail(DetailView):
         context["levels"] = Level.objects.all()
 
         p = Paginator( Commentaire.objects.filter(to=self.get_object()), 10) #10 commentaire par pages
-
+        print(self.get_object().level)
         page_n = self.request.GET.get("page")
         page_obj = p.get_page(page_n)
 
         context['commentaire'] = page_obj
         context['len'] = Commentaire.objects.filter(to=self.get_object()).count()
+       
+        display = {
+            "debutant":"Débutant",
+            "intermediaire":"Intermédiaire"
+        }
+
+        context['all'] = Course.objects.filter(status="Publier", level__level=self.get_object().level.level).order_by("-date")
         return context
 
 

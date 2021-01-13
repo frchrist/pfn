@@ -1,23 +1,20 @@
-{%extends "posting/__base__.html" %}{% load static %}{% block meta %}pythonnull: {{object.title}}{% endblock %}{% block title %}{{object.title}}{% endblock %}{%block content%}
+{%extends "posting/__base__.html" %}{% load static %}{% block meta %}python pour les nulls tutoriels {{object.title}} - {{object.level}}{% endblock %}{% block title %}python pour les nulls tutoriels {{object.title}} - {{object.level}}{% endblock %}{%block content%}
 <div class="wrapper bgded overlay" style="background-image:url(https://res.cloudinary.com/uxyuslshjd/image/upload/v1609762411/pythonic/Untitled_Design_jxwlhv.jpg);">
     <div id="breadcrumb" class="hoc clear"> 
-     <H1><strong>{{object.title}}</strong></H1>
+     <!-- <H1><strong>{{object.title}}</strong></H1> -->
     </div>
   </div>
 <div class="wrapper row3">
     <main class="hoc container clear"> 
-      <div class="content"> 
+      <div class="content three_quarter first"> 
         <h1>{{object.title}}</h1>
-        <p>posté le: {{object.date}} par {{object.author}}
+        <p>posté le: {{object.date}} par {{object.author}} | niveau <a href="{% url 'niveaudetail' object.level|slugify %}">{{object.level}}</a>
 
           {% if user.is_staff %}
           | <a href="{% url 'update' object.slug %}">édit</a> 
-          
           {% endif%}
         </p>
-
         {{object.body|safe}}
-        </div>
         <div id="comments">
           {% if len > 1%}
           <h2>{{len}} commentaires</h2>
@@ -40,7 +37,6 @@
                 </div>
               </article>
             </li>
-          
             {% endfor %}
           </ul>
           {% if  commentaire %}
@@ -67,6 +63,25 @@
             </div>
           </form>
         </div>
+      </div>
+      <div class="sidebar one_quarter"> 
+        <!-- ################################################################################################ -->
+        {% if all %}
+        <h6>Cours niveau -{{object.level}}</h6>
+        <nav class="sdb_holder">
+          <ul>
+            {% for course in all%}
+            <li 
+            {% if object.slug == course.slug %}
+            
+            style="color:rgb(214, 60, 60)"
+            {% endif %}
+            ><a href="{% url 'coursedetail' course.slug %}">{{course.title}}</a></li>
+            {% endfor %}
+            
+          </ul>
+        </nav>
+        {% endif %}
       </div>
       <div class="clear"></div>
     </main>

@@ -36,7 +36,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'igl%fkjn0!c!9#9p(rb7(f#ou03(giz6alh%daz7*o&c)_tw+m'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["pythonfornull.herokuapp.com", "localhost", "127.0.0.1"]
 
@@ -55,7 +55,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -90,34 +90,34 @@ WSGI_APPLICATION = 'pythonic.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 #developement databases
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 # postgres://lejroohwikrlkd:40b6c5ec45deb6c9a11864b31eca35250dafedc5cff9be899ee20cc70a01554f@ec2-174-129-199-54.compute-1.amazonaws.com:5432/d1lglnhk5c0t09
 # #production database
-DATABASES = {
+# DATABASES = {
 
-    'default': {
+#     'default': {
 
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-        'NAME': 'd1lglnhk5c0t09',
+#         'NAME': 'd1lglnhk5c0t09',
 
-        'USER': 'lejroohwikrlkd',
+#         'USER': 'lejroohwikrlkd',
 
-        'PASSWORD': '40b6c5ec45deb6c9a11864b31eca35250dafedc5cff9be899ee20cc70a01554f',
+#         'PASSWORD': '40b6c5ec45deb6c9a11864b31eca35250dafedc5cff9be899ee20cc70a01554f',
 
-        'HOST': 'ec2-174-129-199-54.compute-1.amazonaws.com',
+#         'HOST': 'ec2-174-129-199-54.compute-1.amazonaws.com',
 
-        'PORT': 5432,
+#         'PORT': 5432,
 
-    }
+#     }
 
-}
+# }
 
 
 # Password validation
@@ -213,10 +213,10 @@ EMAIL_USE_TLS = True
 # DEFAULT_FROM_EMAIL = 'default from email'
 
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 #settings for security
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
+# SECURE_SSL_REDIRECT = True
+# SESSION_COOKIE_SECURE = True
 
