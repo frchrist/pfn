@@ -1,7 +1,12 @@
 {%extends "posting/__base__.html" %}{% load static %}{% block meta %}python pour les nulls tutoriels {{object.title}} - {{object.level}}{% endblock %}{% block title %}python pour les nulls tutoriels {{object.title}} - {{object.level}}{% endblock %}
 {% block share_meta %}
+<meta property="og:site_name" content="Python pour les nulls">
 <meta property="og:title" content="{{object.title}}" />
-<meta property="og:description" content="{{object.intro|truncatewords:25}}" />
+<meta property="og:description" content="{{object.intro|safe|truncatewords:25}}" />
+<meta property="og:image" itemprop="image" content="{{object.img_link}}">
+<meta property="og:type" content="website" />
+<meta property="og:updated_time" content="1440432930" />
+<meta property="og:url" content="https://pythonfornulls.herokuapp.com{% url 'coursedetail'object.slug %}" />
 {% endblock share_meta %}
 {%block content%}
 
