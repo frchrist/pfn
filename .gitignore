@@ -2,3 +2,4 @@
 staticfiles
 requ.txt
 temps
+db.sqlite3
