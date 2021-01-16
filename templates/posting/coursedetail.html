@@ -2,7 +2,7 @@
 {% block share_meta %}
 <meta property="og:site_name" content="Python pour les nulls">
 <meta property="og:title" content="{{object.title}}" />
-<meta property="og:description" content="{{object.intro|safe|truncatewords:25}}" />
+<meta property="og:description" content="{{object.intro|safe|striptags  }}" />
 <meta property="og:image" itemprop="image" content="{{object.img_link}}">
 <meta property="og:type" content="website" />
 <meta property="og:updated_time" content="1440432930" />
@@ -12,7 +12,7 @@
 {% endblock share_meta %}
 {%block content%}
 
-<div class="wrapper bgded overlay" style="background-image:url(https://res.cloudinary.com/uxyuslshjd/image/upload/v1609762411/pythonic/Untitled_Design_jxwlhv.jpg);">
+<div class="wrapper bgded overlay" style="background:url(https://res.cloudinary.com/uxyuslshjd/image/upload/v1610723706/pythonic/universe-1566161_1280_lsnejf.jpg) center/cover;">
     <div id="breadcrumb" class="hoc clear"> 
      <!-- <H1><strong>{{object.title}}</strong></H1> -->
     </div>

@@ -46,7 +46,7 @@
     <ul class="nospace group overview">
       {% for post_course in courses %}
       <li class="one_third">
-        <figure><a href={{post_course.get_absolute_url }}><img src="{{post_course.img_link}}" alt=""></a>
+        <figure><a href={{post_course.get_absolute_url }}><img src="{% if post_course.image.url == None %}{{ post_course.img_link }} {% else %}{{post_course.image.url }}{% endif %}" alt=""></a>
           <figcaption>
             <h6 class="heading"><a href="{% url 'coursedetail' post_course.slug %}">{{post_course.title}}</a></h6>
             <p>{{post_course.intro|safe|truncatewords:25}}</p>

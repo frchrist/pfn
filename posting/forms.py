@@ -15,6 +15,11 @@ class CourseForm(forms.ModelForm):
         })
 
         self.fields['title'].label = "Titre du Cours"
+        self.fields["mail_send"].widget.attrs.update({
+            "class":"form-check-input",
+            "id":"form-email",
+        })
+
         self.fields['level'].widget.attrs.update({
             "class":"form-control mb-3",
         })

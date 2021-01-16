@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 from os import path as p, environ
 
+
 from django.core.exceptions import ImproperlyConfigured
 
 def get_secret(name, default=None):

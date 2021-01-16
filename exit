@@ -1,0 +1,236 @@
+[33mcommit 5fdad1b3e86587c27d99aa172b8ed7711810aa90[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Merge: 4539680 ccf669a
+Author: code.christ <code12christ@gmail.com>
+Date:   Fri Jan 15 15:19:02 2021 +0000
+
+    Merge branch 'clode'
+
+[33mcommit ccf669abbc080816f90347b2cace62891367ed49[m[33m ([m[1;32mclode[m[33m)[m
+Author: code.christ <code12christ@gmail.com>
+Date:   Fri Jan 15 15:18:26 2021 +0000
+
+    upload to  cloudianry and change image
+
+[33mcommit 4539680bec0506fc8af9aab81dab3ed80f84c649[m
+Author: code.christ <code12christ@gmail.com>
+Date:   Fri Jan 15 12:10:38 2021 +0200
+
+    model.py modif
+
+[33mcommit 1ee63fddaec8c27d19a204951b311a8275568bb2[m[33m ([m[1;31mheroku/master[m[33m)[m
+Author: code.christ <code12christ@gmail.com>
+Date:   Thu Jan 14 11:37:21 2021 +0200
+
+    fix
+
+[33mcommit a69a563806422fe088715d30f509baab843990a4[m
+Author: code.christ <code12christ@gmail.com>
+Date:   Thu Jan 14 11:28:59 2021 +0200
+
+    html
+
+[33mcommit 42af40fc49a66fc86508fa97a35bc2a6389e6eef[m
+Author: code.christ <code12christ@gmail.com>
+Date:   Thu Jan 14 10:51:21 2021 +0200
+
+    fix syntax error in settings.py
+
+[33mcommit e7dfdb2682a76029dfdfa424b973ae5114ec284f[m
+Author: code.christ <code12christ@gmail.com>
+Date:   Thu Jan 14 10:49:09 2021 +0200
+
+    adding share it
+
+[33mcommit 558ff46b8e9b305c45bd342b6c2fbd57247936fc[m
+Author: code.christ <code12christ@gmail.com>
+Date:   Thu Jan 14 09:02:57 2021 +0200
+
+    deployement mode
+
+[33mcommit 3b985188f90047886bce9951259d7b870dab807d[m
+Merge: c2664ed 1d3c317
+Author: code.christ <code12christ@gmail.com>
+Date:   Wed Jan 13 22:06:03 2021 +0200
+
+    fix confit
+
+[33mcommit 1d3c31795b826cc42067fc34780f7bcedc47b4a5[m[33m ([m[1;32mdata[m[33m)[m
+Author: code.christ <code12christ@gmail.com>
+Date:   Wed Jan 13 22:04:19 2021 +0200
+
+    humm
+
+[33mcommit 1c2c25c242480a7fb22e5fd2223b81cd535c0819[m
+Author: code.christ <code12christ@gmail.com>
+Date:   Wed Jan 13 21:59:49 2021 +0200
+
+    adding
+
+[33mcommit c2664edad5e9580790f52c39c133f1bbb7dd8e1b[m
+Merge: 4160307 ee0ab82
+Author: code.christ <code12christ@gmail.com>
+Date:   Wed Jan 13 20:09:14 2021 +0200
+
+    sidelayout done
+
+[33mcommit ee0ab8256776ee3d5c84ccce75f87e36fb06b83d[m
+Author: code.christ <code12christ@gmail.com>
+Date:   Wed Jan 13 17:10:45 2021 +0200
+
+    adding sidebar
+
+[33mcommit 41603074a66ac8a98afb5ffbea2c8c736c371ef1[m
+Author: code.christ <code12christ@gmail.com>
+Date:   Wed Jan 13 16:22:40 2021 +0200
+
+    refact for branch
+
+[33mcommit 1348b594b09a18ff34b50365d248ac94d6a238b6[m
+Author: code.christ <code12christ@gmail.com>
+Date:   Tue Jan 12 14:08:08 2021 +0200
+
+    adding email feactures
+
+[33mcommit d39b665e116811bdcd1be5db843148704b49c2d4[m
+Author: code.christ <code12christ@gmail.com>
+Date:   Sat Jan 9 18:30:58 2021 +0200
+
+    add more widget on ckeditor
+
+[33mcommit 5e88dc3f6b7e667973606da5187484865ef57bfc[m
+Author: code.christ <code12christ@gmail.com>
+Date:   Fri Jan 8 11:38:29 2021 +0200
+
+    add empty tags and changing admin urls
+
+[33mcommit ef61b562619dc0d61a0c6646484e51c1874d02ec[m
+Author: code.christ <code12christ@gmail.com>
+Date:   Fri Jan 8 11:17:00 2021 +0200
+
+    adding pagination in comments section and add security setting
+
+[33mcommit de11eafdcf9f9b88835d2679cb449beb817510be[m
+Author: code.christ <code12christ@gmail.com>
+Date:   Fri Jan 8 10:36:45 2021 +0200
+
+    setup ending settings
+
+[33mcommit 5771e9b138e45e5b82a1f9896def1fa5495bddf0[m
+Author: code.christ <code12christ@gmail.com>
+Date:   Thu Jan 7 17:38:12 2021 +0200
+
+    humm
+
+[33mcommit 1889bdf3e431b0575ba51bfb43724c5917cbff7b[m
+Author: code.christ <code12christ@gmail.com>
+Date:   Thu Jan 7 17:16:09 2021 +0200
+
+     turn off debug
+
+[33mcommit 64d07c6b7e676c66cd20c0a0653ecad904e67293[m
+Author: code.christ <code12christ@gmail.com>
+Date:   Thu Jan 7 16:56:22 2021 +0200
+
+    fix slugly errros
+
+[33mcommit d9f760d6dc7d0b47cca622e7db4f9c11f019e1cd[m
+Author: code.christ <code12christ@gmail.com>
+Date:   Thu Jan 7 16:03:51 2021 +0200
+
+    setup postgresql databases
+
+[33mcommit 0b9adb785d206bc7023321c75b2f3a8432c72fa5[m
+Author: code.christ <code12christ@gmail.com>
+Date:   Thu Jan 7 15:42:30 2021 +0200
+
+    add host to allowed_hosts
+
+[33mcommit f7f5fe60d9a65df64495e721728302bc29f75410[m
+Author: code.christ <code12christ@gmail.com>
+Date:   Thu Jan 7 15:33:53 2021 +0200
+
+    correction des different bugs
+
+[33mcommit 8e7efea1fb43e9a0f37d5a13a1dd759571471c33[m
+Author: code.christ <code12christ@gmail.com>
+Date:   Wed Jan 6 10:27:36 2021 +0200
+
+    remove mk to DetailView function
+
+[33mcommit bd674eea1072c23de55af9fcb0b541316caf46a0[m
+Author: code.christ <code12christ@gmail.com>
+Date:   Wed Jan 6 10:12:12 2021 +0200
+
+    remove makdown import in posting views
+
+[33mcommit e29cdc8d13140daa015b59cc52d5861c10d40c90[m
+Author: code.christ <code12christ@gmail.com>
+Date:   Wed Jan 6 10:08:53 2021 +0200
+
+    fix syntax error in settings.py
+
+[33mcommit 43368894b57a2c6b53ef63d9a42a069fe36438b9[m
+Author: code.christ <code12christ@gmail.com>
+Date:   Wed Jan 6 10:01:28 2021 +0200
+
+    setup postgresqsl database and add hosts
+
+[33mcommit 0b9c247621f281568a44d2d7d0a0281628e84eb9[m
+Author: code.christ <code12christ@gmail.com>
+Date:   Wed Jan 6 09:51:56 2021 +0200
+
+    install gunicorn
+
+[33mcommit f6324239ba4b51c8a38e8df7a36a82c9ff7b1f1a[m
+Author: code.christ <code12christ@gmail.com>
+Date:   Wed Jan 6 09:35:33 2021 +0200
+
+    d
+
+[33mcommit 2d9d70c8559a4d6faf1ae2d07dd209cc8460cee0[m
+Author: code.christ <code12christ@gmail.com>
+Date:   Wed Jan 6 09:30:50 2021 +0200
+
+    d
+
+[33mcommit 210aab59bc86bab31ddd2b1a2c0069f8f77505fe[m
+Author: code.christ <code12christ@gmail.com>
+Date:   Wed Jan 6 09:21:07 2021 +0200
+
+    add static file storage to setting.py
+
+[33mcommit 573d1610111d044d1d15357af10b120b1dd85d17[m
+Author: code.christ <code12christ@gmail.com>
+Date:   Wed Jan 6 09:18:02 2021 +0200
+
+    ee
+
+[33mcommit 210bf1cc9377f06ef4386f715fca8778cba6b8da[m
+Author: code.christ <code12christ@gmail.com>
+Date:   Wed Jan 6 09:10:29 2021 +0200
+
+    install whitenoise package and add that
+
+[33mcommit 0942c51a10b744651a6ce3b840553f45ec7e707f[m
+Author: code.christ <code12christ@gmail.com>
+Date:   Tue Jan 5 14:10:57 2021 +0200
+
+    setup deployement
+
+[33mcommit 2824cc71d07ef008f22c404aa39da0ff563552e6[m[33m ([m[1;31morigin/master[m[33m)[m
+Author: code.christ <code12christ@gmail.com>
+Date:   Tue Jan 5 12:59:17 2021 +0200
+
+    project end
+
+[33mcommit 4ef4194af9f074c79992290176e46964545f6590[m
+Author: code.christ <code12christ@gmail.com>
+Date:   Thu Dec 31 18:25:00 2020 +0200
+
+    intalled templates
+
+[33mcommit b1e78e05997d4c48b0000e1a4c077e4395039a3d[m
+Author: code.christ <code12christ@gmail.com>
+Date:   Thu Dec 31 15:34:20 2020 +0200
+
+    initialize python null web project

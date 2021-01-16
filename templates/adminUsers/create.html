@@ -1,6 +1,6 @@
 {% extends "adminUsers/__base__.html" %}
 {% block title %}
-    posté un nouveau cour de python
+   Adminitration : Créer un Tutoriel -PythonForNulls
 {% endblock title %}
 
 {% block content %}
@@ -44,7 +44,7 @@ label {
         <div class="card mt-2 mx-auto p-4 bg-light">
             <div class="card-body bg-light">
                 <div class="container">
-                    <form id="contact-form" role="form" method="POST"> {% csrf_token %}
+                    <form id="contact-form" role="form" method="POST" enctype = "multipart/form-data"> {% csrf_token %}
                         <div class="controls">
                             <div class="row">
                                 <div class="col-md-6">
@@ -74,11 +74,18 @@ label {
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <div class="form-group">
-                                         <label for="{{ form.mail_send.id_for_label }}">{{ form.mail_send.label }} *</label> 
-                                         {{form.mail_send}}
+                                    <div class="form-check">
+                                        {{form.mail_send}}
+                                         <label for="form-email" class="form-check-label">{{ form.mail_send.label }} *</label> 
                                     </div>
                                 </div>
+
+                                <!-- <div class="col-md-3">
+                                    <div class="form-group">
+                                         <label for="{{ form.image.id_for_label }}">{{ form.image.label }} *</label> 
+                                         {{form.image}}
+                                    </div>
+                                </div> -->
                             </div>
                             <div class="row">
                                 <div class="col-md-12">

@@ -172,6 +172,8 @@ class createPost(usermixin, CreateView):
     form_class = CourseForm
     def form_valid(self, form):
         form.instance.author = self.request.user
+        # form.instance.image = self.request.FILES['image']
+        # print(self.request.FILES)
         form.save()
         return super(createPost, self).form_valid(form)
 
