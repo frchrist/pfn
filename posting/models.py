@@ -19,22 +19,18 @@ import threading
 subject = "Nouveau tutoriels de python "
 # message = render_to_string("posting/email.html get_current_site
 
-list_mail = [user.email for user in User.objects.all() if user.email != ""]
+# list_mail = [user.email for user in User.objects.all() if user.email != ""]
+list_mail = ["farechristiantanghanwaye@gmail.com"]
 
+class EmailMessage(threading.Thread):
+    def __init__(self, email):
+        threading.Thread.__init__(self)
+        self.email = email
+
+    def run(self):
+        self.email.send()
 from_email = settings.EMAIL_HOST_USER
-def sending_post_email(context :dict) -> None:
-    message = render_to_string("posting/emailing.html", context)
-    print(list_mail)
-    # send_mail(subject, message, from_email, list_mail,fail_silently=True,html_message=message)
-    # print(Site.objects.get_current())
-    
-
-
-
-
-
 # Create your models here.
-
 class ModelUtile:
     def __init__(self):
         pass
@@ -46,9 +42,9 @@ class ModelUtile:
         if( instance.also_send == False and instance.mail_send==True) and instance.status == "Publier":
             instance.also_send = True
             context = {'user':instance.author, 'title':instance.title, 'resume':instance.intro, "slug":instance.slug}
-            # sending_post_email(context)
-            eml = threading.Thread(target=sending_post_email, args=(context,))
-            eml.start()
+            message = render_to_string("posting/emailing.html", context)
+            EmailMessage(message).start()
+            
 
 course_level = [("Débutant", "Débutant"), ("Intermédiaire","Intermédiaire")]
 course_status = [("Publier", "publier"), ("Corbeille","corbeille")]
