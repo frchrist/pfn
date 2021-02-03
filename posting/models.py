@@ -8,6 +8,7 @@ from ckeditor.fields  import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 
 
+
 #sending email sections
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
@@ -104,5 +105,13 @@ class Commentaire(models.Model):
     class Meta:
          ordering =["-at"]
 
+class ReplayToComment(models.Model):
+    replay_content = models.TextField()
+    author = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    at = models.DateTimeField(auto_now_add=True)
+    to = models.ForeignKey(to=Commentaire, on_delete=models.CASCADE, verbose_name="commentaire", related_name="replays")
+
+    def __str__(self):
+        return self.replay_content
 pre_save.connect(ModelUtile.slug, Course)
 

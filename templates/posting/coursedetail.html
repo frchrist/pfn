@@ -51,34 +51,41 @@
                   par <a href="#">{{comment.author}}</a>
                   </address>
                   <time datetime="2045-04-06T08:15+00:00">{{comment.at}}</time> |
-                  <button href="#" id="replay" onclick="func('{{comment.pk}}')">répondre</button>
+                  <button href="#" class="replay"  id="{{comment.pk}}">répondre</button>
                 </header>
                 <div class="comcont">
                   <p>{{comment.comments}}</p>
                 </div>
                 <div class="replay-section" style="display: none;">
-                  <input type="text" class="input-replay input{{comment.pk}}" id="{{comment.pk}}">
+                  <form action="{% url 'replayToComment' comment.pk %}" method="POST" class="form{{comment.pk}} replayform">{% csrf_token %}
+                    {{replayForm}} <br>
                   <button type="submit" name="submit" class="btn-replay">envoyer</button>
+                </form>
                 </div>
                 <!--  -->
-
+                {% if comment.replays.all|length != 0 %}
                 <div id="comments">
                   <ul>
                     <li>
+                      {% for replays in comment.replays.all %}
                       <article>
                         <header>
                           <figure class="avatar"><img src="https://res.cloudinary.com/uxyuslshjd/image/upload/v1609762606/pythonic/avatar_gy3cdk.png" alt=""></figure>
                           <address>
-                          reponse de <a href="#">user</a>
+                          reponse de <a href="#">{{replays.author}}</a>
                           </address>
-                          <time datetime="2045-04-06T08:15+00:00">2045-04-06T08:15+00:00</time>
+                          <time datetime="2045-04-06T08:15+00:00">{{replays.at}}</time>
               
                         </header>
                         <div class="comcont">
-                          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius inventore dolores dolore! Atque tenetur doloremque molestiae dignissimos itaque nemo, ratione ab commodi quia deleniti iste ea, voluptas quae debitis laborum!</p>
+                          <p>{{replays.replay_content}}</p>
                         </div>
-                        
+                        {% endfor %}
                       </article>
+                    </li>
+                  </ul>
+                <!-- </div> -->
+                {% endif %}
                 <!--  -->
               </article>
               
@@ -140,16 +147,58 @@
   </form>
 
 <script>
-  function func(id){
-    var seletor = "."+"input"+id;
-    replay_input = document.querySelector(seletor);
+  function toggleResponse(btn){
 
-    if(replay_input.parentNode.style.display == "none"){
-      replay_input.parentNode.style.display =  "block"
-    }else{
-      replay_input.parentNode.style.display = "none"
-    }
   }
+
+  btns = document.querySelectorAll(".replay")
+  btns.forEach(btn => {
+      btn.addEventListener("click", (e)=>{
+      ids = e.target.id
+      var seletor = "."+"form"+ids;
+      forms = document.querySelector(seletor);
+
+      if(forms.parentNode.style.display == "none"){
+        forms.parentNode.style.display =  "block"
+        e.target.textContent= "Fermé"
+      }else{
+        forms.parentNode.style.display = "none"
+        e.target.textContent= "Répondre"
+      }
+      })
+  });
+
+  function createComment(formData, action){
+    let token = document.getElementsByName("csrfmiddlewaretoken")[0].value
+    fetch(action,{
+      method:"POST",
+      body:formData,
+      headers:{
+        'X-CSRFToken':token,
+        'X-Requested-With':"XMLHttpRequest"
+      }
+    }).then(function(response){
+      return response;
+    }).then(function(data){
+      console.log(data)
+    }).catch((e)=>{
+      console.log(e, "error")
+    })
+  }
+
+  replayforms = document.querySelectorAll(".replayform")
+  function submitForm(e){
+    e.preventDefault();
+    
+    const cl = e.target.classList[1]
+    form = document.querySelector("."+cl)
+    // console.log(form.textarea.value)
+    let formData = new FormData(form)
+    createComment(formData,e.target.action )
+  }
+  replayforms.forEach(form =>{
+    form.addEventListener('submit', submitForm)
+  })
 
  
 </script>

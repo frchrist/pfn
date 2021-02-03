@@ -3,10 +3,11 @@ from django.views import View
 from django.views.generic import DetailView, CreateView, FormView, ListView
 from django.views.generic.edit import UpdateView
 from .models import Course
-from .models import Level, Commentaire
+from .models import Level, Commentaire, ReplayToComment
 
-from .forms import NewLetter, CommentsForms, CourseForm
+from .forms import NewLetter, CommentsForms, CourseForm, ReplayForm
 from django.http import JsonResponse, HttpResponse
+from django.core import serializers
 
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import Http404
@@ -38,8 +39,6 @@ class Profile(View):
             "all": Course.objects.filter(status="Corbeille", author__username=request.user),
             "nb":Course.objects.filter(author__username=request.user),
         }
-        # print(Course.objects.filter(author__username=request.user))
-        # print(Course.objects.filter(author=request.user, status="Corbeille"))
         if request.user.is_staff:
             return render(request, "adminUsers/profile.html", context=context)
         raise Http404
@@ -75,6 +74,9 @@ class CourseDetail(DetailView):
         context = super().get_context_data(**kwargs)
         context["newLetterForm"] = form
         context["commentsForms"]  =CommentsForms()
+        context["replayForm"]  =ReplayForm()
+        # context["replays"]  =ReplayToComment.objects.all()
+
         context["levels"] = Level.objects.all()
 
         p = Paginator( Commentaire.objects.filter(to=self.get_object()), 10) #10 commentaire par pages
@@ -154,6 +156,34 @@ class comment(FormView):
 
     def get_success_url(self):
         return reverse("coursedetail", kwargs={"slug":self.kwargs['slug']})
+
+class replay(View):
+    def post(self, request, *args, **kwargs):
+        if request.is_ajax():
+            replayForm = ReplayForm(request.POST)
+            replayForm.instance.replay_content = request.POST['replay_content']
+            # print(request.POST, "con")
+            if replayForm.is_valid():
+            #     print(replayForm)
+                print("fare")
+                print(replayForm.instance.replay_content)
+                replayForm.instance.author = self.request.user
+                instanceOfcomment = Commentaire.objects.get(pk=self.kwargs['pk'])
+                replayForm.instance.to = instanceOfcomment
+                new_comment = replayForm.save()
+                comment_ser = serializers.serialize("json", [new_comment,])
+                return JsonResponse({"response":comment_ser})
+            else:
+                return HttpResponse("Formulaire invalide")
+        return HttpResponse("Error")
+      
+
+        # print(replayForm.errors)
+
+        # return HttpResponse(replayForm.as_p())
+        
+
+        
 
 
 class usermixin(PermissionRequiredMixin):
