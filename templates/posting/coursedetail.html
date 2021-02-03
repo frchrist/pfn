@@ -146,6 +146,8 @@
     <input type="hidden" name="content" value="">
   </form>
 
+
+<script type="text/javascript" src="{% static 'posting/layout/scripts/jquery-3.5.1.slim.min.js' %}"></script>
 <script>
   function toggleResponse(btn){
 
@@ -168,33 +170,32 @@
       })
   });
 
-  function createComment(formData, action){
-    let token = document.getElementsByName("csrfmiddlewaretoken")[0].value
-    fetch(action,{
-      method:"POST",
-      body:formData,
-      headers:{
-        'X-CSRFToken':token,
-        'X-Requested-With':"XMLHttpRequest"
-      }
-    }).then(function(response){
-      return response;
-    }).then(function(data){
-      console.log(data)
-    }).catch((e)=>{
-      console.log(e, "error")
-    })
+  function createComment(uniqueClass, action){
+     $.ajax({
+            type: "POST",
+            url: action,
+            data: $("."+uniqueClass).serialize(),
+            datatype: "json",
+            success: function(data) {
+                if (data.response) {
+                  document.querySelector("."+uniqueClass).reset()
+                  location.reload()
+                }else{
+                  alert(data.login)
+                }
+            }
+        })
   }
 
   replayforms = document.querySelectorAll(".replayform")
   function submitForm(e){
     e.preventDefault();
     
-    const cl = e.target.classList[1]
-    form = document.querySelector("."+cl)
+    const unique = e.target.classList[1]
+    // form = document.querySelector("."+cl)
     // console.log(form.textarea.value)
-    let formData = new FormData(form)
-    createComment(formData,e.target.action )
+
+    createComment(unique,e.target.action )
   }
   replayforms.forEach(form =>{
     form.addEventListener('submit', submitForm)

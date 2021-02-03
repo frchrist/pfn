@@ -156,25 +156,28 @@ class comment(FormView):
 
     def get_success_url(self):
         return reverse("coursedetail", kwargs={"slug":self.kwargs['slug']})
-
+# @method_decorator(login_required, name='dispatch')
 class replay(View):
     def post(self, request, *args, **kwargs):
         if request.is_ajax():
-            replayForm = ReplayForm(request.POST)
-            replayForm.instance.replay_content = request.POST['replay_content']
-            # print(request.POST, "con")
-            if replayForm.is_valid():
-            #     print(replayForm)
-                print("fare")
-                print(replayForm.instance.replay_content)
-                replayForm.instance.author = self.request.user
-                instanceOfcomment = Commentaire.objects.get(pk=self.kwargs['pk'])
-                replayForm.instance.to = instanceOfcomment
-                new_comment = replayForm.save()
-                comment_ser = serializers.serialize("json", [new_comment,])
-                return JsonResponse({"response":comment_ser})
+            if request.user.is_authenticated:
+                replayForm = ReplayForm(request.POST)
+                replayForm.instance.replay_content = request.POST['replay_content']
+                # print(request.POST, "con")
+                if replayForm.is_valid():
+                #     print(replayForm)
+                    print("fare")
+                    print(replayForm.instance.replay_content)
+                    replayForm.instance.author = self.request.user
+                    instanceOfcomment = Commentaire.objects.get(pk=self.kwargs['pk'])
+                    replayForm.instance.to = instanceOfcomment
+                    new_comment = replayForm.save()
+                    comment_ser = serializers.serialize("json", [new_comment,])
+                    return JsonResponse({"response":comment_ser})
+                else:
+                    return HttpResponse("Svp activer le javascript de votre navigateur pour plus de perfommance ")
             else:
-                return HttpResponse("Formulaire invalide")
+                return JsonResponse({"login":"Vous devez vous connecter"})
         return HttpResponse("Error")
       
 
