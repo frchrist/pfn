@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordResetForm, SetPasswordForm
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
@@ -24,6 +24,27 @@ class LoginForm(AuthenticationForm):
     error_messages = {
         "invalid_login":_("le nom utilisateur ou le mot de passe incorrect")
     }
+
+class RestForm(PasswordResetForm):
+    def __init__(self,*args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["email"].widget.attrs.update({
+            "class":"form-control",
+            "placeholder":"Email"
+        })
+
+class SetPassword(SetPasswordForm):
+    def __init__(self,*args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["new_password1"].widget.attrs.update({
+             "class":"form-control",
+            "placeholder":"Nouveau mot de passe"
+        })
+        self.fields["new_password2"].widget.attrs.update({
+             "class":"form-control",
+            "placeholder":"Confirmer le  mot de passe"
+        })
+        
 
 class RegisterForm(UserCreationForm):
     class Meta:
