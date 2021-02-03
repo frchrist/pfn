@@ -11,6 +11,12 @@
 <meta property="og:type" content="article" />
 {% endblock share_meta %}
 {%block content%}
+<style>
+  .input-replay{
+    border-top-color:none;
+    
+  }
+</style>
 
 <div class="wrapper bgded overlay" style="background:url(https://res.cloudinary.com/uxyuslshjd/image/upload/v1610723706/pythonic/universe-1566161_1280_lsnejf.jpg) center/cover;">
     <div id="breadcrumb" class="hoc clear"> 
@@ -44,12 +50,39 @@
                   <address>
                   par <a href="#">{{comment.author}}</a>
                   </address>
-                  <time datetime="2045-04-06T08:15+00:00">{{comment.at}}</time>
+                  <time datetime="2045-04-06T08:15+00:00">{{comment.at}}</time> |
+                  <button href="#" id="replay" onclick="func('{{comment.pk}}')">répondre</button>
                 </header>
                 <div class="comcont">
                   <p>{{comment.comments}}</p>
                 </div>
+                <div class="replay-section" style="display: none;">
+                  <input type="text" class="input-replay input{{comment.pk}}" id="{{comment.pk}}">
+                  <button type="submit" name="submit" class="btn-replay">envoyer</button>
+                </div>
+                <!--  -->
+
+                <div id="comments">
+                  <ul>
+                    <li>
+                      <article>
+                        <header>
+                          <figure class="avatar"><img src="https://res.cloudinary.com/uxyuslshjd/image/upload/v1609762606/pythonic/avatar_gy3cdk.png" alt=""></figure>
+                          <address>
+                          reponse de <a href="#">user</a>
+                          </address>
+                          <time datetime="2045-04-06T08:15+00:00">2045-04-06T08:15+00:00</time>
+              
+                        </header>
+                        <div class="comcont">
+                          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius inventore dolores dolore! Atque tenetur doloremque molestiae dignissimos itaque nemo, ratione ab commodi quia deleniti iste ea, voluptas quae debitis laborum!</p>
+                        </div>
+                        
+                      </article>
+                <!--  -->
               </article>
+              
+            
             </li>
             {% endfor %}
           </ul>
@@ -100,4 +133,24 @@
       <div class="clear"></div>
     </main>
   </div>
+
+  <form action="" method="post" id="replay_form">{% csrf_token %}
+    <input type="hidden" name="replay" value="">
+    <input type="hidden" name="content" value="">
+  </form>
+
+<script>
+  function func(id){
+    var seletor = "."+"input"+id;
+    replay_input = document.querySelector(seletor);
+
+    if(replay_input.parentNode.style.display == "none"){
+      replay_input.parentNode.style.display =  "block"
+    }else{
+      replay_input.parentNode.style.display = "none"
+    }
+  }
+
+ 
+</script>
 {%endblock content%}
