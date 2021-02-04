@@ -1,0 +1,54 @@
+  .content_section{
+  position: relative;
+  width: 400px;
+}
+
+.image_img{
+  display: block;
+  width: 100%;
+
+}
+
+.image_over{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  display: flex;
+  font-family: arial;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.25s;
+
+}
+.image_over > *{
+  transform: translateY(20px);
+  transition: transform 0.25s;
+}
+
+.image_over__primary{
+  background: #1CE;
+}
+
+.image_over:hover > *{
+  transform: translateY(0);
+}
+
+
+.image_over:hover{
+  opacity: 1;
+}
+
+.image_title{
+  font-size: 2em;
+  font-weight: bold;
+}
+.image_dec{
+  font-size: 1em;
+  margin-top: 1.5em;
+}

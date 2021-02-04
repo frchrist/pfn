@@ -75,11 +75,29 @@ class CourseDetail(DetailView):
         context["newLetterForm"] = form
         context["commentsForms"]  =CommentsForms()
         context["replayForm"]  =ReplayForm()
-        # context["replays"]  =ReplayToComment.objects.all()
+        #next and priviose post
+        next_pk = None
+        priviose_pk = None
+        if self.get_object().pk < Course.objects.all().count():
+            #then has next and priviose
+            priviose_pk = self.get_object().pk -1
+            next_pk = self.get_object().pk + 1
+
+        elif self.get_object().pk == Course. objects.all().count():
+            priviose_pk = self.get_object().pk -1
+            #then has only priviose
+        if self.get_object().pk == 1:
+            #then only has next
+            next_pk = self.get_object().pk + 1
+        if next_pk != None:
+            context['nexts'] =Course.objects.filter(pk=next_pk, status="Publier").first()
+        if priviose_pk != None:
+            context['priviouse'] =Course.objects.filter(pk=priviose_pk, status="Publier").first()
+
 
         context["levels"] = Level.objects.all()
 
-        p = Paginator( Commentaire.objects.filter(to=self.get_object()), 10) #10 commentaire par pages
+        p = Paginator( Commentaire.objects.filter(to=self.get_object()), 3) #10 commentaire par pages
         page_n = self.request.GET.get("page")
         page_obj = p.get_page(page_n)
 
