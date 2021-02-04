@@ -41,9 +41,9 @@
           {% else%}
           <h2>{{len}} commentaire</h2>
           {% endif%}
-          <ul>
+          <ul class="infinite-container">
             {% for comment in commentaire %}
-            <li>
+            <li class="infinite-item">
               <article>
                 <header>
                   <figure class="avatar"><img src="https://res.cloudinary.com/uxyuslshjd/image/upload/v1609762606/pythonic/avatar_gy3cdk.png" alt=""></figure>
@@ -102,9 +102,20 @@
                 {% endif %}
               <li class="current"> Page {{ commentaire.number }} of {{ commentaire.paginator.num_pages }}</li>
               {% if commentaire.has_next %}
-              <li><a href="?page={{ commentaire.next_page_number }}">Suivant</a></li>
+              <li><a href="?page={{ commentaire.next_page_number }}" class="infinite-more-link">Suivant</a></li>
               <li><a href="?page={{ commentaire.paginator.num_pages }}">Dernier &raquo;</a></li>
             {% endif %}
+            </ul>
+          </nav>
+
+          <nav class="pagination">
+            <ul>
+                {% if nexts %}
+                <li><a href="{% url 'coursedetail' nexts.slug %}">&laquo;{{nexts.title|truncatewords:10}} (suivant)</a></li>
+                {% endif %}
+                {% if priviouse %}
+              <li><a href="{% url 'coursedetail' priviouse.slug %}">{{priviouse.title|truncatewords:10}}  (precedant) &raquo;</a></li>
+              {% endif%}
             </ul>
           </nav>
         {% endif %}
@@ -116,6 +127,10 @@
               <input type="submit" name="submit" value="Commenter">
             </div>
           </form>
+
+
+
+
         </div>
       </div>
       <div class="sidebar one_quarter"> 
@@ -141,13 +156,6 @@
     </main>
   </div>
 
-  <form action="" method="post" id="replay_form">{% csrf_token %}
-    <input type="hidden" name="replay" value="">
-    <input type="hidden" name="content" value="">
-  </form>
-
-
-<script type="text/javascript" src="{% static 'posting/layout/scripts/jquery-3.5.1.slim.min.js' %}"></script>
 <script>
   function toggleResponse(btn){
 
@@ -182,6 +190,7 @@
                   location.reload()
                 }else{
                   alert(data.login)
+                  alert(data)
                 }
             }
         })

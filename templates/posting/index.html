@@ -1,4 +1,5 @@
 {% extends "posting/__base__.html" %}{% load static %}{%block title%} Bienvenue sur python pour les nulles {% endblock title %}{% block content%}
+{% block css%}<link rel="stylesheet" type="text/css" href="{% static 'posting/layout/styles/elements.css'  %}">{% endblock css%}
 <div class="wrapper bgded overlay" style="background-image:url(https://res.cloudinary.com/uxyuslshjd/image/upload/v1609763469/pythonic/Untitled_Design_1_gsdpte.jpg);">
 <div id="pageintro" class="hoc clear"> 
   <article>
@@ -43,13 +44,13 @@
       <h6 class="heading">Récents cours postés.</h6>
       <p>La Liste Des cours les plus récents.</p>
     </div>
-    <ul class="nospace group overview">
+    <ul class="nospace group overview infinite">
       {% for post_course in courses %}
-      <li class="one_third">
-        <figure><a href={{post_course.get_absolute_url }}><img src="{% if post_course.image.url == None %}{{ post_course.img_link }} {% else %}{{post_course.image.url }}{% endif %}" alt=""></a>
-          <figcaption>
-            <h6 class="heading"><a href="{% url 'coursedetail' post_course.slug %}">{{post_course.title}}</a></h6>
-            <p>{{post_course.intro|safe|truncatewords:25}}</p>
+      <li class="one_third infinite-item">
+        <figure class="content_section"><a href={{post_course.get_absolute_url }}> <!-- <img class="image_img" src="{% if post_course.image.url == None %}{{ post_course.img_link }} {% else %}{{post_course.image.url }}{% endif %}" alt=""> --> <img src="{% static 'img.jpg' %}" class="image_img"></a>
+          <figcaption class="image_over"> 
+            <h6 class="heading image_title" ><a href="{% url 'coursedetail' post_course.slug %}">{{post_course.title}}</a></h6>
+            <p class="image_desc">{{post_course.intro|safe|truncatewords:10}}</p>
           </figcaption>
         </figure>
       </li>
@@ -61,19 +62,37 @@
     {% if  page_obj %}
     <nav class="pagination">
       <ul>
-        {% if page_obj.has_previous %}
-                <li><a href="?page=1">&laquo; Première</a></li>
-               <li> <a href="?page={{ page_obj.previous_page_number }}">Précédant</a></li>
-          {% endif %}
-        <li class="current"> Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</li>
+        <li>no more article</li>
         {% if page_obj.has_next %}
-        <li><a href="?page={{ page_obj.next_page_number }}">Suivant</a></li>
-        <li><a href="?page={{ page_obj.paginator.num_pages }}">Dernier &raquo;</a></li>
-    {% endif %}
+        <li><a href="?page={{ page_obj.next_page_number }}" class="infinite-more-link">Suivant</a></li>
+        {% endif %}
       </ul>
     </nav>
    {% endif %}
   </section>
   <div class="clear"></div>
 </div>
+
+
+<script type="text/javascript" src="/static/posting/layout/scripts/jquery.min.js"></script>
+<script type="text/javascript" src="/static/posting/layout/scripts/jquery.waypoints.min.js"></script>
+
+<script type="text/javascript" src="/static/posting/layout/scripts/infinite.min.js"></script>
+
+<script type="text/javascript">
+  
+  let infinite = new Waypoint.Infinite({
+    element:$(".infinite")[0],
+    offset : "bottom-in-view",
+
+    onBeforePageLoad: function(){
+
+    },
+    onAfterePageLoad: function(){
+      
+    }
+
+  })
+</script>
+
 {% endblock %}
