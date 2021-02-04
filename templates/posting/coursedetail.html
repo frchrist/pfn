@@ -11,6 +11,12 @@
 <meta property="og:type" content="article" />
 {% endblock share_meta %}
 {%block content%}
+<style>
+  .input-replay{
+    border-top-color:none;
+    
+  }
+</style>
 
 <div class="wrapper bgded overlay" style="background:url(https://res.cloudinary.com/uxyuslshjd/image/upload/v1610723706/pythonic/universe-1566161_1280_lsnejf.jpg) center/cover;">
     <div id="breadcrumb" class="hoc clear"> 
@@ -44,12 +50,46 @@
                   <address>
                   par <a href="#">{{comment.author}}</a>
                   </address>
-                  <time datetime="2045-04-06T08:15+00:00">{{comment.at}}</time>
+                  <time datetime="2045-04-06T08:15+00:00">{{comment.at}}</time> |
+                  <button href="#" class="replay"  id="{{comment.pk}}">répondre</button>
                 </header>
                 <div class="comcont">
                   <p>{{comment.comments}}</p>
                 </div>
+                <div class="replay-section" style="display: none;">
+                  <form action="{% url 'replayToComment' comment.pk %}" method="POST" class="form{{comment.pk}} replayform">{% csrf_token %}
+                    {{replayForm}} <br>
+                  <button type="submit" name="submit" class="btn-replay">envoyer</button>
+                </form>
+                </div>
+                <!--  -->
+                {% if comment.replays.all|length != 0 %}
+                <div id="comments">
+                  <ul>
+                    <li>
+                      {% for replays in comment.replays.all %}
+                      <article>
+                        <header>
+                          <figure class="avatar"><img src="https://res.cloudinary.com/uxyuslshjd/image/upload/v1609762606/pythonic/avatar_gy3cdk.png" alt=""></figure>
+                          <address>
+                          reponse de <a href="#">{{replays.author}}</a>
+                          </address>
+                          <time datetime="2045-04-06T08:15+00:00">{{replays.at}}</time>
+              
+                        </header>
+                        <div class="comcont">
+                          <p>{{replays.replay_content}}</p>
+                        </div>
+                        {% endfor %}
+                      </article>
+                    </li>
+                  </ul>
+                <!-- </div> -->
+                {% endif %}
+                <!--  -->
               </article>
+              
+            
             </li>
             {% endfor %}
           </ul>
@@ -100,4 +140,67 @@
       <div class="clear"></div>
     </main>
   </div>
+
+  <form action="" method="post" id="replay_form">{% csrf_token %}
+    <input type="hidden" name="replay" value="">
+    <input type="hidden" name="content" value="">
+  </form>
+
+
+<script type="text/javascript" src="{% static 'posting/layout/scripts/jquery-3.5.1.slim.min.js' %}"></script>
+<script>
+  function toggleResponse(btn){
+
+  }
+
+  btns = document.querySelectorAll(".replay")
+  btns.forEach(btn => {
+      btn.addEventListener("click", (e)=>{
+      ids = e.target.id
+      var seletor = "."+"form"+ids;
+      forms = document.querySelector(seletor);
+
+      if(forms.parentNode.style.display == "none"){
+        forms.parentNode.style.display =  "block"
+        e.target.textContent= "Fermé"
+      }else{
+        forms.parentNode.style.display = "none"
+        e.target.textContent= "Répondre"
+      }
+      })
+  });
+
+  function createComment(uniqueClass, action){
+     $.ajax({
+            type: "POST",
+            url: action,
+            data: $("."+uniqueClass).serialize(),
+            datatype: "json",
+            success: function(data) {
+                if (data.response) {
+                  document.querySelector("."+uniqueClass).reset()
+                  location.reload()
+                }else{
+                  alert(data.login)
+                }
+            }
+        })
+  }
+
+  replayforms = document.querySelectorAll(".replayform")
+  function submitForm(e){
+    e.preventDefault();
+    
+    const unique = e.target.classList[1]
+    // form = document.querySelector("."+cl)
+    // console.log(form.textarea.value)
+
+    createComment(unique,e.target.action )
+  }
+  replayforms.forEach(form =>{
+    form.addEventListener('submit', submitForm)
+  })
+
+ 
+</script>
 {%endblock content%}

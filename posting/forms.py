@@ -1,5 +1,5 @@
 from django import forms
-from .models import Contact, Subscribe, Commentaire, Course
+from .models import Contact, Subscribe, Commentaire, Course, ReplayToComment
 
 
 
@@ -79,3 +79,9 @@ class CommentsForms(forms.ModelForm):
         self.fields["comments"].widget.attrs.update({
             "id":"comments",
         })
+
+
+class ReplayForm(forms.ModelForm):
+    class Meta:
+        model = ReplayToComment
+        fields = ["replay_content"]
