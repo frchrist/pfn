@@ -51,7 +51,7 @@
                   par <a href="#">{{comment.author}}</a>
                   </address>
                   <time datetime="2045-04-06T08:15+00:00">{{comment.at}}</time> |
-                  <button href="#" class="replay"  id="{{comment.pk}}">répondre</button>
+                  <button href="#" class="replay"  id="{{comment.pk}}">repondre</button>
                 </header>
                 <div class="comcont">
                   <p>{{comment.comments}}</p>
@@ -72,7 +72,7 @@
                         <header>
                           <figure class="avatar"><img src="https://res.cloudinary.com/uxyuslshjd/image/upload/v1609762606/pythonic/avatar_gy3cdk.png" alt=""></figure>
                           <address>
-                          reponse de <a href="#">{{replays.author}}</a>
+                          Réponse de <a href="#">{{replays.author}}</a>
                           </address>
                           <time datetime="2045-04-06T08:15+00:00">{{replays.at}}</time>
               
@@ -155,7 +155,6 @@
       <div class="clear"></div>
     </main>
   </div>
-
 <script>
   function toggleResponse(btn){
 
@@ -170,7 +169,7 @@
 
       if(forms.parentNode.style.display == "none"){
         forms.parentNode.style.display =  "block"
-        e.target.textContent= "Fermé"
+        e.target.textContent= "Cacher"
       }else{
         forms.parentNode.style.display = "none"
         e.target.textContent= "Répondre"
@@ -200,11 +199,12 @@
   function submitForm(e){
     e.preventDefault();
     
-    const unique = e.target.classList[1]
+    const unique = e.target.classList[0]
     // form = document.querySelector("."+cl)
     // console.log(form.textarea.value)
 
-    createComment(unique,e.target.action )
+    createComment(unique,e.target.action)
+    console.log(unique)
   }
   replayforms.forEach(form =>{
     form.addEventListener('submit', submitForm)

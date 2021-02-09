@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import HomePage, CourseDetail, LevelDetail, NewLetterPost, createPost, display, CourseUpdate, Profile, replay
+from .views import HomePage, CourseDetail, LevelDetail,get_next_level_data, NewLetterPost, createPost, display, CourseUpdate, Profile, replay
 from django.views.decorators.csrf import csrf_exempt
 
 
@@ -14,4 +14,6 @@ urlpatterns = [
 
     path("replay/<int:pk>/",replay.as_view(), name="replayToComment"),
     path('ckeditor/', include('ckeditor_uploader.urls')),
+
+    path("python-course-level/next-level/<slug:slug>-<int:initial>/",get_next_level_data.as_view(), name="page_level")
 ]

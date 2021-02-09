@@ -19,6 +19,9 @@ File: Layout CSS
 .row3, .row3 a{}
 .row4, .row4 a{}
 .row5, .row5 a{}
+html{
+scroll-behavior: smooth !important;
+}
 
 
 /* Top Bar
@@ -94,6 +97,99 @@ File: Layout CSS
 #comments textarea{overflow:auto;}
 #comments div{margin-bottom:15px;}
 #comments input[type="submit"], #comments input[type="reset"]{display:inline-block; width:auto; min-width:150px; margin:0; padding:8px 5px; cursor:pointer;}
+/* replay */
+.replay, .btn-replay{
+	padding: 5px 8px;
+	border: 1px solid;
+	border-radius: 4px;
+	border-color:#D7D7D7;
+	cursor:pointer;
+	transition: .04s;
+	color: black;
+	font-weight: 500;
+	text-transform: uppercase;
+	font-size: x-small;
+
+}
+.lazy{
+	transition: .4s;
+	/* display: none; */
+}
+.replay:hover, .btn-replay:hover{
+	background: rgb(4, 175, 175);
+	color:#FFFFFF;
+}
+/* loader */
+.loading-wrapper{
+display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background: #222;
+  transition: display 0.6s;
+}
+.loading {
+	display: flex;
+}
+.loading .dot {
+	position: relative;
+	width: 2em;
+	height: 2em;
+	margin: 0.8em;
+	border-radius: 50%;
+}
+.loading .dot::before {
+	position: absolute;
+	content: "";
+	width: 100%;
+	height: 100%;
+	background: inherit;
+	border-radius: inherit;
+	animation: wave 2s ease-out infinite;
+}
+.loading .dot:nth-child(1) {
+	background: #7ef9ff;
+}
+.loading .dot:nth-child(1)::before {
+	animation-delay: 0.2s;
+}
+.loading .dot:nth-child(2) {
+	background: #89cff0;
+}
+.loading .dot:nth-child(2)::before {
+	animation-delay: 0.4s;
+}
+.loading .dot:nth-child(3) {
+	background: #4682b4;
+}
+.loading .dot:nth-child(3)::before {
+	animation-delay: 0.6s;
+}
+.loading .dot:nth-child(4) {
+	background: #0f52ba;
+}
+.loading .dot:nth-child(4)::before {
+	animation-delay: 0.8s;
+}
+.loading .dot:nth-child(5) {
+	background: #000080;
+}
+.loading .dot:nth-child(5)::before {
+	animation-delay: 1s;
+}
+@keyframes wave {
+	50%, 75% {
+		transform: scale(2.5);
+   }
+	80%, 100% {
+		opacity: 0;
+   }
+}
+.fade-out {
+	visibility: hidden;
+	opacity: 0;
+	transition: visibility 0s 5s, opacity 10s linear;
+  }
 
 /* Sidebar */
 .container .sidebar{}
@@ -275,7 +371,7 @@ td{border-width:0 1px;}
 
 /* Colours
 --------------------------------------------------------------------------------------------------------------- */
-body{color:#474747; background-color:#FFFFFF;}
+body{color:#474747; background-color:#FFFFFF;scroll-behavior: smooth important}
 a{color:#FF090F;}
 a:active, a:focus{background:transparent;}/* IE10 + 11 Bugfix - prevents grey background */
 hr, .borderedbox{border-color:#D7D7D7;}

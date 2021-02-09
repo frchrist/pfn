@@ -12,8 +12,8 @@
               <h6 class="heading">{{header|capfirst}}</h6>
               <p>{{description|capfirst}}</p>
             </div>
-            <ul class="nospace group overview">
-              {% for post_course in object %}
+            <ul class="nospace group overview main-content">
+              {% for post_course in level %}
               <li class="one_third">
                 <figure><a href="{{post_course.get_absolute_url}}"><img src="{{post_course.img_link}}" alt=""></a>
                   <figcaption>
@@ -27,17 +27,17 @@
                 <p>Pas encore de cours.</p>
               {% endfor %}
             </ul>
-          {% if  pagination %}
+          {% if  level %}
             <nav class="pagination">
               <ul>
-                {% if page_obj.has_previous %}
+                {% if level.has_previous %}
                         <li><a href="?page=1">&laquo; Première</a></li>
-                       <li> <a href="?page={{ page_obj.previous_page_number }}">Précédant</a></li>
+                       <li> <a href="?page={{ level.previous_page_number }}">Précédant</a></li>
                   {% endif %}
-                <li class="current"> Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</li>
-                {% if page_obj.has_next %}
-                <li><a href="?page={{ page_obj.next_page_number }}">Suivant</a></li>
-                <li><a href="?page={{ page_obj.paginator.num_pages }}">Dernier &raquo;</a></li>
+                <li class="current"> Page {{ level.number }} of {{ level.paginator.num_pages }}</li>
+                {% if level.has_next %}
+                <li><a href="?page={{ level.next_page_number }}" class="more" data-href="next-level/{{ lTitle|slugify }}-{{ level.next_page_number }}">Suivant</a></li>
+                <li><a href="?page={{ level.paginator.num_pages }}">Dernier &raquo;</a></li>
             {% endif %}
               </ul>
             </nav>
@@ -47,4 +47,6 @@
       <div class="clear"></div>
     </main>
   </div>
+
+  <script src="{% static 'posting/layout/scripts/main-level.js' %}"></script>
 {%endblock content%}

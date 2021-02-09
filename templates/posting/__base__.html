@@ -17,16 +17,29 @@
 <link rel="stylesheet" href="https://res.cloudinary.com/uxyuslshjd/raw/upload/v1609768963/pythonic/python-prism/prism_gd2ltn.css">
 </head>
 <body id="top">
+    <div class="loading-wrapper">
+        <div class="loading">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+      </div>
+      </div>
+<div class="site" style="display: none;">
 {% include "posting/__header__.html"%}
 
 {% block content%} {% endblock content%}
 
 {% include "posting/__footer__.html"%}
+</div>
 <a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
 <!-- JAVASCRIPTS -->
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 <script src="{% static 'posting/layout/scripts/jquery.backtotop.js'%}"></script>
 <script src="{% static 'posting/layout/scripts/jquery.mobilemenu.js'%}"></script>
+<script src="/static/posting/layout/scripts/main.js"></script>
 <script src="https://res.cloudinary.com/uxyuslshjd/raw/upload/v1609768964/pythonic/python-prism/prism_bvh0od.js"></script>
+{% block javascript %}{% endblock javascript %}
 </body>
 </html>

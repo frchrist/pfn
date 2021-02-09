@@ -42,9 +42,9 @@ class ModelUtile:
             instance.slug = slugify(instance.title)
         if( instance.also_send == False and instance.mail_send==True) and instance.status == "Publier":
             instance.also_send = True
-            context = {'user':instance.author, 'title':instance.title, 'resume':instance.intro, "slug":instance.slug}
-            message = render_to_string("posting/emailing.html", context)
-            EmailMessage(message).start()
+            # context = {'user':instance.author, 'title':instance.title, 'resume':instance.intro, "slug":instance.slug}
+            # message = render_to_string("posting/emailing.html", context)
+            # EmailMessage(message).start()
             
 
 course_level = [("Débutant", "Débutant"), ("Intermédiaire","Intermédiaire")]
