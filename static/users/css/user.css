@@ -19,6 +19,7 @@ body {
 }
 .accounts{
     background-origin: padding-box;
+    left: 0;
 }
 
 .contact {
