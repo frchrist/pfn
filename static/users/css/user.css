@@ -17,6 +17,9 @@ body {
     font-weight: 500;
     font-size: 17px
 }
+.accounts{
+    background-origin: padding-box;
+}
 
 .contact {
     font-size: 13px
