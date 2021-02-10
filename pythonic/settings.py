@@ -209,7 +209,7 @@ STATICFILES_STORAGE ='whitenoise.storage.CompressedStaticFilesStorage'
 
 
 
-settings for security
+# settings for security
 SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True #to avoid transmitting the CSRF cookie over HTTP accidentally. 
