@@ -23,12 +23,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'igl%fkjn0!c!9#9p(rb7(f#ou03(giz6alh%daz7*o&c)_tw+m'
+SECRET_KEY = 'e%z&(u$1hati!l5vpn9^stkia(-3d2b33rp^n6gn#s$4r3z_+b'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["pythonfornull.herokuapp.com", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -205,10 +205,11 @@ DEFAULT_FROM_EMAIL = 'default from email'
 
 
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE ='whitenoise.storage.CompressedStaticFilesStorage'
 
 
-#settings for security
+
+settings for security
 SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True #to avoid transmitting the CSRF cookie over HTTP accidentally. 

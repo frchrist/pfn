@@ -111,9 +111,9 @@
 </div>
 {% endblock %}
 {% block javascript %}
-<script type="text/javascript" src="/static/posting/layout/scripts/jquery.min.js"></script>
-<script type="text/javascript" src="/static/posting/layout/scripts/jquery.waypoints.min.js"></script>
-<script type="text/javascript" src="/static/posting/layout/scripts/infinite.min.js"></script>
-<script src="/static/posting/layout/scripts/index.js"></script>
+<script type="text/javascript" src="{% static 'posting/layout/scripts/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'posting/layout/scripts/jquery.waypoints.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'posting/layout/scripts/infinite.min.js' %}"></script>
+<script src="{% static 'posting/layout/scripts/index.js' %}"></script>
 
 {% endblock javascript %}
