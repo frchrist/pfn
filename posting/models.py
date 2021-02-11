@@ -106,7 +106,7 @@ class Commentaire(models.Model):
          ordering =["-at"]
 
 class ReplayToComment(models.Model):
-    replay_content = models.TextField()
+    replay_content = models.TextField(verbose_name="")
     author = models.ForeignKey(to=User, on_delete=models.CASCADE)
     at = models.DateTimeField(auto_now_add=True)
     to = models.ForeignKey(to=Commentaire, on_delete=models.CASCADE, verbose_name="commentaire", related_name="replays")

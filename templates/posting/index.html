@@ -83,8 +83,6 @@
             </svg>
           </div>
           <img data-src="{% if post_course.image.url == None %}{{ post_course.img_link }} {% else %}{{post_course.image.url }}{% endif %}" alt="" class="lazy">  
-          <!-- <img src="{% static 'loader.gif' %}" data-src="https://res.cloudinary.com/uxyuslshjd/image/upload/v1612266816/pythonic/dico_h7crtk.jpg" class="image_img"> -->
-
         </a>
           <figcaption> 
             <h6 class="heading image_title" ><a href="{% url 'coursedetail' post_course.slug %}">{{post_course.title}}</a></h6>
