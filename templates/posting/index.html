@@ -1,5 +1,4 @@
 {% extends "posting/__base__.html" %}{% load static %}{%block title%} Bienvenue sur python pour les nulles {% endblock title %}{% block content%}
-{% block css%}<link rel="stylesheet" type="text/css" href="{% static 'posting/layout/styles/elements.css'  %}">{% endblock css%}
 <div class="wrapper bgded overlay" style="background-image:url(https://res.cloudinary.com/uxyuslshjd/image/upload/v1609763469/pythonic/Untitled_Design_1_gsdpte.jpg);">
 <div id="pageintro" class="c hoc clear"> 
   <article>
@@ -46,47 +45,20 @@
     </div>
     <ul class="nospace group overview infinite">
       {% for post_course in courses %}
-      <li class="one_third infinite-item">
+      <li class="one_third infinite-item" style="position: relative;">
        <figure class="content_section"><a href={{post_course.get_absolute_url }}>
-         <div class="loader" style="text-align: center;">
-              <svg width="140" height="20" viewBox="0 0 120 30" xmlns="http://www.w3.org/2000/svg" fill="#1ce">
-                <circle cx="15" cy="15" r="15">
-                    <animate attributeName="r" from="15" to="15"
-                            begin="0s" dur="0.8s"
-                            values="15;9;15" calcMode="linear"
-                            repeatCount="indefinite" />
-                    <animate attributeName="fill-opacity" from="1" to="1"
-                            begin="0s" dur="0.8s"
-                            values="1;.5;1" calcMode="linear"
-                            repeatCount="indefinite" />
-                </circle>
-                <circle cx="60" cy="15" r="9" fill-opacity="0.3">
-                    <animate attributeName="r" from="9" to="9"
-                            begin="0s" dur="0.8s"
-                            values="9;15;9" calcMode="linear"
-                            repeatCount="indefinite" />
-                    <animate attributeName="fill-opacity" from="0.5" to="0.5"
-                            begin="0s" dur="0.8s"
-                            values=".5;1;.5" calcMode="linear"
-                            repeatCount="indefinite" />
-                </circle>
-                <circle cx="105" cy="15" r="15">
-                    <animate attributeName="r" from="15" to="15"
-                            begin="0s" dur="0.8s"
-                            values="15;9;15" calcMode="linear"
-                            repeatCount="indefinite" />
-                    <animate attributeName="fill-opacity" from="1" to="1"
-                            begin="0s" dur="0.8s"
-                            values="1;.5;1" calcMode="linear"
-                            repeatCount="indefinite" />
-                </circle>
-            </svg>
+         <div class="loader">
+
           </div>
           <img data-src="{% if post_course.image.url == None %}{{ post_course.img_link }} {% else %}{{post_course.image.url }}{% endif %}" alt="" class="lazy">  
         </a>
-          <figcaption> 
+          <figcaption > 
+            
             <h6 class="heading image_title" ><a href="{% url 'coursedetail' post_course.slug %}">{{post_course.title}}</a></h6>
-            <p>{{post_course.intro|safe|truncatewords:10}}</p>
+            <p class="content-level">Niveaux : {{post_course.level.level|upper}}</p>
+            <p class="content-date">dernier mise à jour : {{post_course.date|date:"M Y"}}</p>
+
+            <p>{{post_course.intro|safe|truncatewords:15}}</p>
           </figcaption>
         </figure>
       </li>
@@ -99,7 +71,7 @@
     <nav class="pagination">
       <ul>
         {% if page_obj.has_next %}
-        <li><a href="?page={{ page_obj.next_page_number }}" class="infinite-more-link">Suivant</a></li>
+        <li><a href="?page={{ page_obj.next_page_number }}" class="infinite-more-link more">Suivant</a></li>
         {% endif %}
       </ul>
     </nav>
@@ -107,9 +79,52 @@
   </section>
   <div class="clear"></div>
 </div>
+<div style="display: none;" class="hide">
+  <svg width="45" height="45" viewBox="0 0 45 45" xmlns="http://www.w3.org/2000/svg" stroke="#fff">
+    <g fill="none" fill-rule="evenodd" transform="translate(1 1)" stroke-width="2">
+        <circle cx="22" cy="22" r="6" stroke-opacity="0">
+            <animate attributeName="r"
+                 begin="1.5s" dur="3s"
+                 values="6;22"
+                 calcMode="linear"
+                 repeatCount="indefinite" />
+            <animate attributeName="stroke-opacity"
+                 begin="1.5s" dur="3s"
+                 values="1;0" calcMode="linear"
+                 repeatCount="indefinite" />
+            <animate attributeName="stroke-width"
+                 begin="1.5s" dur="3s"
+                 values="2;0" calcMode="linear"
+                 repeatCount="indefinite" />
+        </circle>
+        <circle cx="22" cy="22" r="6" stroke-opacity="0">
+            <animate attributeName="r"
+                 begin="3s" dur="3s"
+                 values="6;22"
+                 calcMode="linear"
+                 repeatCount="indefinite" />
+            <animate attributeName="stroke-opacity"
+                 begin="3s" dur="3s"
+                 values="1;0" calcMode="linear"
+                 repeatCount="indefinite" />
+            <animate attributeName="stroke-width"
+                 begin="3s" dur="3s"
+                 values="2;0" calcMode="linear"
+                 repeatCount="indefinite" />
+        </circle>
+        <circle cx="22" cy="22" r="8">
+            <animate attributeName="r"
+                 begin="0s" dur="1.5s"
+                 values="6;1;2;3;4;5;6"
+                 calcMode="linear"
+                 repeatCount="indefinite" />
+        </circle>
+    </g>
+  </svg>
+</div>
+
 {% endblock %}
 {% block javascript %}
-<script type="text/javascript" src="{% static 'posting/layout/scripts/jquery.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'posting/layout/scripts/jquery.waypoints.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'posting/layout/scripts/infinite.min.js' %}"></script>
 <script src="{% static 'posting/layout/scripts/index.js' %}"></script>

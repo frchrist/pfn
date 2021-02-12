@@ -1,4 +1,55 @@
 {%load static %}
+<style>
+  .cookies{
+    display: flex;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    bottom: 0;
+    background:rgb(27 24 24 / 88%);
+    width: 100%;
+    box-shadow:6px 1px 4px 4px rgb(0 0 0 / 42%);
+    transform: opacity 0.8s ;
+    z-index: 9999;
+  }
+  .cookies button{
+    width: 15%;
+    margin: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    
+  }
+  .cookies p{
+    text-align: center;
+    text-transform: unset;
+    color: cornsilk;
+    font-size: 1.1rem;
+    transform: color .3s;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }
+  .cookies .accept{
+    background: rgba(26, 255, 5, 0.637);
+  }
+  .cookies  .refuse{
+    background: rgba(255, 5, 5, 0.438);
+  }
+  .refuse:hover{
+    background: rgba(255, 5, 5, 0.596);
+     color: white;
+  }
+  .accept:hover{
+    background: rgba(26, 255, 5, 0.685);
+    color: white;
+  }
+</style>
+<div class="cookies">
+  <p>Nous utilisons des cookies
+En utilisant notre site, vous acceptez notre utilisation des cookies pour offrir une meilleure expérience sur le site.</p>
+  <button class="accept">Accepter</button>
+  <button class="refuse">Ignorer</button>
+</div>
 <div class="bgded overlay" style="background-image:url(https://res.cloudinary.com/uxyuslshjd/image/upload/v1609761894/pythonic/nasa_kxs1ai.jpg);"> 
     <div class="wrapper row4">
       <footer id="footer" class="hoc clear"> 

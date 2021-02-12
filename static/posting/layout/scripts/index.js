@@ -1,3 +1,12 @@
+function addsvg(){
+  const svg = document.querySelector(".hide")
+  const load_area = document.querySelectorAll(".loader")
+  load_area.forEach(loader =>{
+  loader.innerHTML = svg.innerHTML;
+})}
+addsvg()
+
+
 let infinite = new Waypoint.Infinite({
     element:$(".infinite")[0],
     offset : "bottom-in-view",
@@ -10,6 +19,8 @@ let infinite = new Waypoint.Infinite({
     },
     onAfterPageLoad: function(){
       load()
+      addsvg()
+
     }
 
   })

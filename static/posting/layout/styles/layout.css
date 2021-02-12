@@ -1,15 +1,9 @@
 @charset "utf-8";
-/*
-Template Name: Vallume
-Author: <a href="https://www.os-templates.com/">OS Templates</a>
-Author URI: https://www.os-templates.com/
-Licence: Free to use under our free template licence terms
-Licence URI: https://www.os-templates.com/template-terms
-File: Layout CSS
-*/
-
 @import url("font-awesome.min.css");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,900;1,100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@300&family=Roboto:ital,wght@0,400;0,900;1,100&display=swap');
 @import url("framework.css");
+
 
 /* Rows
 --------------------------------------------------------------------------------------------------------------- */
@@ -46,6 +40,7 @@ scroll-behavior: smooth !important;
 --------------------------------------------------------------------------------------------------------------- */
 #pageintro{padding:150px 0 250px;}
 
+
 #pageintro article{display:block; max-width:65%; margin:0 auto; text-align:center;}
 #pageintro .heading{margin-bottom:20px; font-size:4rem;}
 #pageintro p:first-of-type{margin:0 0 20px 0; text-transform:uppercase; font-size:1.2rem; letter-spacing:5px;}
@@ -58,7 +53,9 @@ scroll-behavior: smooth !important;
 
 /* Content */
 .container .content{}
-
+.content-body{font-family: 'Merriweather Sans', sans-serif;}
+.content-date{font-size: 10px;color:white; position: absolute; top: 0px; left: 0; background: rgba(0, 0, 0, 0.137);}
+.content-level{font-size: 10px;color:white; position: absolute; top: 0; right: 0; background: rgba(0, 0, 0, 0.137);}
 .sectiontitle{display:block; max-width:55%; margin:0 auto 80px; text-align:center;}
 .sectiontitle *{margin:0;}
 
@@ -98,19 +95,7 @@ scroll-behavior: smooth !important;
 #comments div{margin-bottom:15px;}
 #comments input[type="submit"], #comments input[type="reset"]{display:inline-block; width:auto; min-width:150px; margin:0; padding:8px 5px; cursor:pointer;}
 /* replay */
-.replay, .btn-replay{
-	padding: 5px 8px;
-	border: 1px solid;
-	border-radius: 4px;
-	border-color:#D7D7D7;
-	cursor:pointer;
-	transition: .04s;
-	color: black;
-	font-weight: 500;
-	text-transform: uppercase;
-	font-size: x-small;
-
-}
+.replay, .btn-replay{padding: 5px 8px;border: 1px solid;border-radius: 4px;border-color:#D7D7D7;cursor:pointer;transition: .04s;color: black;font-weight: 500;text-transform: uppercase;font-size: x-small;}
 .lazy{
 	transition: .4s;
 	/* display: none; */
@@ -120,6 +105,7 @@ scroll-behavior: smooth !important;
 	color:#FFFFFF;
 }
 /* loader */
+.loader{text-align: center; height: 180px; width: 100%; background: rgba(0, 0, 0, 0.623); display: flex; justify-content: center; align-items: center; margin-bottom: 30px;}
 .loading-wrapper{
 display: flex;
   height: 100vh;
@@ -127,9 +113,11 @@ display: flex;
   align-items: center;
   background: #222;
   transition: display 0.6s;
+  overflow: hidden;
 }
 .loading {
 	display: flex;
+	 /*overflow: hidden;*/
 }
 .loading .dot {
 	position: relative;
@@ -189,6 +177,10 @@ display: flex;
 	visibility: hidden;
 	opacity: 0;
 	transition: visibility 0s 5s, opacity 10s linear;
+  }
+.site {
+	  opacity: 0;
+	  transition: opacity 0.6s;
   }
 
 /* Sidebar */

@@ -35,7 +35,7 @@ html, body{margin:0; padding:0; font-size:14px; line-height:1.6em;}
 .btn{display:inline-block; padding:8px 18px 10px; text-transform:uppercase; border:1px solid;}
 
 blockquote{display:block; position:relative; width:100%; margin:0; padding:30px; line-height:1.4; z-index:1;}
-blockquote::before{display:block; position:absolute; top:0; left:0; font-family:"FontAwesome"; font-size:60px; line-height:60px; content:"\f10d"; z-index:-1;}
+blockquote::before{display:block; position:absolute; top:0; left:0; font-family:'Roboto', sans-serif; font-size:60px; line-height:60px; content:"\f10d"; z-index:-1;}
 
 .clear, .group{display:block;}
 .clear::before, .clear::after, .group::before, .group::after{display:table; content:"";}
@@ -53,8 +53,8 @@ img{width:auto; max-width:100%; height:auto; margin:0; padding:0; border:none; l
 
 /* Fonts
 --------------------------------------------------------------------------------------------------------------- */
-body, input, textarea, select{font-family:Verdana, Geneva, sans-serif;}
-h1, h2, h3, h4, h5, h6, .heading{font-family:Georgia, "Times New Roman", Times, serif;}
+body, input, textarea, select{font-family:'Roboto', sans-serif;}
+h1, h2, h3, h4, h5, h6, .heading{font-family:'Roboto';font-weight: 400;}
 
 
 /* Forms
@@ -68,10 +68,10 @@ label{margin-bottom:5px;}
 
 /* Generalise
 --------------------------------------------------------------------------------------------------------------- */
-h1, h2, h3, h4, h5, h6, .heading{margin:0 0 20px 0; font-size:22px; line-height:normal; font-weight:normal; font-style:italic; text-transform:capitalize;}
+h1, h2, h3, h4, h5, h6, .heading{margin:0 0 20px 0; font-size:22px; line-height:normal; text-transform:capitalize;}
 .heading.nospace{margin:0;}
 
-address{font-style:normal; font-weight:normal;}
+address{font-style:normal;}
 hr{display:block; width:100%; height:1px; border:solid; border-width:1px 0 0 0;}
 
 .font-xs{font-size:.8rem;}

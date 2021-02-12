@@ -27,13 +27,14 @@
     <main class="hoc container clear"> 
       <div class="content three_quarter first"> 
         <h1>{{object.title}}</h1>
-        <p>posté le: {{object.date}} par {{object.author}} | niveau <a href="{% url 'niveaudetail' object.level|slugify %}">{{object.level}}</a>
+        <p>posté le: {{object.date|date:"j-M-Y"}} par {{object.author}} | niveau <a href="{% url 'niveaudetail' object.level|slugify %}">{{object.level}}</a> 
 
           {% if user.is_staff %}
           | <a href="{% url 'update' object.slug %}">édit</a> 
           {% endif%}
-        </p>
+        <div class="content-body">
         {{object.body|safe}}
+        </div>
         <!-- ShareThis BEGIN --><div class="sharethis-inline-share-buttons"></div><!-- ShareThis END -->
         <div id="comments">
           {% if len > 1%}
@@ -92,33 +93,7 @@
             
             </li>
             {% endfor %}
-          </ul>
-          {% if  commentaire %}
-            <nav class="pagination">
-            <ul>
-              {% if commentaire.has_previous %}
-                      <li><a href="?page=1">&laquo; Première</a></li>
-                     <li> <a href="?page={{ commentaire.previous_page_number }}">Précédant</a></li>
-                {% endif %}
-              <li class="current"> Page {{ commentaire.number }} of {{ commentaire.paginator.num_pages }}</li>
-              {% if commentaire.has_next %}
-              <li><a href="?page={{ commentaire.next_page_number }}" class="infinite-more-link">Suivant</a></li>
-              <li><a href="?page={{ commentaire.paginator.num_pages }}">Dernier &raquo;</a></li>
-            {% endif %}
-            </ul>
-          </nav>
 
-          <nav class="pagination">
-            <ul>
-                {% if nexts %}
-                <li><a href="{% url 'coursedetail' nexts.slug %}">&laquo;{{nexts.title|truncatewords:10}} (suivant)</a></li>
-                {% endif %}
-                {% if priviouse %}
-              <li><a href="{% url 'coursedetail' priviouse.slug %}">{{priviouse.title|truncatewords:10}}  (precedant) &raquo;</a></li>
-              {% endif%}
-            </ul>
-          </nav>
-        {% endif %}
           <form action="#" method="post">{% csrf_token %}
             <div class="block clear">
               {{commentsForms}}
@@ -155,61 +130,8 @@
       <div class="clear"></div>
     </main>
   </div>
-<script>
-  function toggleResponse(btn){
+<span style="display: none;" id='svg-2'>
+<img src="{% static 'svg/tail-spin.svg' %}" width="15">
+</span>
 
-  }
-
-  btns = document.querySelectorAll(".replay")
-  btns.forEach(btn => {
-      btn.addEventListener("click", (e)=>{
-      ids = e.target.id
-      var seletor = "."+"form"+ids;
-      forms = document.querySelector(seletor);
-
-      if(forms.parentNode.style.display == "none"){
-        forms.parentNode.style.display =  "block"
-        e.target.textContent= "Cacher"
-      }else{
-        forms.parentNode.style.display = "none"
-        e.target.textContent= "Répondre"
-      }
-      })
-  });
-
-  function createComment(uniqueClass, action){
-     $.ajax({
-            type: "POST",
-            url: action,
-            data: $("."+uniqueClass).serialize(),
-            datatype: "json",
-            success: function(data) {
-                if (data.response) {
-                  document.querySelector("."+uniqueClass).reset()
-                  location.reload()
-                }else{
-                  alert(data.login)
-                  alert(data)
-                }
-            }
-        })
-  }
-
-  replayforms = document.querySelectorAll(".replayform")
-  function submitForm(e){
-    e.preventDefault();
-    
-    const unique = e.target.classList[0]
-    // form = document.querySelector("."+cl)
-    // console.log(form.textarea.value)
-
-    createComment(unique,e.target.action)
-    console.log(unique)
-  }
-  replayforms.forEach(form =>{
-    form.addEventListener('submit', submitForm)
-  })
-
- 
-</script>
 {%endblock content%}
