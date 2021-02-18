@@ -6,7 +6,7 @@ from .models import Contact, Subscribe, Commentaire, Course, ReplayToComment
 class CourseForm(forms.ModelForm):
     class Meta:
         model = Course
-        fields = ["title", "level", "status","img_link", "intro",  "body", 'mail_send']
+        fields = ["title", "level", "status","img_link", "intro",  "body", 'notify_users']
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -15,7 +15,7 @@ class CourseForm(forms.ModelForm):
         })
 
         self.fields['title'].label = "Titre du Cours"
-        self.fields["mail_send"].widget.attrs.update({
+        self.fields["notify_users"].widget.attrs.update({
             "class":"form-check-input",
             "id":"form-email",
         })

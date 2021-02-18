@@ -1,7 +1,7 @@
 window.addEventListener("load", e=>{
-    var content = document.querySelector(".site")
+    var content = document.querySelector("#top")
     content.style.opacity = 1;
-    document.querySelector(".loading-wrapper").style.display = "none";
+
 
 })
 function toggle_term(){
