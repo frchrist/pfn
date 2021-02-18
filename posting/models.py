@@ -3,48 +3,17 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from django.utils.text import slugify
 from django.shortcuts import reverse, redirect
-from django.db.models.signals import pre_save
+from django.db.models.signals import pre_save, post_save
 from ckeditor.fields  import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 
 
 
 #sending email sections
-from django.core.mail import send_mail
+from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
-from django.conf import settings
 import threading
 
-# from  django.contrib.sites.models import Site
-
-subject = "Nouveau tutoriels de python "
-# message = render_to_string("posting/email.html get_current_site
-
-# list_mail = [user.email for user in User.objects.all() if user.email != ""]
-list_mail = ["farechristiantanghanwaye@gmail.com"]
-
-class EmailMessage(threading.Thread):
-    def __init__(self, email):
-        threading.Thread.__init__(self)
-        self.email = email
-
-    def run(self):
-        self.email.send()
-from_email = settings.EMAIL_HOST_USER
-# Create your models here.
-class ModelUtile:
-    def __init__(self):
-        pass
-
-    @staticmethod
-    def slug(sender, instance, *args, **kwargs):
-        if not instance.slug:
-            instance.slug = slugify(instance.title)
-        if( instance.also_send == False and instance.mail_send==True) and instance.status == "Publier":
-            instance.also_send = True
-            # context = {'user':instance.author, 'title':instance.title, 'resume':instance.intro, "slug":instance.slug}
-            # message = render_to_string("posting/emailing.html", context)
-            # EmailMessage(message).start()
             
 
 course_level = [("Débutant", "Débutant"), ("Intermédiaire","Intermédiaire")]
@@ -66,15 +35,12 @@ class Course(models.Model):
     body = RichTextUploadingField(verbose_name='content')
     intro = RichTextUploadingField(blank=1, null=1, config_name="extrait")
     img_link = models.URLField(blank=True, null=True)
-    mail_send = models.BooleanField(default=False)
-    also_send = models.BooleanField(default=False)
+    notify_users = models.BooleanField(default=False)
+    notify_time = models.DateTimeField(blank=True, null=True, auto_now_add=False)
     
 
     def get_absolute_url(self):
         return reverse('coursedetail', kwargs={"slug":self.slug})
-
-
-
 
     def __str__(self):
         return self.title
@@ -113,5 +79,51 @@ class ReplayToComment(models.Model):
 
     def __str__(self):
         return self.replay_content
-pre_save.connect(ModelUtile.slug, Course)
 
+
+class Send_Async_Mail(threading.Thread):
+	def __init__(self,email_message, *args, **kwargs):
+		super().__init__()
+		self.to_send  = email_message
+
+
+	def run(self):
+		self.to_send.content_subtype = "html"
+		self.to_send.send()
+
+
+
+def slugifyTitle(sender, instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug = slugify(instance.title)
+
+pre_save.connect(slugifyTitle, Course)
+
+
+def AfterPostSaving(sender , instance , created , *args, **kwargs):
+	if created:
+		#get all subuscriber
+		reception_list = [sub.email for sub in Subscribe.objects.all()]
+		#get all users email
+		reception_list += [users.email for users in User.objects.all()]
+		#delete all mail duplication
+		reception_list = list(set(reception_list))
+		#send mail
+		context = {
+		"title":instance.title,
+		"user":instance.author,
+		"content":instance.intro,
+		}
+
+		email = render_to_string("posting/notify.html", context)
+		subject = "Du Nouveau Sur PYTHON POUR LES NULS "
+
+		for mail in reception_list:
+			email_message = EmailMessage(subject, email, to=[mail,])
+			Send_Async_Mail(email_message).start()
+		instance.notify_time = timezone.now()
+		instance.notify_users = True
+
+
+
+post_save.connect(AfterPostSaving, sender=Course)
