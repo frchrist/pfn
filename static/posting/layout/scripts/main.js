@@ -7,6 +7,7 @@ window.addEventListener("load", e=>{
 function toggle_term(){
   if (localStorage.accept_term === 'true'){
     document.querySelector(".cookies").style.opacity = 0
+    document.querySelector(".cookies").zIndex = -5
   }else{
     document.querySelector(".cookies").style.display = 1
   }
@@ -18,7 +19,6 @@ const rejuse = accept.nextElementSibling
 accept.addEventListener("click", (e)=>{
   //hide cookie and set localstorage to true
   localStorage.accept_term = 'true'
-  console.log("use")
   toggle_term()
 })
 rejuse.addEventListener("click", (e)=>{
