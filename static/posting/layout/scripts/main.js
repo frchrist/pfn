@@ -4,27 +4,27 @@ window.addEventListener("load", e=>{
 
 
 })
-function toggle_term(){
+function cookieConsent(){
   if (localStorage.accept_term === 'true'){
-    document.querySelector(".cookies").style.opacity = 0
-    document.querySelector(".cookies").zIndex = -5
+    document.querySelector(".cookies").style.bottom = "-400px"
   }else{
-    document.querySelector(".cookies").style.display = 1
+    document.querySelector(".cookies").style.bottom = "0";
   }
 }
-toggle_term()
+
+setTimeout(cookieConsent, 5000)
 const accept = document.querySelector(".accept")
 const rejuse = accept.nextElementSibling
 
 accept.addEventListener("click", (e)=>{
   //hide cookie and set localstorage to true
   localStorage.accept_term = 'true'
-  toggle_term()
+  cookieConsent()
 })
 rejuse.addEventListener("click", (e)=>{
   //hide cookie and set localstorage to false
   localStorage.accept_term = 'false'
-  document.querySelector(".cookies").style.opacity = 0
+  document.querySelector(".cookies").style.bottom = "-400px"
 })
 
 if (document.querySelector("#id_comments")){

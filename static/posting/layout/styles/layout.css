@@ -182,6 +182,50 @@ display: flex;
 	  opacity: 0;
 	  transition: opacity 0.6s;
   }
+  /* cookies consent */
+  .cookies{
+    display: flex;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    bottom: -400px;
+    background:rgb(0 0 0 / 66%);
+    width: 100%;
+    box-shadow:-3px -2px 3px 3px rgb(0 0 0 / 14%);
+    transition:  top 1s linear, bottom 2s linear;
+    z-index: 2;
+  }
+  .cookies button{
+    width: 15%;
+    margin: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    
+  }
+  .cookies p{
+    text-align: center;
+    text-transform: unset;
+    color: cornsilk;
+    font-size: 1.1rem;
+    transition: color .3s;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }
+  .cookies .accept{
+    background: rgba(26, 255, 5, 0.637);
+  }
+  .cookies  .refuse{
+    background: rgba(255, 5, 5, 0.438);
+  }
+  .refuse:hover{
+    background: rgba(255, 5, 5, 0.596);
+     color: white;
+  }
+  .accept:hover{
+    background: rgba(26, 255, 5, 0.685);
+    color: white;
+  }
 
 /* Sidebar */
 .container .sidebar{}
