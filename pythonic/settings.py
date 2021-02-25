@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'e%z&(u$1hati!l5vpn9^stkia(-3d2b33rp^n6gn#s$4r3z_+b'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 # DEBUG_PROPAGATE_EXCEPTIONS = True
 ALLOWED_HOSTS = ["*"]
 
@@ -81,34 +81,34 @@ WSGI_APPLICATION = 'pythonic.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 #developement databases
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 # postgres://lejroohwikrlkd:40b6c5ec45deb6c9a11864b31eca35250dafedc5cff9be899ee20cc70a01554f@ec2-174-129-199-54.compute-1.amazonaws.com:5432/d1lglnhk5c0t09
 # #production database
-# DATABASES = {
+DATABASES = {
 
-#     'default': {
+    'default': {
 
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-#         'NAME': 'd1lglnhk5c0t09',
+        'NAME': 'd1lglnhk5c0t09',
 
-#         'USER': 'lejroohwikrlkd',
+        'USER': 'lejroohwikrlkd',
 
-#         'PASSWORD': '40b6c5ec45deb6c9a11864b31eca35250dafedc5cff9be899ee20cc70a01554f',
+        'PASSWORD': '40b6c5ec45deb6c9a11864b31eca35250dafedc5cff9be899ee20cc70a01554f',
 
-#         'HOST': 'ec2-174-129-199-54.compute-1.amazonaws.com',
+        'HOST': 'ec2-174-129-199-54.compute-1.amazonaws.com',
 
-#         'PORT': 5432,
+        'PORT': 5432,
 
-#     }
+    }
 
-# }
+}
 
 
 # Password validation
@@ -204,15 +204,15 @@ EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'PYHTON POUR LES NULS'
 
 
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 # settings for security
-# SECURE_SSL_REDIRECT = True
-# SESSION_COOKIE_SECURE = True
-# CSRF_COOKIE_SECURE = True #to avoid transmitting the CSRF cookie over HTTP accidentally. 
-# SECURE_BROWSER_XSS_FILTER = True
-# SECURE_CONTENT_TYPE_NOSNIFF = True 
-# SECURE_HSTS_SECONDS = 86400  # 1 day 
-# SECURE_HSTS_INCLUDE_SUBDOMAINS = True 
-# SECURE_HSTS_PRELOAD = True 
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True #to avoid transmitting the CSRF cookie over HTTP accidentally. 
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True 
+SECURE_HSTS_SECONDS = 86400  # 1 day 
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True 
+SECURE_HSTS_PRELOAD = True 
