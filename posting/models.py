@@ -60,7 +60,7 @@ class Subscribe(Base_info):
     pass
 
 class Commentaire(models.Model):
-    comments = models.TextField()
+    comments = models.TextField(verbose_name="Laisser un commentaire")
     author = models.ForeignKey(to=User, on_delete=models.CASCADE)
     at = models.DateTimeField(auto_now_add=True)
     to = models.ForeignKey(to=Course, on_delete=models.CASCADE)

@@ -49,10 +49,9 @@
                 <header>
                   <figure class="avatar"><img src="https://res.cloudinary.com/uxyuslshjd/image/upload/v1609762606/pythonic/avatar_gy3cdk.png" alt=""></figure>
                   <address>
-                  par <a href="#">{{comment.author}}</a>
-                  </address>
-                  <time datetime="2045-04-06T08:15+00:00">{{comment.at}}</time> |
-                  <button href="#" class="replay"  id="{{comment.pk}}">repondre</button>
+                  par <a href="#">{{comment.author}}</a> - <time datetime="2045-04-06T08:15+00:00">{{comment.at}}</time>
+                  </address> - <button href="#" class="replay"  id="{{comment.pk}}" style="display: inline; overflow: hidden;">répondre</button>
+                  
                 </header>
                 <div class="comcont">
                   <p>{{comment.comments}}</p>
@@ -65,25 +64,28 @@
                 </div>
                 <!--  -->
                 {% if comment.replays.all|length != 0 %}
-                <div id="comments">
+                <p style='font-weight:500; text-align:center;text-transform:uppercase'>Les réponses aux commentaires</p>
+                <div id="replay-to-comment">
                   <ul>
-                    <li>
                       {% for replays in comment.replays.all %}
-                      <article>
+                      <li style="margin-left: 20px;">
+                      <article style="background: #d7d7d7; border-radius: 5px; padding: 10px;">
                         <header>
                           <figure class="avatar"><img src="https://res.cloudinary.com/uxyuslshjd/image/upload/v1609762606/pythonic/avatar_gy3cdk.png" alt=""></figure>
-                          <address>
-                          Réponse de <a href="#">{{replays.author}}</a>
+                          <address class="comment-header">
+                            <a href="#">{{replays.author}}</a> -
+                            <time datetime="2045-04-06T08:15+00:00">{{replays.at}}</time>
                           </address>
-                          <time datetime="2045-04-06T08:15+00:00">{{replays.at}}</time>
+    
               
                         </header>
                         <div class="comcont">
                           <p>{{replays.replay_content}}</p>
                         </div>
-                        {% endfor %}
+                        
                       </article>
                     </li>
+                    {% endfor %}
                   </ul>
                 <!-- </div> -->
                 {% endif %}

@@ -1,4 +1,5 @@
 from django import forms
+from django.forms.widgets import Select
 from .models import Contact, Subscribe, Commentaire, Course, ReplayToComment
 
 
@@ -85,3 +86,10 @@ class ReplayForm(forms.ModelForm):
     class Meta:
         model = ReplayToComment
         fields = ["replay_content"]
+
+
+    def __init__(self):
+        super().__init__()
+        self.fields["replay_content"].widget.attrs.update({
+            "class":"replay-form-input"
+        })
