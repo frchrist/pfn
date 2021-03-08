@@ -88,8 +88,8 @@ class ReplayForm(forms.ModelForm):
         fields = ["replay_content"]
 
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self,*args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.fields["replay_content"].widget.attrs.update({
             "class":"replay-form-input"
         })

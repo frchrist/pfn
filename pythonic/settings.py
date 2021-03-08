@@ -1,32 +1,6 @@
 
 from pathlib import Path
-from os import path as p, environ
-
-
-from django.core.exceptions import ImproperlyConfigured
-
-def get_secret(name, default=None):
-    try:
-        return environ[name]
-    except KeyError:
-        if default is None:
-            raise ImproperlyConfigured(" environ error ")
-        else:
-            return default
-
-def online_security():
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-    # settings for security
-    SECURE_SSL_REDIRECT = True
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True #to avoid transmitting the CSRF cookie over HTTP accidentally. 
-    SECURE_BROWSER_XSS_FILTER = True
-    SECURE_CONTENT_TYPE_NOSNIFF = True 
-    SECURE_HSTS_SECONDS = 86400  # 1 day 
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True 
-    SECURE_HSTS_PRELOAD = True 
-
-
+from os import path, environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,7 +13,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'e%z&(u$1hati!l5vpn9^stkia(-3d2b33rp^n6gn#s$4r3z_+b'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 # DEBUG_PROPAGATE_EXCEPTIONS = True
 ALLOWED_HOSTS = ["*"]
 
@@ -94,42 +68,13 @@ WSGI_APPLICATION = 'pythonic.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 #developement databases
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-# postgres://lejroohwikrlkd:40b6c5ec45deb6c9a11864b31eca35250dafedc5cff9be899ee20cc70a01554f@ec2-174-129-199-54.compute-1.amazonaws.com:5432/d1lglnhk5c0t09
-# #production database
-if DEBUG:
-    DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    }}
-else:
-    DATABASES = {
-
-        'default': {
-
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-
-            'NAME': 'd1lglnhk5c0t09',
-
-            'USER': 'lejroohwikrlkd',
-
-            'PASSWORD': '40b6c5ec45deb6c9a11864b31eca35250dafedc5cff9be899ee20cc70a01554f',
-
-            'HOST': 'ec2-174-129-199-54.compute-1.amazonaws.com',
-
-            'PORT': 5432,
-
-        }
-
     }
-    online_security()
+}
+
 
 
 # Password validation
@@ -167,14 +112,14 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-STATIC_ROOT = p.join(BASE_DIR, "staticfiles")
+STATIC_ROOT = path.join(BASE_DIR, "staticfiles")
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = p.join(BASE_DIR, "media")
+MEDIA_ROOT = path.join(BASE_DIR, "media")
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    p.join(BASE_DIR, "static"),
+    path.join(BASE_DIR, "static"),
 ] 
 
 
@@ -218,11 +163,13 @@ LOGOUT_REDIRECT_URL = "homepage"
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = "pythonfornulls@gmail.com"
-EMAIL_HOST_PASSWORD = "pythoncode12" #past the key or password app here
+EMAIL_HOST_USER = environ["E_USER"]
+EMAIL_HOST_PASSWORD = environ["E_PASSWORD"] #past the key or password app here
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'PYHTON POUR LES NULS'
+
+
 
 
 
