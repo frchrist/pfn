@@ -3,5 +3,6 @@ staticfiles
 requ.txt
 temps
 db.sqlite3
+db.sqlite3
 .vscode/django-appli.code-workspace
 .vscode/settings.json
