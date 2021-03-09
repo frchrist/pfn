@@ -1,171 +1,168 @@
-{% extends "adminUsers/__base__.html" %}
-{% block title %}
-    Profile du professeur
-{% endblock title %}
+{% extends "posting/__base__.html" %}
+{% load static %}
+{%block title%} Bienvenue sur python pour les nulles {% endblock title %}
 
-{% block content %}
+{% block content%}
+
 <style>
-    .container {
-    margin-top: 50px
-}
+    .container{
+        margin: 0 auto;
+        /* height: 100vh; */
+        max-width: 900px;
+        background-color: #FFFFFF;
+        padding: 20px;
+        
+        
 
-.stretch-card>.card {
-    width: 100%;
-    min-width: 100%
-}
-
-.card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #fff;
-    background-clip: border-box;
-    border: 1px solid #d2d2dc;
-    border-radius: 0
-}
-
-.btn-info {
-    color: #fff;
-    background-color: #3da5f4;
-    border-color: #3da5f4
-}
-
-.btn {
-    font-size: 0.875rem;
-    line-height: 1;
-    font-weight: 400;
-    padding: .7rem 1.5rem;
-    border-radius: 0.1275rem
-}
-
-h6 {
-    font-size: .9375rem
-}
-
-.stretch-card>.card {
-    width: 100%;
-    min-width: 100%
-}
-
-body {
-    background-color: #f9f9fa
-}
-
-.flex {
-    -webkit-box-flex: 1;
-    -ms-flex: 1 1 auto;
-    flex: 1 1 auto
-}
-
-@media (max-width:991.98px) {
-    .padding {
-        padding: 1.5rem
     }
-}
-
-@media (max-width:767.98px) {
-    .padding {
-        padding: 1rem
+    .section-profile{
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+        margin-bottom: 20px;
+      
     }
-}
+    .card1, .card2{
+        border: 1px solid rgba(0, 0, 0, 0.192);
+        width: 300px;
+        max-width: 400px;
+        /* height: 300px; */
+        text-align: center;
+        padding: 20px;
+        position: relative;
+        /* border-radius: 20px; */
+        
+    }
+    .comments,.cours{
+        margin-bottom: 0;
+    }
+    .comments{
+        float: left;
+    }
+    .cours{
+        float: right;
+    }
+    .card1 button{
+        display: block;
+        /* transform: translateX; */
+    }
+    .card1-footer{
+        border-top: 1px solid rgba(0, 0, 0, 0.199);
+        margin-top: 10px;
+    }
 
-.padding {
-    padding: 3rem !important
+    .pre-text{
+	font-style: normal;
+	font-size: 10px;
 }
+    .pre{
+        font-weight: bold;
+        text-transform: capitalize;
+    }
+    .card2{
+        overflow-y: scroll;
+        flex-grow: 2;
+        width: 600px;
+        text-align: justify;
+    }
+    .card2 h2{
+        border-bottom: 1px solid rgba(0, 0, 0, 0.199);
+        padding-bottom: 10px;
+        position: sticky;
+    }
+    .card2 a{
+        color: rgba(0, 0, 0, 0.63);
 
-.card-sub {
-    cursor: move;
-    border: none;
-    -webkit-box-shadow: 0 0 1px 2px rgba(0, 0, 0, 0.05), 0 -2px 1px -2px rgba(0, 0, 0, 0.04), 0 0 0 -1px rgba(0, 0, 0, 0.05);
-    box-shadow: 0 0 1px 2px rgba(0, 0, 0, 0.05), 0 -2px 1px -2px rgba(0, 0, 0, 0.04), 0 0 0 -1px rgba(0, 0, 0, 0.05)
-}
+    }
 
-.card-img-top {
-    width: 100%;
-    border-top-left-radius: calc(.25rem - 1px);
-    border-top-right-radius: calc(.25rem - 1px)
-}
+    .form{
+        /* background-color: red; */
+        padding: 0 20px 20px 20px ;
+       
+    }
+    .section-form{
+        margin-top: 10px;
+    }
+    .form input{
+        padding: 5px;
+        margin-top: 10px;
+        width: 100%;
+        outline: none;
+        
+        border: 1px solid rgba(0, 0, 0, 0.185);
+    }
+    .form input:focus{
+        border: 1px solid rgba(22, 22, 202, 0.322) ;
+       
+    }
+    .form-btn{
+        padding: 10px 20px;
+        margin-top: 10px;
+        border: none;
+        background-color: #E8F0FE;
+        color: black;
+    }
+    @media  screen and (max-width:748px) {
+        .section-profile{
+            /* display: block; */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .card1, .card2{
+            margin-bottom: 20px;
+        }
+    }
 
-.card-block {
-    padding: 1.25rem;
-    background-color: #fff !important
-}
 
-.sortable-moves {
-    cursor: move;
-    margin-bottom: 0;
-    -webkit-box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.14);
-    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.14);
-    margin-bottom: 20px;
-    padding: 15px 0 15px 60px
-}
-
-.sortable-moves {
-    font-size: 14px;
-    line-height: 1.55556em;
-    list-style-type: none;
-    margin-bottom: 15px;
-    min-height: 3.55556em;
-    padding-left: 5.11111em;
-    position: relative;
-    cursor: move;
-    background-color: #fff
-}
-
-.sortable-moves img {
-    position: absolute;
-    height: 50px;
-    width: 50px;
-    left: 10px;
-    border-radius: 5px;
-    top: 15px
-}
 </style>
-<div class="page-content page-container" id="page-content">
-    <div class="padding">
-        <div class="row container d-flex justify-content-right">
-            <div class="col-md-5">
-                <div class="card">
-                    <div class="card-body text-center">
-                        <div> <img src="https://img.icons8.com/bubbles/100/000000/administrator-male.png" class="img-lg rounded-circle mb-4" alt="profile image">
-                            <h4>{{user}}</h4>
-                            <p class="text-muted mb-0">professeur de python pour les Nulles</p>
-                        </div>
-                        <p class="mt-2 card-text">votre profile</p> <a class="btn btn-info btn-sm mt-3 mb-4" href="{% url 'homepage' %}" id="back">Retour</a>
-                        <div class="border-top pt-3">
-                            <div class="row">
-                                <div class="col-4">
-                                    <h6>{{nb|length}}</h6>
-                                    <p>Cours</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-7">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-header-text">Vos Cours En corbeille</h5>
-                    </div>
-                    <div class="card-block p-b-0">
-                        <div class="row">
-                            {% for co in all %}
-                            <div class="col-md-12" id="sortable">
-                                <div class="sortable-moves" style=""> 
-                                    <img class="img-fluid p-absolute image-dim" src="{{co.img_link}}" alt="{{co.title}}">
-                                   <a href="{{co.get_absolute_url}}">{{co.title}}</a>   
-                                    <p>{{co.intro|safe|truncatewords:50}}</p>
-                                </div>
-                            </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
+
+<div class="container">
+    <section class="section-profile">
+        <div class="card1">
+            <img src="" alt="profile">
+            <h3>username</h3>
+            <p>professeur de python pour les null</p>
+            <p class="pre-text">votre profile</p>
+            <p><span class="pre"> Email </span>: fare@gmail</p>
+            <p> <span class="pre"> Status </span> : professeur</p>
+            <div class="card1-footer">
+                 <p class="comments">10 commentaires</p>
+                 <p class="cours">20 cours</p>
             </div>
         </div>
-    </div>
+        <div class="card2">
+            <div class="card-header">
+                <h2>Vos cours en corbeille</h2>
+            </div>
+            <ol>
+                <li>
+                    <p><a href="">code en python</a></p>
+                </li>
+                <li>
+                    <p><a href="">la programmation orienté object en python</a></p>
+                </li>
+            </ol>
+
+        </div>
+    </section>
+    <section class="section-form">
+        <h2>Modifier vos informations</h2>
+        <div class="form">
+            <form action="">
+                <label for=""> Nom</label>
+                <input type="text" name="username" id="">
+                <label for=""> Nom</label>
+                <input type="email" name="email" id="">
+                <label for="">change mot de passe</label>
+
+                <input type="password" name="password" id="">
+                <label for=""> confirm</label>
+                <input type="password" name="password" id="">
+                <button class="form-btn">Enregister</button>
+            </form>
+            </div>
+    </section>
+
 </div>
-{% endblock %}
+{% endblock content%}
