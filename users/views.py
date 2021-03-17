@@ -12,37 +12,51 @@ from django.contrib.auth.models import Group
 
 
 class login(LoginView):
-    template_name = "users/login.html"
+    template_name = "auth/login.html"
     authentication_form = LoginForm
 
 
-class Register(View):
+class UserCreate(View):
     def get(self, request):
         context = {
             "form":RegisterForm()
         }
 
-        return render(request, "users/register.html", context=context)
+        return render(request, "auth/register.html", context=context)
 
-
-class UserCreate(View):
     def post(self, request):
         # return redirect("login")
-        if request.is_ajax():
-            form = RegisterForm(request.POST)
-            if form.is_valid():
-                user = form.save()
-                group = Group.objects.get(name='students')
-                group.user_set.add(user)
-                messages.success(request, f"Votre compte à été bien créer connecter vous '{user.username}' ")
+        # if request.is_ajax():
+        #     form = RegisterForm(request.POST)
+        #     if form.is_valid():
+        #         user = form.save()
+        #         group = Group.objects.get(name='students')
+        #         group.user_set.add(user)
+        #         messages.success(request, f"Votre compte à été bien créer connecter vous '{user.username}' ")
 
-                return JsonResponse({"success":"success"})
+        #         return JsonResponse({"success":"success"})
                 
 
-            else:
-                return JsonResponse(dict(form.errors))
+        #     else:
+        #         return JsonResponse(dict(form.errors))
+        # else:
+        #     return JsonResponse({"error":"please active javascript"})
+
+
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            group = Group.objects.get(name="students")
+            group.user_set.add(user)
+            messages.success(request, "Votre compte à bien été créer connecter vous")
+            return redirect("login")
         else:
-            return JsonResponse({"error":"please active javascript"})
+             context = {
+            "form":form
+        }
+
+        return render(request, "auth/register.html", context=context)
+           
 
 
 class logout(LogoutView):

@@ -1,168 +1,50 @@
-{% extends "posting/__base__.html" %}
+{% extends "adminUsers/__base__.html" %}
 {% load static %}
-{%block title%} Bienvenue sur python pour les nulles {% endblock title %}
+{%block title%} Votre profile | pythonfornull{% endblock title %}
 
 {% block content%}
-
-<style>
-    .container{
-        margin: 0 auto;
-        /* height: 100vh; */
-        max-width: 900px;
-        background-color: #FFFFFF;
-        padding: 20px;
-        
-        
-
-    }
-    .section-profile{
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: nowrap;
-        margin-bottom: 20px;
-      
-    }
-    .card1, .card2{
-        border: 1px solid rgba(0, 0, 0, 0.192);
-        width: 300px;
-        max-width: 400px;
-        /* height: 300px; */
-        text-align: center;
-        padding: 20px;
-        position: relative;
-        /* border-radius: 20px; */
-        
-    }
-    .comments,.cours{
-        margin-bottom: 0;
-    }
-    .comments{
-        float: left;
-    }
-    .cours{
-        float: right;
-    }
-    .card1 button{
-        display: block;
-        /* transform: translateX; */
-    }
-    .card1-footer{
-        border-top: 1px solid rgba(0, 0, 0, 0.199);
-        margin-top: 10px;
-    }
-
-    .pre-text{
-	font-style: normal;
-	font-size: 10px;
-}
-    .pre{
-        font-weight: bold;
-        text-transform: capitalize;
-    }
-    .card2{
-        overflow-y: scroll;
-        flex-grow: 2;
-        width: 600px;
-        text-align: justify;
-    }
-    .card2 h2{
-        border-bottom: 1px solid rgba(0, 0, 0, 0.199);
-        padding-bottom: 10px;
-        position: sticky;
-    }
-    .card2 a{
-        color: rgba(0, 0, 0, 0.63);
-
-    }
-
-    .form{
-        /* background-color: red; */
-        padding: 0 20px 20px 20px ;
-       
-    }
-    .section-form{
-        margin-top: 10px;
-    }
-    .form input{
-        padding: 5px;
-        margin-top: 10px;
-        width: 100%;
-        outline: none;
-        
-        border: 1px solid rgba(0, 0, 0, 0.185);
-    }
-    .form input:focus{
-        border: 1px solid rgba(22, 22, 202, 0.322) ;
-       
-    }
-    .form-btn{
-        padding: 10px 20px;
-        margin-top: 10px;
-        border: none;
-        background-color: #E8F0FE;
-        color: black;
-    }
-    @media  screen and (max-width:748px) {
-        .section-profile{
-            /* display: block; */
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .card1, .card2{
-            margin-bottom: 20px;
-        }
-    }
-
-
-</style>
 
 <div class="container">
     <section class="section-profile">
         <div class="card1">
-            <img src="" alt="profile">
-            <h3>username</h3>
-            <p>professeur de python pour les null</p>
+            <img class="profile-pic"src="https://res.cloudinary.com/uxyuslshjd/image/upload/v1615323058/pythonic/User-Profile-PNG-High-Quality-Image_ijqm3j.png" alt="profile">
+            <h3>{{user}}</h3>
             <p class="pre-text">votre profile</p>
-            <p><span class="pre"> Email </span>: fare@gmail</p>
-            <p> <span class="pre"> Status </span> : professeur</p>
+            <p><span class="pre"> Email </span>: {{user.email}}</p>
+            <p> <span class="pre"> Status </span> : {%if user.is_staff  %} prof {% else %} apprenant {% endif %}</p>
             <div class="card1-footer">
-                 <p class="comments">10 commentaires</p>
-                 <p class="cours">20 cours</p>
+                 <p class="comments"><span class="number">{{NumberOfCommentsMade}}</span> commentaires</p>
+                 {%if user.is_staff  %} <p class="cours"><span class="number red">{{NumberOfCourseMade}}</span>cours</p>{% endif %}
             </div>
         </div>
+        {%if user.is_staff  %}
         <div class="card2">
             <div class="card-header">
                 <h2>Vos cours en corbeille</h2>
             </div>
             <ol>
+                {% for draf in drafCourses %}
                 <li>
-                    <p><a href="">code en python</a></p>
+                    <p><a href="{% url 'coursedetail' draf.slug %}">{{draf.title}}</a></p>
                 </li>
-                <li>
-                    <p><a href="">la programmation orienté object en python</a></p>
-                </li>
+                {% endfor%}
+               
             </ol>
 
         </div>
+        {% endif %}
     </section>
     <section class="section-form">
         <h2>Modifier vos informations</h2>
         <div class="form">
-            <form action="">
-                <label for=""> Nom</label>
-                <input type="text" name="username" id="">
-                <label for=""> Nom</label>
-                <input type="email" name="email" id="">
-                <label for="">change mot de passe</label>
-
-                <input type="password" name="password" id="">
-                <label for=""> confirm</label>
-                <input type="password" name="password" id="">
+            <form action="" method="POST"> {% csrf_token %}
+                {{form}}
                 <button class="form-btn">Enregister</button>
+                <button class="btn btn-danger"> <a href="{% url 'change-pass' %}">changé de mot de passe</a></button>
             </form>
             </div>
     </section>
+   
 
 </div>
 {% endblock content%}
