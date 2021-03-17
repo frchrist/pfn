@@ -1,0 +1,163 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}page de connexion  {% endblock title %} | PythonforNull</title>
+</head>
+<style>
+    * {
+  box-sizing: border-box;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.container {
+  background: rgba(0, 0, 0, 0.26);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  height: 100vh;
+}
+
+.form {
+  box-sizing: border-box;
+  padding: 30px;
+  background: transparent;
+  max-width: 400px;
+  text-align: center;
+  width: 100%;
+  height: auto;
+  box-shadow: 0px 0px 4px 1px #00000096;
+}
+.form .message{
+    text-align: center;
+    
+}
+
+.form .message p{
+    padding: 10px;
+}
+.message .message__warning{
+    background: rgba(93, 221, 54, 0.568);
+}
+.message .message__warning{
+    background-color: rgba(255, 0, 0, 0.5);
+    /* padding: 10px; */
+}
+.form .inputbox {
+  display: block;
+  padding: 10px;
+  outline: none;
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.342);
+  margin: 20px 0;
+}
+.form .password {
+  position: relative;
+}
+.form .inputbox:focus {
+  border: 1px solid rgba(0, 0, 0, 0.568);
+}
+.form .input-invalid {
+  border-color: rgba(255, 0, 0, 0.671);
+}
+.form .password-toggle {
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  vertical-align: middle;
+  top: 50%;
+  transform: translate(-10px, -50%);
+  right: 0;
+  opacity: 0.5;
+  z-index: 1;
+  transition: opacity 0.9s;
+}
+.form .password-toggle:hover {
+  opacity: 1;
+  width: 20px;
+  height: 20px;
+}
+.form .profile {
+  width: 100px;
+  height: 100px;
+}
+.form button {
+  border: none;
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  color: #f8f8f8;
+  background-color: rgba(0, 0, 0, 0.322);
+  transition: 0.5s;
+  cursor: pointer;
+  font-weight: bold;
+}
+.form button:hover {
+  background-color: transparent;
+  color: black;
+}
+.form .btn__cancel {
+  background-color: rgba(255, 0, 0, 0.322);
+}
+.form p {
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+  color: white;
+}
+.form a {
+  text-decoration: none;
+  font-size: 14px;
+}
+.form a:hover {
+  text-decoration: underline;
+}
+.form h2 {
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 400px) {
+  .form {
+    max-width: 300px;
+  }
+}
+
+
+</style>
+<body>
+    <div class="container">
+       {% block content %}{% endblock %}
+    <script>
+    back.addEventListener("click", e=>{
+      window.history.back()
+
+    })
+        const passwordeyeField = document.querySelectorAll(".password-toggle");
+        passwordeyeField.forEach(eyes => {
+            const passwordField = eyes.previousElementSibling
+            eyes.addEventListener("click", togglePasswordField);
+            function togglePasswordField(e){
+                console.log("user")
+                if (passwordField.type == "text"){
+                    passwordField.type = "password";
+                eyes.src = "{% static 'svg/eye-slash.svg' %}";
+                }else{
+                    passwordField.type = "text";
+                eyes.src = "{% static 'svg/eye.svg' %}";
+                }
+                
+            }
+            
+        }); 
+    </script>
+</body>
+</html>

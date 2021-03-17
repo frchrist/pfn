@@ -1,6 +1,6 @@
 from django.shortcuts import render, reverse, redirect
 from django.views import View
-from django.views.generic import DetailView, CreateView, FormView, ListView
+from django.views.generic import DetailView, CreateView, FormView, ListView, UpdateView
 from django.views.generic.edit import UpdateView
 from .models import Course
 from .models import Level, Commentaire, ReplayToComment
@@ -48,16 +48,27 @@ class Variables:
 
 form = NewLetter()
 @method_decorator(login_required, name="dispatch")
-class Profile(View):
-    def get(self, request):
-        context = {
-            "user":request.user,
-            "all": Course.objects.filter(status="Corbeille", author__username=request.user),
-            "nb":Course.objects.filter(author__username=request.user),
-        }
-        if request.user.is_staff:
-            return render(request, "adminUsers/profile.html", context=context)
-        raise Http404
+class Profile(UpdateView):
+    model = User
+    fields = ["username", "email"]
+    template_name ="adminUsers/profile.html"
+
+    def get_object(self, *args) :
+        queryset = User.objects.filter(username=self.request.user)
+        return super().get_object(queryset=queryset)
+    def get_success_url(self) -> str:
+        return reverse("profile", kwargs={"pk":self.kwargs["pk"]})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["levels"] = Level.objects.all()
+        context['NumberOfCommentsMade'] = Commentaire.objects.filter(author__username=self.request.user).count()
+        if(self.request.user.is_staff):
+            context["drafCourses"] =  Course.objects.filter(status="Corbeille", author__username=self.request.user)
+            context["NumberOfCourseMade"] = Course.objects.filter(author__username=self.request.user).count()
+        return context
+
+
 class HomePage(ListView):
     model= Course
     template_name = "posting/index.html"
@@ -202,8 +213,6 @@ class comment(FormView):
         return reverse("coursedetail", kwargs={"slug":self.kwargs['slug']})
 # @method_decorator(login_required, name='dispatch')
 
-
-
 class replay(View):
     def post(self, request, *args, **kwargs):
         if request.is_ajax():
@@ -277,6 +286,8 @@ class CourseUpdate(usermixin, UpdateView):
     form_class = CourseForm
     template_name = "adminUsers/create.html"
 
+
+#user profile
 
 #ajaxify content views
 

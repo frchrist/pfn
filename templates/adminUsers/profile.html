@@ -1,171 +1,50 @@
 {% extends "adminUsers/__base__.html" %}
-{% block title %}
-    Profile du professeur
-{% endblock title %}
+{% load static %}
+{%block title%} Votre profile | pythonfornull{% endblock title %}
 
-{% block content %}
-<style>
-    .container {
-    margin-top: 50px
-}
+{% block content%}
 
-.stretch-card>.card {
-    width: 100%;
-    min-width: 100%
-}
-
-.card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #fff;
-    background-clip: border-box;
-    border: 1px solid #d2d2dc;
-    border-radius: 0
-}
-
-.btn-info {
-    color: #fff;
-    background-color: #3da5f4;
-    border-color: #3da5f4
-}
-
-.btn {
-    font-size: 0.875rem;
-    line-height: 1;
-    font-weight: 400;
-    padding: .7rem 1.5rem;
-    border-radius: 0.1275rem
-}
-
-h6 {
-    font-size: .9375rem
-}
-
-.stretch-card>.card {
-    width: 100%;
-    min-width: 100%
-}
-
-body {
-    background-color: #f9f9fa
-}
-
-.flex {
-    -webkit-box-flex: 1;
-    -ms-flex: 1 1 auto;
-    flex: 1 1 auto
-}
-
-@media (max-width:991.98px) {
-    .padding {
-        padding: 1.5rem
-    }
-}
-
-@media (max-width:767.98px) {
-    .padding {
-        padding: 1rem
-    }
-}
-
-.padding {
-    padding: 3rem !important
-}
-
-.card-sub {
-    cursor: move;
-    border: none;
-    -webkit-box-shadow: 0 0 1px 2px rgba(0, 0, 0, 0.05), 0 -2px 1px -2px rgba(0, 0, 0, 0.04), 0 0 0 -1px rgba(0, 0, 0, 0.05);
-    box-shadow: 0 0 1px 2px rgba(0, 0, 0, 0.05), 0 -2px 1px -2px rgba(0, 0, 0, 0.04), 0 0 0 -1px rgba(0, 0, 0, 0.05)
-}
-
-.card-img-top {
-    width: 100%;
-    border-top-left-radius: calc(.25rem - 1px);
-    border-top-right-radius: calc(.25rem - 1px)
-}
-
-.card-block {
-    padding: 1.25rem;
-    background-color: #fff !important
-}
-
-.sortable-moves {
-    cursor: move;
-    margin-bottom: 0;
-    -webkit-box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.14);
-    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.14);
-    margin-bottom: 20px;
-    padding: 15px 0 15px 60px
-}
-
-.sortable-moves {
-    font-size: 14px;
-    line-height: 1.55556em;
-    list-style-type: none;
-    margin-bottom: 15px;
-    min-height: 3.55556em;
-    padding-left: 5.11111em;
-    position: relative;
-    cursor: move;
-    background-color: #fff
-}
-
-.sortable-moves img {
-    position: absolute;
-    height: 50px;
-    width: 50px;
-    left: 10px;
-    border-radius: 5px;
-    top: 15px
-}
-</style>
-<div class="page-content page-container" id="page-content">
-    <div class="padding">
-        <div class="row container d-flex justify-content-right">
-            <div class="col-md-5">
-                <div class="card">
-                    <div class="card-body text-center">
-                        <div> <img src="https://img.icons8.com/bubbles/100/000000/administrator-male.png" class="img-lg rounded-circle mb-4" alt="profile image">
-                            <h4>{{user}}</h4>
-                            <p class="text-muted mb-0">professeur de python pour les Nulles</p>
-                        </div>
-                        <p class="mt-2 card-text">votre profile</p> <a class="btn btn-info btn-sm mt-3 mb-4" href="{% url 'homepage' %}" id="back">Retour</a>
-                        <div class="border-top pt-3">
-                            <div class="row">
-                                <div class="col-4">
-                                    <h6>{{nb|length}}</h6>
-                                    <p>Cours</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-7">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-header-text">Vos Cours En corbeille</h5>
-                    </div>
-                    <div class="card-block p-b-0">
-                        <div class="row">
-                            {% for co in all %}
-                            <div class="col-md-12" id="sortable">
-                                <div class="sortable-moves" style=""> 
-                                    <img class="img-fluid p-absolute image-dim" src="{{co.img_link}}" alt="{{co.title}}">
-                                   <a href="{{co.get_absolute_url}}">{{co.title}}</a>   
-                                    <p>{{co.intro|safe|truncatewords:50}}</p>
-                                </div>
-                            </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
+<div class="container">
+    <section class="section-profile">
+        <div class="card1">
+            <img class="profile-pic"src="https://res.cloudinary.com/uxyuslshjd/image/upload/v1615323058/pythonic/User-Profile-PNG-High-Quality-Image_ijqm3j.png" alt="profile">
+            <h3>{{user}}</h3>
+            <p class="pre-text">votre profile</p>
+            <p><span class="pre"> Email </span>: {{user.email}}</p>
+            <p> <span class="pre"> Status </span> : {%if user.is_staff  %} prof {% else %} apprenant {% endif %}</p>
+            <div class="card1-footer">
+                 <p class="comments"><span class="number">{{NumberOfCommentsMade}}</span> commentaires</p>
+                 {%if user.is_staff  %} <p class="cours"><span class="number red">{{NumberOfCourseMade}}</span>cours</p>{% endif %}
             </div>
         </div>
-    </div>
+        {%if user.is_staff  %}
+        <div class="card2">
+            <div class="card-header">
+                <h2>Vos cours en corbeille</h2>
+            </div>
+            <ol>
+                {% for draf in drafCourses %}
+                <li>
+                    <p><a href="{% url 'coursedetail' draf.slug %}">{{draf.title}}</a></p>
+                </li>
+                {% endfor%}
+               
+            </ol>
+
+        </div>
+        {% endif %}
+    </section>
+    <section class="section-form">
+        <h2>Modifier vos informations</h2>
+        <div class="form">
+            <form action="" method="POST"> {% csrf_token %}
+                {{form}}
+                <button class="form-btn">Enregister</button>
+                <button class="btn btn-danger"> <a href="{% url 'change-pass' %}">changé de mot de passe</a></button>
+            </form>
+            </div>
+    </section>
+   
+
 </div>
-{% endblock %}
+{% endblock content%}

@@ -5,109 +5,51 @@
 
 {% block content %}
 
-<style>
-    body {
-    font-family: 'Lato', sans-serif
-}
-
-h1 {
-    margin-bottom: 40px
-}
-
-label {
-    color: #333
-}
-
-.btn-send {
-    font-weight: 300;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    width: 80%;
-    margin-left: 3px
-}
-
-.help-block.with-errors {
-    color: #ff5050;
-    margin-top: 5px
-}
-
-.card {
-    margin-left: 10px;
-    margin-right: 10px
-}
-</style>
 <div class="container"> <div class=" text-center mt-5 ">
     <h1>Enregister un cours:M. {{request.user}}</h1>
 </div>
-<div class="row ">
-    <div class="col-lg-12 mx-auto">
-        <div class="card mt-2 mx-auto p-4 bg-light">
-            <div class="card-body bg-light">
-                <div class="container">
-                    <form id="contact-form" role="form" method="POST" enctype = "multipart/form-data"> {% csrf_token %}
-                        <div class="controls">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                         <label for="{{ form.title.id_for_label }}">{{ form.title.label }} *</label> 
-                                         {{form.title}}
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                         <label for="{{ form.img_link.id_for_label }}">{{ form.img_link.label }} *</label> 
-                                         {{form.img_link}}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                         <label for="{{ form.status.id_for_label }}">{{ form.status.label }} *</label> 
-                                         {{form.status}}
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                         <label for="{{ form.level.id_for_label }}">{{ form.level.label }} *</label> 
-                                         {{form.level}}
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-check">
-                                        {{form.notify_users}}
-                                         <label for="form-email" class="form-check-label">{{ form.notify_users.label }} *</label> 
-                                    </div>
-                                </div>
 
-                                <!-- <div class="col-md-3">
-                                    <div class="form-group">
-                                         <label for="{{ form.image.id_for_label }}">{{ form.image.label }} *</label> 
-                                         {{form.image}}
-                                    </div>
-                                </div> -->
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group"> <label for="{{ form.intro.id_for_label }}">{{form.intro.label }}* :</label><br> {{form.intro}}</div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group"> <label for="{{ form.intro.id_for_label }}">{{form.body.label }}* :</label> <br>{{form.body}}</div>
-                                </div>
-                                <div class="col-md-6 text-center mb-2"> <a href="{% url 'homepage' %}" target="_blank" rel="noopener noreferrer" class="btn btn-danger btn-send pt-2" id="back">Quitter</a></div>
-                                <div class="col-md-6 text-center"> <input type="submit" class="btn btn-success btn-send pt-2 " value="Poster le Cours"> </div>
-                            </div>
-                        </div>
-                        {{form.media}}
-                    </form>
-                </div>
-            </div>
-        </div> <!-- /.8 -->
-    </div> <!-- /.row-->
-</div>
+<div class="container">
+<form id="contact-form" role="form" method="POST" enctype = "multipart/form-data" class="form"> {% csrf_token %}
+
+<label for="{{ form.title.id_for_label }}">{{ form.title.label }} *</label> 
+{{form.title}}
+<label for="{{ form.img_link.id_for_label }}">{{ form.img_link.label }} *</label> 
+{{form.img_link}}
+
+<label for="{{ form.status.id_for_label }}">{{ form.status.label }} *</label> 
+{{form.status}}
+
+<label for="{{ form.level.id_for_label }}">{{ form.level.label }} *</label> 
+{{form.level}}
+
+{{form.notify_users}}
+<label for="form-email" class="form-check-label">{{ form.notify_users.label }} *</label> 
+<label for="{{ form.intro.id_for_label }}">{{form.intro.label }}* :</label><br> {{form.intro}}
+
+<label for="{{ form.intro.id_for_label }}">{{form.body.label }}* :</label> <br>{{form.body}}
+<div class="form-footer">
+    <div class="btn-group">
+        <button class="btn btn-danger" id="cancel-make">Quitter</button>
+        <button type="submit" class="btn" >Poster le Cours</button>
+        </div>   
+        
 </div>
 
+{{form.media}}
+</form>
+
+</div>
+<script>
+    const cancel = document.getElementById("cancel-make")
+    cancel.addEventListener("click", e =>{
+        e.preventDefault()
+        let question = confirm("voulez vous vraiment quitter cette page ?");
+        if(question){
+            history.back();
+        }
+    })
+
+</script>
 
 {% endblock content %}
