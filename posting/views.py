@@ -2,13 +2,8 @@ from django.shortcuts import render, reverse, redirect
 from django.views import View
 from django.views.generic import DetailView, CreateView, FormView, ListView, UpdateView
 from django.views.generic.edit import UpdateView
-from .models import Course
-from .models import Level, Commentaire, ReplayToComment
-
-from .forms import NewLetter, CommentsForms, CourseForm, ReplayForm
 from django.http import JsonResponse, HttpResponse
 from django.core import serializers
-
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import Http404
 from django.contrib.auth.views import redirect_to_login
@@ -16,17 +11,18 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
 from django.utils.text import slugify
-
 from django.core.paginator import Paginator
-
-from data.signals import object_views_signal
-
-import threading
 from django.core.mail import  EmailMessage
 from django.template.loader import render_to_string, get_template
 from django.template import Context
 from django.conf import settings
+from .models import Course
+from .models import Level, Commentaire, ReplayToComment
+from .forms import NewLetter, CommentsForms, CourseForm, ReplayForm
+import threading
+from data.signals import object_views_signal
 
+from quize.models import Quize
 
 
 class email_send(threading.Thread):
@@ -84,6 +80,7 @@ class HomePage(ListView):
         context["title"] = "home page"
         context["newLetterForm"] = form
         context["active"] = "active"
+        context["Quizes"] = Quize.objects.all()
 
         return context
 

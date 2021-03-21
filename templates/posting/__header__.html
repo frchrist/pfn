@@ -34,6 +34,13 @@
       </div>
       <nav id="mainav" class="fl_right">
         <ul class="clear">
+          <li><a class="drop" href="#">Quize (beta)</a>
+            <ul>
+              {% for quize in Quizes %}
+                <li><a href="{% url 'singleQuiz' quize.title|slugify %}">{{quize.title}}</a></li>
+              {% endfor %}
+            </ul>
+          </li>
           <li class="{{active}}"><a href="{% url 'homepage' %}">Accueil</a></li>
           <li><a class="drop" href="#">Niveaux</a>
             <ul>
@@ -42,6 +49,7 @@
               {% endfor %}
             </ul>
           </li>
+           
         </ul>
       </nav>
   

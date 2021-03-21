@@ -20,3 +20,7 @@ class AnwserAdmin(admin.ModelAdmin):
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
     pass
+
+@admin.register(UserValidQuiz)
+class QuizeValidationAdmin(admin.ModelAdmin):
+    pass
