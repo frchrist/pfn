@@ -27,23 +27,3 @@
       </div>
     </div>
   </div>
-  <div class="wrapper row1">
-    <header id="header" class="hoc clear"> 
-      <div id="logo" class="fl_left">
-        <h1><a href="{% url 'homepage' %}">{{names}}</a></h1>
-      </div>
-      <nav id="mainav" class="fl_right">
-        <ul class="clear">
-          <li class="{{active}}"><a href="{% url 'homepage' %}">Accueil</a></li>
-          <li><a class="drop" href="#">Niveaux</a>
-            <ul>
-              {% for l in levels %}
-                <li><a href="{% url 'niveaudetail' l.level|slugify %}">{{l.level}}</a></li>
-              {% endfor %}
-            </ul>
-          </li>
-        </ul>
-      </nav>
-  
-    </header>
-  </div>
