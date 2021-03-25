@@ -27,3 +27,34 @@
       </div>
     </div>
   </div>
+<<<<<<< HEAD
+=======
+  <div class="wrapper row1">
+    <header id="header" class="hoc clear"> 
+      <div id="logo" class="fl_left">
+        <h1><a href="{% url 'homepage' %}">{{names}}</a></h1>
+      </div>
+      <nav id="mainav" class="fl_right">
+        <ul class="clear">
+          <li><a class="drop" href="#">Quize (beta)</a>
+            <ul>
+              {% for quize in Quizes %}
+                <li><a href="{% url 'singleQuiz' quize.title|slugify %}">{{quize.title}}</a></li>
+              {% endfor %}
+            </ul>
+          </li>
+          <li class="{{active}}"><a href="{% url 'homepage' %}">Accueil</a></li>
+          <li><a class="drop" href="#">Niveaux</a>
+            <ul>
+              {% for l in levels %}
+                <li><a href="{% url 'niveaudetail' l.level|slugify %}">{{l.level}}</a></li>
+              {% endfor %}
+            </ul>
+          </li>
+           
+        </ul>
+      </nav>
+  
+    </header>
+  </div>
+>>>>>>> quize

@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     "posting",
     "ckeditor",
     'data',
+    'quize',
 ]
 
 MIDDLEWARE = [

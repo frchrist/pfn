@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'quiz/style.css' %}">
+</head>
+<body>
+<div class="container">
+   <div class="wrapper">
+    <h2 style="color: white"> Quize : {{singleQuiz.title}}</h2>
+    <h3 class="time">{{singleQuiz.duration}}</h3>
+    <form action="" method="post" id="quiz">{% csrf_token %}
+    <input type="hidden" name="token" value="{{time}}">
+    {% for question in singleQuiz.get_qestions %}
+        <div class="question-wrapper">
+        <p class="question">{{question.text}}</p>
+
+        {% for anwser in question.get_anwsers %}
+
+            <input type="radio" name="{{question.text}}" id="{{anwser.text}}" value="{{anwser.text}}" class="radio">
+            <label for="{{anwser.text}}" class="radio-label">{{anwser.text}}</label>
+            <br>
+
+        {% endfor %}
+
+    </div>
+
+   
+    {% endfor %}
+    <button type="submit" id='sender'>Envoyer</button>
+</form>
+</div>
+
+
+</div>
+
+ <div class="modal-wrapper"  style="display:none">
+        <div class="modal">
+        <div class="modal-header">
+            <h2 class="modal-title"></h2>
+            <span id="close">&Cross;</span>
+        </div>
+        <div class="modal-body">
+            
+        </div>
+    </div>
+</div>
+<button id="open" style="display:none"></button>
+<script src="{% static 'quiz/app.js' %}"></script>
+
+<script >
+    let forms = document.getElementById("quiz")
+    let modalTitle = document.querySelector('.modal-title')
+    let modalContent = document.querySelector('.modal-body')
+
+    function getApprection(element, Moy){
+        if(parseInt(element) == parseInt(Moy)){
+                return "Bien"
+            }else if(parseInt(element) < parseInt(Moy)){
+                return "Mauvais"
+            }else{
+                return "Féliciation"
+        }
+    }
+
+
+
+    let request= new XMLHttpRequest()
+    forms.addEventListener("submit", e=>{
+        e.preventDefault()
+        request.open("POST", location.href, true)
+        request.setRequestHeader("X-Requested-With", "XMLHttpRequest")
+        request.send(new FormData(forms))
+
+        request.onreadystatechange = function(){
+            if(request.readyState == 4){
+                if(request.status === 200){
+                    data = JSON.parse(request.responseText)
+                    modalTitle.innerHTML = `resultat : {{singleQuiz.title}}`
+                    modalContent.innerHTML = `
+                    <p>nom d'utilisateur : {{user}}</p>
+                    <p>score : ${data.score}%</p>
+                    <p><strong>${getApprection(data.score,data.min_score)}</strong> </p>
+                    <p>Nombres total de tentatives : ${data.number_of_tentative}</p>
+                    <a href="{% url "singleQuiz" singleQuiz.title|slugify %}" class="btn">recommencer</a>
+                    <a href="/" class="btn">retourner</a>
+                    `
+                    document.getElementById("open").click()
+    
+                    
+                }
+            }
+        }
+    })
+
+</script>
+
+
+    
+</body>
+</html>
