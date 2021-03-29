@@ -1,0 +1,21 @@
+{% extends 'up-posting/layout.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'assets/css/auth.css' %}">
+{% endblock css %}
+{% block header %}
+{% include "up-posting/_header-second.html" %}
+{% endblock header %}
+{% block content %}
+<main class="forms_container">
+    <div class="form_domain">
+        <h3>Nous contacter</h3>
+        <div class="form">
+            <form action="" method="POST"> {% csrf_token %}
+                {{form}}
+                <button type="submit" class="form_btn">Envoyer</button>
+            </form>
+        </div>
+    </div>
+</main>
+{% endblock content %}

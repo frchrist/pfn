@@ -5,14 +5,20 @@ from .forms import LoginForm, RegisterForm
 from django.http import JsonResponse, HttpResponse
 from django.core import serializers
 from django.contrib import messages
-
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.contrib.auth.models import Group
+from django.views.generic import UpdateView
+from django.contrib.auth.models import User
+
+from posting.models import Course
 # Create your views here.
 
 
 
+
 class login(LoginView):
-    template_name = "auth/login.html"
+    template_name = "up-posting/auth/login.html"
     authentication_form = LoginForm
 
 
@@ -22,27 +28,9 @@ class UserCreate(View):
             "form":RegisterForm()
         }
 
-        return render(request, "auth/register.html", context=context)
+        return render(request, "up-posting/auth/register.html", context=context)
 
     def post(self, request):
-        # return redirect("login")
-        # if request.is_ajax():
-        #     form = RegisterForm(request.POST)
-        #     if form.is_valid():
-        #         user = form.save()
-        #         group = Group.objects.get(name='students')
-        #         group.user_set.add(user)
-        #         messages.success(request, f"Votre compte à été bien créer connecter vous '{user.username}' ")
-
-        #         return JsonResponse({"success":"success"})
-                
-
-        #     else:
-        #         return JsonResponse(dict(form.errors))
-        # else:
-        #     return JsonResponse({"error":"please active javascript"})
-
-
         form = RegisterForm(request.POST)
         if form.is_valid():
             user = form.save()
@@ -55,8 +43,27 @@ class UserCreate(View):
             "form":form
         }
 
-        return render(request, "auth/register.html", context=context)
-           
+        return render(request, "up-posting/auth/register.html", context=context)
+
+
+@method_decorator(login_required, name="dispatch")
+class Profile(UpdateView):
+    model = User
+    fields = ["username", "email"]
+    template_name ="up-posting/auth/profile.html"
+
+    def get_object(self, *args) :
+        queryset = User.objects.filter(username=self.request.user)
+        return super().get_object(queryset=queryset)
+    def get_success_url(self) -> str:
+        return reverse("profile", kwargs={"pk":self.kwargs["pk"]})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if(self.request.user.is_staff):
+            context["recycleBin"] =  Course.objects.filter(status="Corbeille", author__username=self.request.user)
+        return context
+
 
 
 class logout(LogoutView):

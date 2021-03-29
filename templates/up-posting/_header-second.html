@@ -1,0 +1,14 @@
+{% load static %}
+<div class="header__second">
+    <nav>
+        <img src="{% static 'assets/img/logo.png' %}" alt="mologo">
+        <ul>
+            <li> <a href="/" class="">Accueil</a></li>
+            <li><a href="{% url 'homepage' %}#quize">Quize</a></li>
+            <li><a href="{% url 'homepage' %}#tuto">Tutoriels</a></li>
+            <li id="toggle-bar">
+                <span>&#9776;</span>
+            </li>
+        </ul>
+    </nav>
+</div>

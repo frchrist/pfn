@@ -1,0 +1,82 @@
+{% extends 'up-posting/layout.html' %}
+{% load static %}
+{% block title %}{{onecourse.title|title }} |  Python For null {% endblock title %}
+{% block header %}
+{% include "up-posting/_header-top.html" %}
+{% include "up-posting/_header-second.html" %}
+{% endblock header %}
+{% block meta %}
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{request.get_full_path_info}}">
+    <meta property="og:title" content="{{onecourse.title}}">
+    <meta property="og:description" content="{{onecourse.intro|striptags}}">
+    <meta property="og:image" content="{% static 'assets/img/logo.png' %}">
+    <meta property="twitter:url" content="{{request.get_full_path_info}}">
+    <meta property="twitter:title" content="{{onecourse.title}}">
+    <meta property="twitter:description" content="{{onecourse.intro|striptags}}">
+{% endblock meta %}
+{% block content %}
+<main class="page__container">
+        <div class="container">
+            <section class="article__detail">
+                <h1 class="acticle__title">{{onecourse.title}}</h1>
+                <p>par <span class="author_name">{{onecourse.author}}
+                </span>le <span class="date">{{onecourse.date}}</span>
+                {% if user == onecourse.author %} <a href="{% url 'update' onecourse.slug %}">éditer</a>{% endif %}
+                 </p>
+                <article class="article__content">
+                   {{onecourse.body|safe}}
+                </article>
+                <hr>
+                <div class="pagination">
+                   {% if nexts %} <p class="first">&laquo; <a href="{% url 'coursedetail' nexts.slug %}" class="page_link" title="{{nexts.title}}">suivant</a></p>{% endif %}
+                   {% if prev %} <p class="last"><a href="{% url 'coursedetail' prev.slug %}" class="page_link">précédent</a> &raquo;</p>{% endif %}
+                </div>
+                    <div class="comments-list">
+                        <h4 ><span id="numberOfComment"></span>  Question(s) et Commentaire(s)  <svg height="24px" width="24px" class="comments-list-title-svg"><use xlink:href="{% static 'assets/svg/sprite.svg' %}#comments"></use></svg></h4>
+                        {% include "up-posting/render_.html" %}
+                    </div>
+                    <div class="comments">
+                        <div class="comments__form">
+                        {% if  request.user.is_authenticated %}
+                            <!-- <p class="title">Laisser un commentaire</p> -->
+                            <form action="./{{onecourse.slug}}" method="post" id="js-comment" >{% csrf_token %}
+                                {{commentsForms}}
+                                <button type="submit">Commenter</button>
+                            </form>
+                        {% else %}
+                            <p class="title">Avez vous une question ? ou un commentaire à faire ? cliquez ici pour vous connectez puis posez votre question</p>
+                        {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <aside class="sidebar">
+                <h3 class="sidebar_title">tous vos {{onecourse.type}}</h3>
+                <ul>
+                {% for  onelistcourse in all %}
+                    {% if onelistcourse.type == onecourse.type %}
+                    <li class="{% if onelistcourse == onecourse %}active{% endif %}"><a href="{% url 'coursedetail' onelistcourse.slug %}">{{onelistcourse.title}}</a></li>
+                    {% endif %}
+                 {% endfor %}
+                </ul>
+            </aside>
+    </div>
+	</main>
+
+<div style="display:none">
+ <form action="{% url 'replay' %}" method="post" id="replay-form">
+ {% csrf_token %}
+{{ReplayForm}}
+<input type="hidden" name="hidden" id="hidden" value="">
+<button type="submit">Commenter</button>
+</form>
+</div>
+{% endblock content %}
+{% block footer %}
+{% include "up-posting/_footer.html" %}
+{% endblock footer %}
+{% block js %}
+<script src="{% static 'assets/js/prism.js' %}"></script>
+
+{% endblock js %}

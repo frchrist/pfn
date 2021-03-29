@@ -7,7 +7,7 @@ from .models import Contact, Subscribe, Commentaire, Course, ReplayToComment
 class CourseForm(forms.ModelForm):
     class Meta:
         model = Course
-        fields = ["title", "level", "status","img_link", "intro",  "body", 'notify_users']
+        fields = ["title", "level", "status","img_link", "intro",  "body", 'notify_users' , "type"]
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -25,10 +25,11 @@ class CourseForm(forms.ModelForm):
             "class":"form-control mb-3",
         })
         self.fields['level'].label = "Le Niveau du Cours"
+       
         self.fields['status'].widget.attrs.update({
             "class":"form-control mb-3",
         })
-
+        self.fields['type'].label = "type"
 
         self.fields['intro'].widget.attrs.update({
             "class":"form-control mb-3",
@@ -45,13 +46,20 @@ class CourseForm(forms.ModelForm):
             "class":"form-control mb-3",
         })
         self.fields['body'].label = "le contenu du Cours "
-class ContanctForm(forms.ModelForm):
+class ContactForm(forms.ModelForm):
     class Meta:
         model = Contact
-        fields = "__all__"
+        fields = ["name", "email", "message"]
 
-    def __ini__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['name'].widget.attrs.update({
+            "placeholder":"votre nom",
+            "class":"input-box"
+        })
+        self.fields['email'].widget.attrs.update({
+            "class":"input-box"
+        })
 
 class NewLetter(forms.ModelForm):
     class Meta:

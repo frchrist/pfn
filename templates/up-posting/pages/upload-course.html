@@ -1,0 +1,59 @@
+{% extends 'up-posting/layout.html' %}
+{% load static %}
+{% block header %}
+{% include "up-posting/_header-top.html" %}
+{% include "up-posting/_header-second.html" %}
+{% endblock header %}
+
+{% block content %}
+<main class="page__container">
+        <div class="container">
+            <section class="article__detail">
+                <h1 class="acticle__title">Posté un nous cours Mr {{request.user}}</h1>
+                <hr>
+                <form action="" role="form" method="post" class="make-course-form" enctype="multipart/form-data">{% csrf_token %}
+                    <section class="form-section">
+                            <div>
+                                <label for="{{form.title.id_for_label}}">{{form.title.label}}</label>
+                                {{form.title}}
+
+                                {{form.type}}
+                            </div>
+                    </section>
+                 <section class="form-section">
+                    <div>
+                       
+                        {{form.notify_users}}
+                        <label for="{{form.notify_users.id_for_label}}">{{form.notify_users.label}}</label>
+                    </div>
+                    <div>
+                        {{form.status}}
+                    </div>
+                    <div>
+                       {{form.level}}
+                    </div>
+                </section>
+                <div class="form-section">
+                    <div>
+                    <label for="{{form.intro.id_for_label}}"> {{form.intro.label}}</label>
+                    {{form.intro}}
+                </div>
+                </div>
+                <div class="form-section">
+                    <div>
+                    <label for="{{form.body.id_for_label}}"> {{form.body.label}}</label>
+                   {{form.body}}
+                </div>
+                </div> 
+
+                    <button class="form-send btn">enregister</button>
+                    <button class="form-cancel btn" id="back" type="button">retour</button>
+                {{form.media}}
+                </form>
+            </section>
+    </div>
+	</main>
+{% endblock content %}
+{% block footer %}
+{% include "up-posting/_footer.html" %}
+{% endblock footer %}

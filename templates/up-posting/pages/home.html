@@ -1,0 +1,85 @@
+{% extends 'up-posting/layout.html' %}
+{% load static %}
+{% block header %}
+{% include "up-posting/_header-top.html" %}
+{% include "up-posting/_header-second.html" %}
+{% endblock header %}
+
+{% block title %}Bienvenue sur pythonfornull | cours de programmation concentré sur le language python{% endblock title %}
+{% block content %}
+{% include "up-posting/_brand.html" %}
+<main class="page__container">
+ 
+	<div class="transition">
+		<p>	les derniers cours python sont disponible ici</p>
+	</div>
+	<div class="last">
+		<h4>récent posts</h4>
+		<div class="cards" id="last">
+		{% for article in  leated_course_posted%}
+			<article class="article-card">
+				<div class="article-card-info">
+					<span class="date">il y'a {{article.date|timesince}}</span>
+					<span class="svg"><svg height="24px" width="24px"><use xlink:href="{% static 'assets/svg/sprite.svg' %}#bookmark"></svg></span>
+				</div>
+				<span class="status">cours</span>
+				<h3> <a href="{% url 'coursedetail' article.slug %}">{{article.title}}</a></h3>
+				<p>{{article.intro|safe|truncatewords:50}}</p>
+				<a  href="{% url 'coursedetail' article.slug %}" class="article-card-btn">lire le content</a>
+			</article>
+		{% endfor %}
+		</div>
+		
+	</div>
+	{% if tutos %}
+	<div class="transition">
+		<p>	les tutoreils python</p>
+	</div>
+
+	<div class="cards" id="tuto" >
+			{% for tuto in tutos %}
+				<article class="article-card">
+					<div class="article-card-info">
+						<span class="date">iy y'a {{tuto.date|timesince}}</span>
+						<span class="svg"><svg height="24px" width="24px"><use xlink:href="{% static 'assets/svg/sprite.svg' %}#bookmark"></svg></span>
+					</div>
+					<span class="status">tutoriels</span>
+					<h3> <a href="{% url 'coursedetail' tuto.slug %}">{{tuto.title}}</a></h3>
+					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem optio voluptate debitis sit ut! Odit distinctio consequuntur aperiam labore itaque.</p>
+					<a href="{% url 'coursedetail' tuto.slug %}" class="article-card-btn">Lire la Suite</a>
+				</article>
+			{% endfor %}
+
+	</div>
+	{% endif %}
+	{% if quizes %}
+	<div class="transition">
+		<p>QUIZES : Testez vos connaissances python avec des Quizes</p>
+	</div>
+
+	<div class="cards" id="quize" >
+		{% for quize in quizes %}
+			<article class="article-card">
+				<div class="article-card-info">
+					<span class="date">{{quize.date}}</span>
+					<span class="svg"><svg height="24px" width="24px"><use xlink:href="{% static 'assets/svg/sprite.svg' %}#bookmark"></svg></span>
+				</div>
+				<span class="status">Quize</span>
+				<h3> <a href="{% url 'singleQuiz' quize.slug %}">{{quize.title}}</a></h3>
+				<p>{{quize.description}}</p>
+				<a  class="article-card-btn" href="{% url 'singleQuiz' quize.slug %}">s'exercer</a>
+				</article>
+
+		{% empty %}
+		<p>pas encore de quize valable pour le moment .</p>
+		{% endfor %}
+
+	</div>
+	{% endif %}
+</main>
+
+{% endblock content %}
+
+{% block footer %}
+{% include "up-posting/_footer.html" %}
+{% endblock footer %}

@@ -1,19 +1,13 @@
 from django.urls import path, include
-from .views import HomePage, CourseDetail, LevelDetail,get_next_level_data, NewLetterPost, createPost, display, CourseUpdate, Profile, replay
-from django.views.decorators.csrf import csrf_exempt
+from .views import ContactUs, HomePage, CourseDetail, createPost, display, CourseUpdate, replay
 
 
 urlpatterns = [
     path("",HomePage.as_view(), name="homepage"),
+    path("contact-us/", ContactUs.as_view(), name="contact-us"),
     path('python-course/<slug:slug>', display.as_view(), name="coursedetail"),
      path('python-course/<slug:slug>/@admin/edit/course', CourseUpdate.as_view(), name="update"),
-    path('python-course/by-level/<slug:slug>', LevelDetail.as_view(), name="niveaudetail"),
-    path("newletters", csrf_exempt(NewLetterPost.as_view()), name="newletter"),
     path("@admin/add-new/course",createPost.as_view(), name="create" ),
-    path("accounts/profile/<int:pk>",Profile.as_view(), name="profile" ),
-
-    path("replay/<int:pk>/",replay.as_view(), name="replayToComment"),
+    path("replay/",replay.as_view(), name="replay"),
     path('ckeditor/', include('ckeditor_uploader.urls')),
-
-    path("python-course-level/next-level/<slug:slug>-<int:initial>/",get_next_level_data.as_view(), name="page_level")
 ]

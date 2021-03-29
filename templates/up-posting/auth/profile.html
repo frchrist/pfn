@@ -1,0 +1,56 @@
+{% extends 'up-posting/layout.html' %}
+{% load static %}
+{% block header %}
+{% include "up-posting/_header-top.html" %}
+{% include "up-posting/_header-second.html" %}
+{% endblock header %}
+{% block content %}
+<main class="page__container">
+    <div class="container">
+        <section class="article__detail">
+            <div class="user_card">
+                <div class="card_header">
+                    <p>Votre profile</p>
+                </div>
+                <div class="card_body">
+                    <svg><use xlink:href="{% static 'assets/svg/sprite.svg' %}#profile"></svg>
+                    <p> Nom utilisateur : <span class="username">{{user}}</span></p>
+                    <p>Adresse Email : <span class="email">{{user.email}}</span></p>
+                    {% if user.is_status %}
+                    <p>Status : <span class="status">Apprenant</span></p>
+                    {% else %}
+                    <p>Status : <span class="status">prof</span></p>
+                    {% endif %}
+                </div>
+                <div class="card_footer">
+                    <span> <span class="number">{{ user.commentaire_set.all|length}}</span> commentaire{% if  user.commentaire_set.all|length > 1%}s{% endif %}</span>
+                </div>
+            </div>
+            <div class="modify-user">
+                <p>formulaire de modification de vos information </p>
+                <form action="" method="post">{% csrf_token %}
+                    {{form}}
+                    <button type="submit" class="btn">Enrgistrer</button>
+                    <a href="{% url 'change-pass' %}">changer de mot de passe</a>
+                </form>
+            </div>
+        </section>
+
+        {% if user.is_staff %}
+        <aside class="sidebar">
+            <h3 class="sidebar_title">listes des cours en cobeille</h3>
+            <ul>
+            {% for recyble in recycleBin %}
+                <li><a href="{% url 'coursedetail' recyble.title|slugify %}">{{recyble.title}}</a></li>
+            {% endfor %}
+            </ul>
+            <h3 class="sidebar_title" style="margin-top: 10px;">Tous vos course</h3>
+            <ul>
+            {% for onecourse in user.course_set.all %}
+                <li><a href="{% url 'coursedetail' onecourse.title|slugify %}">{{onecourse.title}}</a></li>
+            {% endfor %}
+            </ul>
+        </aside>
+        {% endif %}
+</div>
+{% endblock content %}

@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'assets/css/style.min.css' %}">
+  <link rel="icon" type="image/png" href="{% static 'assets/img/logo.png' %}"/>
+  {% block css %}{% endblock css %}
+  {% block meta %}
+  <meta name="title" content="Bienvenue sur pythonfornull">
+  <meta name="description" content="découvrer ici un consentrer sur la programmation informatique python">
+  {% endblock meta %}
+
+	<title>{% block title %}{% endblock title %}</title>
+</head>
+<body>
+    <header class="page__header">
+       {% block header %}{% endblock header %}
+          {% if messages %}
+          <ul class="dj-messages">
+              {% for message in messages %}
+              <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+              {% endfor %}
+          </ul>
+      {% endif %}
+    </header>
+    {% block content %}{% endblock content %}
+    <div id="totop">
+		<a href="#top"><span class="svg"><svg height="24px" width="24px"><use xlink:href="{% static 'assets/svg/sprite.svg' %}#arrow_up"></svg> </a>
+    </div>
+    {% block footer %}{% endblock footer %}
+    <script src="{% static 'assets/js/app.js' %}"></script>
+    {% block js %}{% endblock js %}
+</body>
+</html>

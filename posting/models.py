@@ -7,17 +7,19 @@ from django.db.models.signals import pre_save, post_save
 from ckeditor.fields  import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 
-
-
 #sending email sections
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 import threading
+from random import choices
+from string import ascii_lowercase, digits
 
             
 
 course_level = [("Débutant", "Débutant"), ("Intermédiaire","Intermédiaire")]
 course_status = [("Publier", "publier"), ("Corbeille","corbeille")]
+types = [("Course", "cours"), ("Tutoriels","tutoriels")]
+
 class Level(models.Model):
     level = models.CharField(choices=course_level, max_length=13)
     description = models.TextField(default="ceci est un niveau")
@@ -30,7 +32,8 @@ class Course(models.Model):
     level = models.ForeignKey(to=Level, on_delete=models.CASCADE)
     author = models.ForeignKey(to=User, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(choices=course_status, max_length=13, default="corbeille")
+    status = models.CharField(choices=course_status, max_length=13, default="Corbeille")
+    type = models.CharField(choices=types, max_length=13, default="Course")
     slug = models.SlugField(blank=True, unique=True)
     body = RichTextUploadingField(verbose_name='content')
     intro = RichTextUploadingField(blank=1, null=1, config_name="extrait")
@@ -42,6 +45,9 @@ class Course(models.Model):
     def get_absolute_url(self):
         return reverse('coursedetail', kwargs={"slug":self.slug})
 
+    def alls(self,*args, **kwargs):
+        return self.all()
+
     def __str__(self):
         return self.title
 
@@ -52,6 +58,8 @@ class Base_info(models.Model):
     email = models.EmailField()
     class Meta:
         abstract = True
+
+
 class Contact(Base_info):
     message = models.TextField()
 
@@ -64,6 +72,7 @@ class Commentaire(models.Model):
     author = models.ForeignKey(to=User, on_delete=models.CASCADE)
     at = models.DateTimeField(auto_now_add=True)
     to = models.ForeignKey(to=Course, on_delete=models.CASCADE)
+    id_pk = models.CharField(max_length=8, blank=1, null=True)
 
     def __str__(self):
         return "commentaire de "+self.author.username
@@ -76,6 +85,7 @@ class ReplayToComment(models.Model):
     author = models.ForeignKey(to=User, on_delete=models.CASCADE)
     at = models.DateTimeField(auto_now_add=True)
     to = models.ForeignKey(to=Commentaire, on_delete=models.CASCADE, verbose_name="commentaire", related_name="replays")
+    id_pk = models.CharField(max_length=8, blank=1, null=True)
 
     def __str__(self):
         return self.replay_content
@@ -100,23 +110,31 @@ def slugifyTitle(sender, instance, *args, **kwargs):
 pre_save.connect(slugifyTitle, Course)
 
 
+
+def add_id(sender, instance, *args, **kwargs):
+    if not instance.id_pk or len(instance.id_pk) != 8:
+
+        instance.id_pk = "oc"+"".join([value for value in choices(ascii_lowercase+digits, k=6)])
+        instance.save()
+
+post_save.connect(add_id, sender=Commentaire)
+post_save.connect(add_id, sender=ReplayToComment)
+
 def AfterPostSaving(sender , instance , created , *args, **kwargs):
 	if created:
 		#get all subuscriber
 		reception_list = [sub.email for sub in Subscribe.objects.all()]
-		#get all users email
+		#get all usecrs email
 		reception_list += [users.email for users in User.objects.all()]
 		#delete all mail duplication
 		reception_list = list(set(reception_list))
 		#send mail
 		context = {
-		"title":instance.title,
-		"user":instance.author,
-		"content":instance.intro,
+		"currentCourse":instance,
 		}
 
-		email = render_to_string("posting/notify.html", context)
-		subject = "Du Nouveau Sur PYTHON POUR LES NULS "
+		email = render_to_string("up-posting/emails/notify.html", context)
+		subject = f"{instance.title} | Python {instance.type}"
 
 		for mail in reception_list:
 			email_message = EmailMessage(subject, email, to=[mail,])

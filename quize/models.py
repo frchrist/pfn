@@ -34,6 +34,7 @@ class Result(models.Model):
    appreciation = models.CharField(max_length=15, blank=True, null=True)
    min_score = models.IntegerField(default=50)
    times = models.IntegerField(blank=True, null=True)
+   last_do = models.DateTimeField("last do", auto_now_add=True, blank=1)
    number_of_tentative = models.IntegerField(default=0)
    def __str__(self):
        return self.user.username

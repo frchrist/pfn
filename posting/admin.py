@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Course, Level, Subscribe, ReplayToComment
+from .models import Course, Level, Subscribe, ReplayToComment,Commentaire
 
 # Register your models here.
 
@@ -17,4 +17,9 @@ class SubscribeAdmin(admin.ModelAdmin):
 
 @admin.register(ReplayToComment)
 class replayAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Commentaire)
+class CommentaireAdmin(admin.ModelAdmin):
     pass

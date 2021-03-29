@@ -1,0 +1,22 @@
+{% load static %}
+<div class="header__top">
+    <ul class="left">
+        {% if not user.is_authenticated %}
+        <li><svg class="header-svg" height="24px" width="24px"><use xlink:href="{% static 'assets/svg/sprite.svg' %}#login"></svg><a href="{% url 'login' %}?next={{request.get_full_path_info}}">connexion</a> </li>
+        <li><svg class="header-svg" height="24px" width="24px"><use xlink:href="{% static 'assets/svg/sprite.svg' %}#login"></svg><a href="{% url 'register' %}">Nous rejoindre</a> </li>
+
+        {% else %}
+        <li><svg class="header-svg" height="24px" width="24px"><use xlink:href="{% static 'assets/svg/sprite.svg' %}#logout"></svg><a href="{% url 'logout' %}">déconnection</a> </li>
+        {% endif %}
+    </ul>
+    <ul class="right">
+        
+        <li ><svg class="header-svg" height="24px" width="24px"><use xlink:href="{% static 'assets/svg/sprite.svg' %}#contact"></svg><a href="{% url 'contact-us' %}" >Nous Contacter</a></li>
+        {% if user.is_staff %}
+        <li ><svg class="header-svg" height="24px" width="24px"><use xlink:href="{% static 'assets/svg/sprite.svg' %}#notification"></svg><a href="{% url 'create' %}">atelier</a></li>
+        {% endif %}
+        {% if user.is_authenticated %}
+        <li ><svg class="header-svg" height="24px" width="24px"><use xlink:href="{% static 'assets/svg/sprite.svg' %}#profile"></svg><a href="{% url 'profile' user.pk %}" >profile</a></li>
+        {% endif %}
+    </ul>
+</div>

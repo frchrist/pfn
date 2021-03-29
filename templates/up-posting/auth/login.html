@@ -1,0 +1,31 @@
+{% extends 'up-posting/layout.html' %}
+{% load static %}
+{% block title %}Connexion | pythonfornull{% endblock title %}
+{% block header %}
+{% include "up-posting/_header-second.html" %}
+{% endblock header %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'assets/css/auth.css' %}">
+{% endblock css %}
+{% block content %}
+<main class="forms_container">
+<style> 
+label{
+    display:none;
+}
+</style>
+    <div class="form_domain">
+        <h3>Connectez-vous ici</h3>
+        <div class="form">
+        <form action="#" method="post">{% csrf_token %}
+                    {{form}}
+                    <button type="submit" class="form_btn">se connecter</button>
+                    <p>mot de passe <a href="{% url 'password_reset' %}">oublié ?</a></p>
+                    <hr>
+                    <p>pas encore de compte  ? creér un <a href="{% url 'register' %}">compte</a></p>
+                </form>
+        </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}

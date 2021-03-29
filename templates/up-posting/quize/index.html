@@ -1,0 +1,58 @@
+{% extends 'up-posting/layout.html' %}
+{% load static %}
+{% block header %}
+
+{% include "up-posting/_header-top.html" %}
+{% include "up-posting/_header-second.html" %}
+{% endblock header %}
+{% block title %}Quize Python : {{singleQuiz.title}} {% endblock title %}
+{% block content %}
+<div class="loader fade-out-loader">
+    <span>loading ....</span>
+</div>
+<main class="page__container">
+        <div class="container" id="quize-area">
+                <form class="article__detail" method="POST" action="{% url 'singleQuiz' singleQuiz.slug %}">{% csrf_token %}
+					<h2 class="acticle__title">Quize : {{singleQuiz.title}}</h2>
+                   	<p class="date quize-time"> temps :<span class="timer">{{singleQuiz.duration}} m</span></p> 
+                       
+                    {% for question in singleQuiz.get_qestions %}
+                     <div class="one-question">
+                        <h3 class="question-title">{{question.text}}</h3>
+                        {% for anwser in question.get_anwsers %}
+                            <input type="radio" name="{{question.text}}" id="{{anwser.text}}" value="{{anwser.text}}" class="radio">
+                            <label for="{{anwser.text}}" class="radio-label">{{anwser.text}}</label><br>
+                        {% endfor %}
+                         </div>
+                    {% endfor %}
+                    <div id="confirm" style="display: none; margin-top:10px">
+                        <p>verifier vos reponse</p>
+                        <button type="button" class="quize-send-btn back-btn">annulé</button>
+                        <button type="submit" class="quize-send-btn send-btn">envoyer</button>
+                    </div>
+					<button type="button" class="quize-send-btn verify" title="vérifier vos réponse">verifier</button>
+                </form>
+            <aside class="sidebar">
+                <div id="resutat">
+                    
+                </div>
+                <h3 class="sidebar_title">Listes des Quizes valables</h3>
+                <ul>
+                    {% for quize in  quizes %}
+                    <li><a href="{% url 'singleQuiz' quize.title|slugify %}">{{quize.title}}</a></li>
+                    {% endfor %}
+                </ul>
+            </aside>
+   		</div>
+	</main>
+
+
+<script>
+
+
+</script>
+{% endblock content %}
+
+{% block footer %}
+{% include "up-posting/_footer.html" %}
+{% endblock footer %}

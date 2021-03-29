@@ -1,0 +1,24 @@
+{% extends 'up-posting/layout.html' %}
+{% load static %}
+{% block title %}Inscription | pythonfornull{% endblock title %}
+{% block header %}
+{% include "up-posting/_header-second.html" %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'assets/css/auth.css' %}">
+{% endblock css %}
+{% endblock header %}
+{% block content %}
+<main class="forms_container">
+    <div class="form_domain">
+        <h3>Inscrivez ici</h3>
+         <div class="form">
+                <form action="" method="post">{% csrf_token %}
+                    {{form}}
+
+                    <button type="submit" class="form_btn">s'inscrire</button>
+                    <p>Vous avez déjà un compte ?<a href="{% url 'login' %}">connectez-vous</a></p>
+                </form>
+        </div>
+    </div>
+</main>
+{% endblock content %}

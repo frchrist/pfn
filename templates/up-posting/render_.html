@@ -1,0 +1,32 @@
+
+{% load static %}
+<div id="js-listing-comments">
+{% for  onecomment in  onecourse.commentaire_set.all %}
+<div class="added"></div>
+    <div class="comment-wapper">
+        <article class="comment" id="{{onecomment.id_pk}}">
+            <img src="{% static 'assets/img/default.png' %}" alt="user-profile" srcset="" width="50" height="50">
+            <div class="information">
+                <address><span class="author_name">{{onecomment.author}}</span><span class="date">il y'a {{onecomment.at|timesince}}</span>  <button id={{onecomment.id_pk}} class="replay__btn"><svg height="24px" width="24px"><use xlink:href="{% static 'assets/svg/sprite.svg' %}#replay"></svg>replay</button></address>
+                <p>{{onecomment.comments}}</p>
+            </div>
+            
+        </article>
+        <div class="r-form">
+        </div>
+        <div class="replays-list">
+        
+        {% for onereplay in onecomment.replays.all %}
+            <article class="replay" id="#replay1">
+                <img src="{% static 'assets/img/default.png' %}" alt="user-profile" srcset="" width="50" height="50">
+                <div class="information">
+                    <address><span class="author_name">{{onereplay.author}}</span><span class="date">il y'a {{onereplay.at|timesince}}</span> </address>
+                    <p>{{onereplay.replay_content}}</p>
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+</div>
+{% endfor %}
+
+</div>

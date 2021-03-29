@@ -6,5 +6,4 @@ urlpatterns = [
     path("",listingQuizes.as_view(), name="listingQuizes"),
     # path("send/",receiveQuizes.as_view(), name="sendQuiz"),
 
-
 ]
