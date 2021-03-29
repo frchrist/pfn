@@ -48,9 +48,8 @@ form = NewLetter()
 class HomePage(ListView):
     model= Course
     template_name = "up-posting/pages/home.html"
-    queryset  = Course.objects.filter(status="Publier")
+    queryset  = Course.objects.filter(status="Publier").order_by("-date")
     ordering = "-date"
-    paginate_by = 9
     context_object_name = "courses"
 
     def get_context_data(self, **kwargs):
@@ -59,7 +58,7 @@ class HomePage(ListView):
         context["title"] = "Bienvenue sur PythonForNull"
         context['leated_course_posted'] = self.queryset[:6]
         context["quizes"] = Quize.objects.all()
-        context['tutos'] = self.queryset.filter(type="Tutoriels")
+        context['tutos'] = self.queryset.filter(type="Tutoriels").order_by("-date")
         return context
 
 
@@ -178,46 +177,7 @@ class replay(View):
             else:
                return HttpResponse("Svp activer le javascript de votre navigateur pour plus de performance ")
             
-        # else:
-        #     return JsonResponse({"mes":"s"})
-        #     if request.user.is_authenticated:
-        #         replayForm = ReplayForm(request.POST)
-        #         replayForm.instance.replay_content = request.POST['replay_content']
-        #         if replayForm.is_valid():
-        #             replayForm.instance.author = self.request.user
-        #             instanceOfcomment = Commentaire.objects.get(pk=self.kwargs['pk'])
-        #             replayForm.instance.to = instanceOfcomment
-        #             new_comment = replayForm.save()
-        #             comment_ser = serializers.serialize("json", [new_comment,])
-        #             # send email 
-        #             context = {'user':replayForm.instance.author, 'title':instanceOfcomment.comments, 'replay_content':replayForm.instance.replay_content, 'user_replay':self.request.user}
-        #             # message = render_to_string("posting/emailing.html", context)
-        #             # message = get_template("posting/emailing.html").render(context)
-        #             # message.content_subtype = "html"
-
-        #             message = f"cher(e) {instanceOfcomment.author} \n Votre commentaire '{instanceOfcomment.comments}' portant sur '{instanceOfcomment.to.title}' à été répondue par {self.request.user} \n voici le contenu :{replayForm.instance.replay_content} "
-
-        #             froms = settings.EMAIL_HOST_USER
-        #             to = [instanceOfcomment.author.email,]
-        #             email = EmailMessage(subject="Python for null : Reponse à Votre Commentaire",body=message, from_email=froms, to=to)
-
-        #             email_send(email).start()
-                   
-        #             return JsonResponse({"response":comment_ser})
-        #         else:
-        #             return HttpResponse("Svp activer le javascript de votre navigateur pour plus de perfommance ")
-        #     else:
-        #         return JsonResponse({"login":"Vous devez vous connecter"})
-        # return HttpResponse("Error")
-      
-
-        # print(replayForm.errors)
-
-        # return HttpResponse(replayForm.as_p())
-        
-
-        
-
+       
 
 class usermixin(PermissionRequiredMixin):
     def dispatch(self, request, *args, **kwargs):
@@ -264,5 +224,5 @@ class ContactUs(View):
             messages.success(request, "votre message à été bien reçu")
             return redirect("homepage")
         else:
-            messages.warning(request, "le formalaire que vous nous avez envoyer est incorrect")
+            messages.warning(request, "le formulaire que vous nous avez envoyer est incorrect")
             return redirect("contact-us")
