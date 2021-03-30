@@ -8,16 +8,16 @@
 {% block title %}Bienvenue sur pythonfornull | cours de programmation concentré sur le language python{% endblock title %}
 {% block content %}
 {% include "up-posting/_brand.html" %}
-<main class="page__container">
+<main class="page__container main_page">
  
 	<div class="transition">
 		<p>	les derniers cours python sont disponible ici</p>
 	</div>
 	<div class="last">
 		<h4>récent posts</h4>
-		<div class="cards" id="last">
+		<div class="cards " id="last">
 		{% for article in  leated_course_posted%}
-			<article class="article-card">
+			<article class="article-card visible">
 				<div class="article-card-info">
 					<span class="date">il y'a {{article.date|timesince}}</span>
 					<span class="svg"><svg height="24px" width="24px"><use xlink:href="{% static 'assets/svg/sprite.svg' %}#bookmark"></svg></span>
@@ -38,7 +38,7 @@
 
 	<div class="cards" id="tuto" >
 			{% for tuto in tutos %}
-				<article class="article-card">
+				<article class="article-card visible">
 					<div class="article-card-info">
 						<span class="date">iy y'a {{tuto.date|timesince}}</span>
 						<span class="svg"><svg height="24px" width="24px"><use xlink:href="{% static 'assets/svg/sprite.svg' %}#bookmark"></svg></span>
@@ -59,7 +59,7 @@
 
 	<div class="cards" id="quize" >
 		{% for quize in quizes %}
-			<article class="article-card">
+			<article class="article-card visible">
 				<div class="article-card-info">
 					<span class="date">{{quize.date}}</span>
 					<span class="svg"><svg height="24px" width="24px"><use xlink:href="{% static 'assets/svg/sprite.svg' %}#bookmark"></svg></span>

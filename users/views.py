@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.views import View
 from django.contrib.auth.views import LoginView, LogoutView
 from .forms import LoginForm, RegisterForm
@@ -12,6 +13,7 @@ from django.views.generic import UpdateView
 from django.contrib.auth.models import User
 
 from posting.models import Course
+from django.contrib import messages
 # Create your views here.
 
 
@@ -56,6 +58,7 @@ class Profile(UpdateView):
         queryset = User.objects.filter(username=self.request.user)
         return super().get_object(queryset=queryset)
     def get_success_url(self) -> str:
+        messages.success(self.request, "Votre profile à bien été mise à jour")
         return reverse("profile", kwargs={"pk":self.kwargs["pk"]})
 
     def get_context_data(self, **kwargs):
