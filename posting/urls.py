@@ -1,7 +1,7 @@
 from django.urls import path, include
 from .views import ContactUs, HomePage, CourseDetail, createPost, display, CourseUpdate, replay
 
-
+#un commentaire dans ce buffer
 urlpatterns = [
     path("",HomePage.as_view(), name="homepage"),
     path("contact-us/", ContactUs.as_view(), name="contact-us"),

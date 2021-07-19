@@ -194,9 +194,8 @@ class createPost(usermixin, CreateView):
     template_name = "up-posting/pages/upload-course.html"
     form_class = CourseForm
     def form_valid(self, form):
+        #cette methode est appelé dans le cas ou le formutaire est valide
         form.instance.author = self.request.user
-        # form.instance.image = self.request.FILES['image']
-        # print(self.request.FILES)
         form.save()
         return super(createPost, self).form_valid(form)
 
@@ -218,6 +217,18 @@ class ContactUs(View):
         return render(request, "up-posting/pages/contact.html", {"form":form})
 
     def post(self, request, *args, **kwargs):
+        #traitement du formulaire en ajax
+        if request.is_ajax():
+            form = ContactForm(request.POST)
+            errors = False
+            if form.is_valid():
+                form.save()
+            else:
+                errors = True
+            message =   "Votre formulaire est invalide"  if errors else "Votre message à bien été poste"
+            return JsonResponse({"message":message, "errors":errors})
+
+        
         form = ContactForm(request.POST)
         if form.is_valid():
             form.save()
@@ -226,3 +237,4 @@ class ContactUs(View):
         else:
             messages.warning(request, "le formulaire que vous nous avez envoyer est incorrect")
             return redirect("contact-us")
+#ceci est encore un bon commentaire en python

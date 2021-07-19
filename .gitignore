@@ -1,6 +1,7 @@
 *.pyc 
 staticfiles
 requ.txt
+tests
 temps
 db.sqlite3
 db.sqlite3

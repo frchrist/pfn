@@ -78,6 +78,95 @@
 	{% endif %}
 </main>
 
+<style>
+	body{
+		position: relative;
+	}
+	.contact{
+		position: fixed;
+		top: 50px;
+		right: 30px;
+		display: flex;
+		flex-direction: column;
+		width: 300px;
+		background: rgba(6, 11, 17, 0.534);
+		padding: 1em;
+		text-transform: capitalize;
+		opacity: 0;
+		transition: all 0.5s;
+		transform: translateX(500%);
+	}
+
+	.contact h3{
+		font-size: 1em;
+		text-align: center;
+		color: white;
+	}
+	.contact input{
+		border: 1px solid rgba(0, 0, 255, 0.281);
+		width: 100%;
+		margin: 10px 0;
+		text-transform: capitalize;
+		
+	}
+	input::placeholder{
+		text-transform: capitalize;
+	}
+	.contact button[type="submit"]{
+		padding: 0.7em 1em;
+		width: 100%;
+		border: none;
+		background: #00D9FF;
+		color: white;
+		text-transform: capitalize;
+	}
+
+	.contact.show{
+		transform: translateX(0);
+		opacity: 1;
+	}
+	#close-contact-side{
+
+		position: absolute;
+		top: -20px;
+		right: -10px;
+		font-size: 1.5rem;
+		outline: none;
+		color: rgb(255, 255, 255);
+		height: 40px;
+		width: 40px;
+		border-radius: 50%;
+		background: rgba(7, 0, 0, 0.336);
+		display: grid;
+		place-items: center;
+		border:none;
+	}
+
+
+</style>
+<aside class="contact show">
+	<button id="close-contact-side"><span>&times;</span></button>
+	<form action="#">
+		<h3>Formulaire de contact</h3>
+		<input type="text" placeholder="votre nom : ">
+		<input type="text" placeholder="votre address Email : "">
+		<textarea name="" id="" cols="30" rows="10" placeholder="votre message"></textarea>
+		<button type="submit">envoyer</button>
+	</form>
+
+</aside>
+
+<script>
+	document.querySelector('.contact-us').addEventListener("click", e=>{
+		e.preventDefault()
+		document.querySelector("aside.contact").classList.add("show")
+	})
+
+	document.querySelector('#close-contact-side').addEventListener("click", e=>{
+		e.preventDefault()
+		document.querySelector("aside.contact").classList.remove("show")
+	})
+</script>
 {% endblock content %}
 
 {% block footer %}

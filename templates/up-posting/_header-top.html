@@ -11,7 +11,7 @@
     </ul>
     <ul class="right">
         
-        <li ><svg class="header-svg" height="24px" width="24px"><use xlink:href="{% static 'assets/svg/sprite.svg' %}#contact"></svg><a href="{% url 'contact-us' %}" >Nous Contacter</a></li>
+        <li ><svg class="header-svg" height="24px" width="24px"><use xlink:href="{% static 'assets/svg/sprite.svg' %}#contact"></svg><a href="{% url 'contact-us' %}"  class="contact-us">Nous Contacter</a></li>
         {% if user.is_staff %}
         <li ><svg class="header-svg" height="24px" width="24px"><use xlink:href="{% static 'assets/svg/sprite.svg' %}#notification"></svg><a href="{% url 'create' %}">atelier</a></li>
         {% endif %}

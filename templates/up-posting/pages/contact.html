@@ -11,11 +11,28 @@
     <div class="form_domain main_page visible">
         <h3>Nous contacter</h3>
         <div class="form">
-            <form action="" method="POST"> {% csrf_token %}
+            <form action="" method="POST" id='contact-form'> {% csrf_token %}
                 {{form}}
                 <button type="submit" class="form_btn">Envoyer</button>
             </form>
         </div>
     </div>
 </main>
+
+<script>
+    let form = document.querySelector("#contact-form")
+    form.addEventListener("submit", e=>{
+        e.preventDefault()
+        fetch("",{
+            body:new FormData(form),
+            headers:"X-Requested-With=XHTTPRequest"
+        }).then(response=> response.json())
+            .then(data=>{
+                if (data.errors){
+                    alert("Eurror")
+                }
+            })
+    })
+
+</script>
 {% endblock content %}
